@@ -40,7 +40,7 @@ public class DataReader {
             articlesString.addAll(Arrays.asList(filesString.get(i).split("</REUTERS>\n")));
         }
 
-        for (int i=98; i<articlesString.size(); i++) {
+        for (int i=0; i<articlesString.size(); i++) {
             LinkedList<String> places = getPlaces(articlesString.get(i));
             LinkedList<String> titleWords = getTitle(articlesString.get(i));
             LinkedList<String> dateLine = getDateline(articlesString.get(i));
