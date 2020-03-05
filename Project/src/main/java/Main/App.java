@@ -2,7 +2,6 @@ package Main;
 
 import Data.DataReader;
 import Model.ArticleContainer;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
