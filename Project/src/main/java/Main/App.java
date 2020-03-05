@@ -1,6 +1,7 @@
 package Main;
 
 import Data.DataReader;
+import Features.KeyWordsCounter;
 import Model.ArticleContainer;
 
 import java.io.File;
@@ -14,13 +15,7 @@ public class App
         System.out.println( "Started reading data..." );
         DataReader dataReader = new DataReader(Settings.numberOfFiles, Settings.pathToData, Settings.category);
         System.out.println(ArticleContainer.articlesList.size() + " articles has been read and created!");
-//        System.out.println(ArticleContainer.articlesList.getLast());
 
-//        ObjectMapper mapper = new ObjectMapper();
-//        try {
-//            mapper.writeValue(new File("../Data/plik.json"), ArticleContainer.articlesList);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        KeyWordsCounter keyWordsCounter = new KeyWordsCounter(Settings.category, "usa");
     }
 }
