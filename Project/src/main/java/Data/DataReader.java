@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 
 public class DataReader {
@@ -14,15 +15,18 @@ public class DataReader {
     private String pathToData;
     LinkedList<String> filesString;
     LinkedList<String> articlesString;
+    LinkedList<String> stopList;
 
-    public DataReader(int numberOfFiles, String pathToData) {
+    public DataReader(int numberOfFiles, String pathToData, String category) {
         this.numberOfFiles = numberOfFiles;
         this.pathToData = pathToData;
         this.filesString = new LinkedList<String>();
         this.articlesString = new LinkedList<String>();
+        this.stopList = new LinkedList<String>();
 
         readData();
         prepareArticles();
+        ArticleContainer.articlesList = DataCleaner.removeUnwantedArticles(ArticleContainer.articlesList, category);
     }
 
     public void readData() {
@@ -30,9 +34,11 @@ public class DataReader {
 
         try {
             for (int i=0; i<numberOfFiles; i++) {
-                String data = new String(Files.readAllBytes(Paths.get(dataPaths.getPaths().get(i))));
+                String data = new String(Files.readAllBytes(Paths.get(dataPaths.getArticlePaths().get(i))));
                 filesString.add(data);
             }
+            String stopListData = new String(Files.readAllBytes(Paths.get(dataPaths.getStopListPath())));
+            stopList.addAll(Arrays.asList(stopListData.split("\r\n")));
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -112,10 +118,15 @@ public class DataReader {
                     currentArticleString.indexOf(titleEndKey));
         }
 
+        titleString = DataCleaner.removePunctuation(titleString);
+
         LinkedList<String> titleWordList = new LinkedList<String>();
         if (titleString.length() > 0) {
             titleWordList.addAll(Arrays.asList(titleString.split(" ")));
         }
+
+        titleWordList = DataCleaner.removeStopListWords(titleWordList, stopList);
+        titleWordList = DataCleaner.removeEmptyWords(titleWordList);
 
         return titleWordList;
     }
@@ -131,10 +142,15 @@ public class DataReader {
                     currentArticleString.indexOf(datelineEndKey));
         }
 
+        datelineString = DataCleaner.removePunctuation(datelineString);
+
         LinkedList<String> dateLineWordList = new LinkedList<String>();
         if (datelineString.length() > 0) {
             dateLineWordList.addAll(Arrays.asList(datelineString.split(" ")));
         }
+
+        dateLineWordList = DataCleaner.removeStopListWords(dateLineWordList, stopList);
+        dateLineWordList = DataCleaner.removeEmptyWords(dateLineWordList);
 
         return dateLineWordList;
     }
@@ -150,6 +166,8 @@ public class DataReader {
                     currentArticleString.indexOf(bodyEndKey));
         }
 
+        bodyString = DataCleaner.removePunctuation(bodyString);
+
         LinkedList<LinkedList<String>> bodyContent = new LinkedList<LinkedList<String>>();
 
         LinkedList<String> bodyParagraphList = new LinkedList<String>();
@@ -162,6 +180,8 @@ public class DataReader {
             LinkedList<String> bodyWordList = new LinkedList<String>();
             if (bodyParagraphList.get(i).length() > 0) {
                 bodyWordList.addAll(Arrays.asList(bodyParagraphList.get(i).split(" ")));
+                bodyWordList = DataCleaner.removeStopListWords(bodyWordList, stopList);
+                bodyWordList = DataCleaner.removeEmptyWords(bodyWordList);
                 bodyContent.add(bodyWordList);
             }
         }
