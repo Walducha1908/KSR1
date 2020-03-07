@@ -1,7 +1,8 @@
 package Main;
 
 import Data.DataReader;
-import Features.KeyWordsCounter;
+import Features.*;
+import KeyWords.KeyWordsCounter;
 import Model.ArticleContainer;
 import Model.KeyWordsContainer;
 
@@ -25,6 +26,9 @@ public class App
                     KeyWordsContainer.keyWordsMap.get(Settings.categoryItemsList.get(i)));
         }
 
+        KeyWordsInFirstParagraphFeature feature = new KeyWordsInFirstParagraphFeature();
+        System.out.println(feature.calculateFeature(ArticleContainer.articlesList.get(ArticleContainer.articlesList.size() - 2)));
+        System.out.println(ArticleContainer.articlesList.get(ArticleContainer.articlesList.size() - 2).getBody());
 
     }
 }

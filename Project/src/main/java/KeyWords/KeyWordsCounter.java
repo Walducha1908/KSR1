@@ -1,4 +1,4 @@
-package Features;
+package KeyWords;
 
 import Main.Settings;
 import Model.Article;
@@ -43,8 +43,8 @@ public class KeyWordsCounter {
         for (int i=0; i<articlesToSearch.size(); i++) {
             for (int j=0; j<articlesToSearch.get(i).getBody().size(); j++) {
                 for (int k=0; k<articlesToSearch.get(i).getBody().get(j).size(); k++) {
-                    String key = articlesToSearch.get(i).getBody().get(j).get(k).toLowerCase();
-                    if (keyWordMap.containsKey(key.toLowerCase())) {
+                    String key = articlesToSearch.get(i).getBody().get(j).get(k);
+                    if (keyWordMap.containsKey(key)) {
                         keyWordMap.put(key, keyWordMap.get(key) + 1);
                     } else {
                         keyWordMap.put(key, 1);

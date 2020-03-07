@@ -10,7 +10,8 @@ import java.util.LinkedList;
 public class DataCleaner {
     public static String removePunctuation(String stringToClear) {
         stringToClear = stringToClear.replaceAll("[\n]", " ");
-        return stringToClear.replaceAll("[^a-zA-Z ]", "");
+        stringToClear = stringToClear.replaceAll("[^a-zA-Z ]", "");
+        return stringToClear.toLowerCase();
     }
 
     public static LinkedList<String> removeStopListWords(LinkedList<String> listToClear,

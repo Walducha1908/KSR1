@@ -9,7 +9,7 @@ public class Settings {
     public static int numberOfFiles = 22;
     public static double percentOfTraining = 0.8;
     public static int numberOfKeyWordPerCategory = 15;
-    public static String measure = "DF";
+    public static String measure = "TF";
     public static LinkedList<String> categoryItemsList =
             new LinkedList<String> (Arrays.asList (
             "usa",
