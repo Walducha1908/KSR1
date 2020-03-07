@@ -1,5 +1,6 @@
 package Data;
 
+import Main.Settings;
 import Model.ArticleContainer;
 
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class DataReader {
     LinkedList<String> filesString;
     LinkedList<String> articlesString;
     LinkedList<String> stopList;
+    private ArticleContainer articleContainer;
 
     public DataReader(int numberOfFiles, String pathToData, String category) {
         this.numberOfFiles = numberOfFiles;
@@ -23,10 +25,12 @@ public class DataReader {
         this.filesString = new LinkedList<String>();
         this.articlesString = new LinkedList<String>();
         this.stopList = new LinkedList<String>();
+        this.articleContainer = new ArticleContainer();
 
         readData();
         prepareArticles();
         ArticleContainer.articlesList = DataCleaner.removeUnwantedArticles(ArticleContainer.articlesList, category);
+        articleContainer.splitForTrainingAndTestingLists(Settings.percentOfTraining);
     }
 
     public void readData() {
@@ -49,8 +53,6 @@ public class DataReader {
         for (int i=0; i<numberOfFiles; i++) {
             articlesString.addAll(Arrays.asList(filesString.get(i).split("</REUTERS>\n")));
         }
-
-        ArticleContainer articleContainer = new ArticleContainer();
 
         for (int i=0; i<articlesString.size(); i++) {
             LinkedList<String> places = getPlaces(articlesString.get(i));

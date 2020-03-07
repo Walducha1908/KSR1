@@ -851,3 +851,6 @@ words
 world
 youd
 youre
+reuter
+mln
+pct
