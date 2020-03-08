@@ -1,20 +1,25 @@
 package Main;
 
+import Calculations.Features.FeaturesExtractor;
 import Data.DataReader;
-import Features.*;
-import KeyWords.KeyWordsCounter;
+import Calculations.KeyWords.KeyWordsCounter;
+import Features.KeyWordsInBodyFeature;
 import Model.ArticleContainer;
 import Model.KeyWordsContainer;
+import Model.Training.TrainingArticle;
+import Model.Training.TrainingArticleContainer;
+
+import java.util.LinkedList;
 
 public class App 
 {
     public static void main (String[] args) {
+        System.out.println("");
         System.out.println( "Started reading data..." );
         DataReader dataReader = new DataReader(Settings.numberOfFiles, Settings.pathToData, Settings.category);
-        System.out.println(ArticleContainer.articlesList.size() + " articles has been created!");
-        System.out.println(ArticleContainer.trainingArticlesList.size() + " training articles has been created!");
-        System.out.println(ArticleContainer.testingArticlesList.size() + " testing articles has been created!");
-
+        System.out.println(ArticleContainer.articlesList.size() + " articles have been created!");
+        System.out.println(ArticleContainer.articlesToTrainList.size() + " training articles have been created!");
+        System.out.println(ArticleContainer.articlesToTestList.size() + " testing articles have been created!");
         System.out.println("");
 
         KeyWordsContainer keyWordsContainer = new KeyWordsContainer();
@@ -26,9 +31,12 @@ public class App
                     KeyWordsContainer.keyWordsMap.get(Settings.categoryItemsList.get(i)));
         }
 
-//        KeyWordsInLast10PerCentWordsFeature feature = new KeyWordsInLast10PerCentWordsFeature();
-//        System.out.println(feature.calculateFeature(ArticleContainer.articlesList.get(ArticleContainer.articlesList.size() - 2)));
-//        System.out.println(ArticleContainer.articlesList.get(ArticleContainer.articlesList.size() - 2).getBody());
+        FeaturesExtractor featuresExtractor = new FeaturesExtractor();
+        TrainingArticleContainer trainingArticleContainer = featuresExtractor.extractAllFeaturesForAllTrainingArticles();
+        System.out.println("");
+        System.out.println(trainingArticleContainer.trainingArticlesList.getFirst().getFeatures().size() +
+                " features for all " + trainingArticleContainer.trainingArticlesList.size()
+                + " training articles have been extracted!");
 
     }
 }

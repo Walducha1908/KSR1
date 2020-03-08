@@ -1,4 +1,4 @@
-package KeyWords;
+package Calculations.KeyWords;
 
 import Main.Settings;
 import Model.Article;
@@ -30,10 +30,10 @@ public class KeyWordsCounter {
     }
 
     public void getArticlesToSearch() {
-        for (int i=0; i< ArticleContainer.trainingArticlesList.size(); i++) {
+        for (int i = 0; i< ArticleContainer.articlesToTrainList.size(); i++) {
             if (category == "places") {
-                if (ArticleContainer.trainingArticlesList.get(i).getPlaces().contains(categoryValue)) {
-                    articlesToSearch.add(ArticleContainer.trainingArticlesList.get(i));
+                if (ArticleContainer.articlesToTrainList.get(i).getPlaces().contains(categoryValue)) {
+                    articlesToSearch.add(ArticleContainer.articlesToTrainList.get(i));
                 }
             }
         }

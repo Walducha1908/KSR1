@@ -1,17 +1,16 @@
 package Model;
 
-import java.awt.*;
 import java.util.LinkedList;
 
 public class ArticleContainer {
     public static LinkedList<Article> articlesList;
-    public static LinkedList<Article> trainingArticlesList;
-    public static LinkedList<Article> testingArticlesList;
+    public static LinkedList<Article> articlesToTrainList;
+    public static LinkedList<Article> articlesToTestList;
 
     public ArticleContainer() {
         this.articlesList = new LinkedList<Article>();
-        this.trainingArticlesList = new LinkedList<Article>();
-        this.testingArticlesList = new LinkedList<Article>();
+        this.articlesToTrainList = new LinkedList<Article>();
+        this.articlesToTestList = new LinkedList<Article>();
     }
 
     public void createArticle(LinkedList<String> places,
@@ -28,10 +27,10 @@ public class ArticleContainer {
         int trainingListSize = (int) (articlesList.size()*percentOfTraining);
 
         for (int i=0; i<trainingListSize; i++) {
-            trainingArticlesList.add(articlesList.get(i));
+            articlesToTrainList.add(articlesList.get(i));
         }
         for (int i=trainingListSize; i<articlesList.size(); i++) {
-            testingArticlesList.add(articlesList.get(i));
+            articlesToTestList.add(articlesList.get(i));
         }
 
     }

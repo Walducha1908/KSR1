@@ -1,6 +1,7 @@
 package Main;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Settings {
@@ -18,4 +19,17 @@ public class Settings {
             "japan",
             "canada"
     ));
+    public static HashMap<String, Boolean> featuresUsedMap =
+            new HashMap<String, Boolean>() {{
+        put("Body", true);
+        put("Title", true);
+        put("Dateline", true);
+        put("Ratio", true);
+        put("First50Words", true);
+        put("First10PerCent", true);
+        put("FirstParagraph", true);
+        put("Last50Words", true);
+        put("Last10PerCent", true);
+        put("LastParagraph", true);
+    }};
 }
