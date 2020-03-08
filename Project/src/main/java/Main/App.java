@@ -26,9 +26,9 @@ public class App
                     KeyWordsContainer.keyWordsMap.get(Settings.categoryItemsList.get(i)));
         }
 
-        KeyWordsInFirstParagraphFeature feature = new KeyWordsInFirstParagraphFeature();
-        System.out.println(feature.calculateFeature(ArticleContainer.articlesList.get(ArticleContainer.articlesList.size() - 2)));
-        System.out.println(ArticleContainer.articlesList.get(ArticleContainer.articlesList.size() - 2).getBody());
+//        KeyWordsInLast10PerCentWordsFeature feature = new KeyWordsInLast10PerCentWordsFeature();
+//        System.out.println(feature.calculateFeature(ArticleContainer.articlesList.get(ArticleContainer.articlesList.size() - 2)));
+//        System.out.println(ArticleContainer.articlesList.get(ArticleContainer.articlesList.size() - 2).getBody());
 
     }
 }
