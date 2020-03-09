@@ -59,6 +59,16 @@ public class FeaturesExtractor {
             featuresList.addAll(feature.calculateFeature(article));
         }
 
+        if (Settings.featuresUsedMap.get("First20PerCent")) {
+            KeyWordsInFirst20PerCentWordsFeature feature = new KeyWordsInFirst20PerCentWordsFeature();
+            featuresList.addAll(feature.calculateFeature(article));
+        }
+
+        if (Settings.featuresUsedMap.get("First50PerCent")) {
+            KeyWordsInFirst50PerCentWordsFeature feature = new KeyWordsInFirst50PerCentWordsFeature();
+            featuresList.addAll(feature.calculateFeature(article));
+        }
+
         if (Settings.featuresUsedMap.get("FirstParagraph")) {
             KeyWordsInFirstParagraphFeature feature = new KeyWordsInFirstParagraphFeature();
             featuresList.addAll(feature.calculateFeature(article));

@@ -17,7 +17,8 @@ public class Settings {
             "west-germany",
             "uk",
             "japan",
-            "canada"
+            "canada",
+            "france"
     ));
     public static HashMap<String, Boolean> featuresUsedMap =
             new HashMap<String, Boolean>() {{
@@ -27,9 +28,11 @@ public class Settings {
         put("Ratio", true);
         put("First50Words", true);
         put("First10PerCent", true);
+        put("First20PerCent", true);
+        put("First50PerCent", true);
         put("FirstParagraph", true);
-        put("Last50Words", true);
-        put("Last10PerCent", true);
-        put("LastParagraph", true);
+        put("Last50Words", false);
+        put("Last10PerCent", false);
+        put("LastParagraph", false);
     }};
 }
