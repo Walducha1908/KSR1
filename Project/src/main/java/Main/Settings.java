@@ -8,11 +8,11 @@ public class Settings {
     public static String category = "places";
     public static String pathToData = "../Data/";
     public static int numberOfFiles = 22;
-    public static double percentOfTraining = 0.8;
-    public static int numberOfKeyWordPerCategory = 15;
+    public static double percentOfTraining = 0.7;
+    public static int numberOfKeyWordPerCategory = 10;
     public static String measure = "TF";
     public static String metrics = "Euclidean";
-    public static int k = 5;
+    public static int k = 15;
     public static LinkedList<String> categoryItemsList =
             new LinkedList<String> (Arrays.asList (
             "usa",

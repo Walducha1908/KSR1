@@ -56,10 +56,25 @@ public class App
         System.out.println("All features of " + TestingArticleContainer.testingArticlesList.size() + " testing articles " +
                 "have been normalised!");
 
+        System.out.println("");
+        System.out.println("Classification started...");
         MainAlgorithm mainAlgorithm = new MainAlgorithm();
         ResultSet resultSet = mainAlgorithm.selectBestNeighbourForAllTestArticles();
+
+        resultSet.calculatePrecision();
+        resultSet.calculateRecall();
+
+        System.out.println("");
         System.out.println("Classification ended!");
         System.out.println("Correct classification number: " + resultSet.numberOfCorrectSelections);
         System.out.println("Incorrect classification number: " + resultSet.numberOfIncorrectSelections);
+        System.out.println("Accuracy: " + resultSet.getAccuracy());
+
+        for (int i = 0; i < Settings.categoryItemsList.size(); i++) {
+            System.out.println("Recall for " + Settings.categoryItemsList.get(i) + ": " +
+                    resultSet.getRecallRatioList().get(Settings.categoryItemsList.get(i)));
+            System.out.println("Precision for " + Settings.categoryItemsList.get(i) + ": " +
+                    resultSet.getPrecisionRatioList().get(Settings.categoryItemsList.get(i)));
+        }
     }
 }
