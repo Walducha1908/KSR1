@@ -14,10 +14,10 @@ public class TrainingArticle {
         this.article = article;
         this.features = features;
 
-        getCategoryValue();
+        readCategoryValue();
     }
 
-    public void getCategoryValue() {
+    public void readCategoryValue() {
         if (Settings.category == "places") {
             for (int i = 0; i < Settings.categoryItemsList.size(); i++) {
                 if (article.getPlaces().contains(Settings.categoryItemsList.get(i))) {
@@ -43,5 +43,13 @@ public class TrainingArticle {
 
     public LinkedList<Double> getFeatures() {
         return features;
+    }
+
+    public int getCategoryValue() {
+        return categoryValue;
+    }
+
+    public void setFeatures(LinkedList<Double> features) {
+        this.features = new LinkedList<Double>(features);
     }
 }

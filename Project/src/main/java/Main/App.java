@@ -1,11 +1,15 @@
 package Main;
 
 import Calculations.Features.FeaturesExtractor;
+import Calculations.Features.FeaturesNormaliser;
+import Calculations.KNN.MainAlgorithm;
 import Data.DataReader;
 import Calculations.KeyWords.KeyWordsCounter;
 import Features.KeyWordsInBodyFeature;
 import Model.ArticleContainer;
 import Model.KeyWordsContainer;
+import Model.ResultSet;
+import Model.Testing.TestingArticleContainer;
 import Model.Training.TrainingArticle;
 import Model.Training.TrainingArticleContainer;
 
@@ -38,5 +42,24 @@ public class App
                 " features for all " + trainingArticleContainer.trainingArticlesList.size()
                 + " training articles have been extracted!");
 
+        TestingArticleContainer testingArticleContainer = featuresExtractor.extractAllFeaturesForAllTestingArticles();
+        System.out.println(testingArticleContainer.testingArticlesList.getFirst().getFeatures().size() +
+                " features for all " + testingArticleContainer.testingArticlesList.size()
+                + " testing articles have been extracted!");
+
+        FeaturesNormaliser normaliser = new FeaturesNormaliser();
+        normaliser.normalizeAllFeatures();
+
+        System.out.println("");
+        System.out.println("All features of " + TrainingArticleContainer.trainingArticlesList.size() + " training articles " +
+                "have been normalised!");
+        System.out.println("All features of " + TestingArticleContainer.testingArticlesList.size() + " testing articles " +
+                "have been normalised!");
+
+        MainAlgorithm mainAlgorithm = new MainAlgorithm();
+        ResultSet resultSet = mainAlgorithm.selectBestNeighbourForAllTestArticles();
+        System.out.println("Classification ended!");
+        System.out.println("Correct classification number: " + resultSet.numberOfCorrectSelections);
+        System.out.println("Incorrect classification number: " + resultSet.numberOfIncorrectSelections);
     }
 }

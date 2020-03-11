@@ -22,7 +22,11 @@ public class KeyWordsToAllWordsRatioFeature implements Feature {
                     numberOfAllWords += 1;
                 }
             }
-            featureValues.add(numberOfKeyWords / numberOfAllWords);
+            if (numberOfAllWords > 0) {
+                featureValues.add(numberOfKeyWords / numberOfAllWords);
+            } else {
+                featureValues.add(0.0);
+            }
         }
         return featureValues;
     }

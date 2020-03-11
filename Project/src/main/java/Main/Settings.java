@@ -11,6 +11,8 @@ public class Settings {
     public static double percentOfTraining = 0.8;
     public static int numberOfKeyWordPerCategory = 15;
     public static String measure = "TF";
+    public static String metrics = "Euclidean";
+    public static int k = 5;
     public static LinkedList<String> categoryItemsList =
             new LinkedList<String> (Arrays.asList (
             "usa",
@@ -22,17 +24,32 @@ public class Settings {
     ));
     public static HashMap<String, Boolean> featuresUsedMap =
             new HashMap<String, Boolean>() {{
-        put("Body", true);
-        put("Title", true);
-        put("Dateline", true);
-        put("Ratio", true);
-        put("First50Words", true);
-        put("First10PerCent", true);
-        put("First20PerCent", true);
-        put("First50PerCent", true);
-        put("FirstParagraph", true);
-        put("Last50Words", false);
-        put("Last10PerCent", false);
-        put("LastParagraph", false);
+            put("Body", true);
+            put("Title", true);
+            put("Dateline", true);
+            put("Ratio", true);
+            put("First50Words", true);
+            put("First10PerCent", true);
+            put("First20PerCent", true);
+            put("First50PerCent", true);
+            put("FirstParagraph", true);
+            put("Last50Words", false);
+            put("Last10PerCent", false);
+            put("LastParagraph", false);
     }};
+    public static LinkedList<String> featuresOrder =
+            new LinkedList<String> (Arrays.asList (
+            "Body",
+            "Title",
+            "Dateline",
+            "Ratio",
+            "First50Words",
+            "First10PerCent",
+            "First20PerCent",
+            "First50PerCent",
+            "FirstParagraph",
+            "Last50Words",
+            "Last10PerCent",
+            "LastParagraph"
+    ));
 }

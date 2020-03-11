@@ -4,6 +4,8 @@ import Features.*;
 import Main.Settings;
 import Model.Article;
 import Model.ArticleContainer;
+import Model.Testing.TestingArticle;
+import Model.Testing.TestingArticleContainer;
 import Model.Training.TrainingArticle;
 import Model.Training.TrainingArticleContainer;
 
@@ -11,9 +13,11 @@ import java.util.LinkedList;
 
 public class FeaturesExtractor {
     TrainingArticleContainer trainingArticleContainer;
+    TestingArticleContainer testingArticleContainer;
 
     public FeaturesExtractor() {
         this.trainingArticleContainer = new TrainingArticleContainer();
+        this.testingArticleContainer = new TestingArticleContainer();
     }
 
     public TrainingArticleContainer extractAllFeaturesForAllTrainingArticles() {
@@ -24,6 +28,16 @@ public class FeaturesExtractor {
         }
 
         return trainingArticleContainer;
+    }
+
+    public TestingArticleContainer extractAllFeaturesForAllTestingArticles() {
+
+        for(int i = 0; i < ArticleContainer.articlesToTestList.size(); i++) {
+            LinkedList<Double> featuresList = extractAllFeaturesForArticle(ArticleContainer.articlesToTestList.get(i));
+            testingArticleContainer.createTestingArticle(ArticleContainer.articlesToTestList.get(i), featuresList);
+        }
+
+        return testingArticleContainer;
     }
 
     public LinkedList<Double> extractAllFeaturesForArticle(Article article) {
