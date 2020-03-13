@@ -9,10 +9,10 @@ public class Settings {
     public static String pathToData = "../Data/";
     public static int numberOfFiles = 22;
     public static double percentOfTraining = 0.7;
-    public static int numberOfKeyWordPerCategory = 10;
+    public static int numberOfKeyWordPerCategory = 23;
     public static String measure = "TF";
     public static String metrics = "Euclidean";
-    public static int k = 15;
+    public static int k = 6;
     public static LinkedList<String> categoryItemsList =
             new LinkedList<String> (Arrays.asList (
             "usa",

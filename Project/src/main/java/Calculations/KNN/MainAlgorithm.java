@@ -11,9 +11,7 @@ import Model.Training.TrainingArticle;
 import Model.Training.TrainingArticleContainer;
 
 import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
+import java.util.*;
 
 public class MainAlgorithm {
     ResultSet resultSet;
@@ -68,30 +66,60 @@ public class MainAlgorithm {
 
     public int sortDistancesAndGetBestNeighbour(LinkedList<ArticleDistance> distances) {
         Collections.sort(distances);
-        int[] categoryValuesArray = new int[Settings.k];
-        int[] categoryValuesArrayToSort = new int[Settings.k];
+        HashMap<Integer, Integer> categoryValuesMap = new HashMap<Integer, Integer>();
 
-        for (int i = 0; i < Settings.k; i++) {
-            categoryValuesArray[i] = 0;
-            categoryValuesArrayToSort[i] = 0;
+        for (int i = 0; i < Settings.categoryItemsList.size(); i++) {
+            categoryValuesMap.put(i, 0);
         }
         for (int i = 0; i < Settings.k; i++) {
-            categoryValuesArray[distances.get(i).getCategoryValue()] += 1;
-            categoryValuesArrayToSort[distances.get(i).getCategoryValue()] += 1;
-        }
-
-        System.out.println(categoryValuesArray[0] + ", " + categoryValuesArray[1] + ", " +
-                categoryValuesArray[2] + ", " + categoryValuesArray[3] + ", " + categoryValuesArray[4]);
-
-        Arrays.sort(categoryValuesArrayToSort);
-
-        if (categoryValuesArrayToSort[0] == categoryValuesArrayToSort[1]) {
-            return distances.get(0).getCategoryValue();
-        }
-        for (int i = 0; i < Settings.k; i++) {
-            if (categoryValuesArray[i] == categoryValuesArrayToSort[i]) {
-                return i;
+            int key = distances.get(i).getCategoryValue();
+            if (categoryValuesMap.containsKey(distances.get(i).getCategoryValue())) {
+                categoryValuesMap.put(key, categoryValuesMap.get(key) + 1);
             }
+            else {
+                System.out.println("error");
+            }
+        }
+
+        int maxNumberOfCategoryValue = 0;
+        int numberOfMaxCategoryValues = 0;
+        for (int i = 0; i < Settings.categoryItemsList.size(); i++) {
+            if (categoryValuesMap.get(i) > maxNumberOfCategoryValue) {
+                maxNumberOfCategoryValue = categoryValuesMap.get(i);
+                numberOfMaxCategoryValues = 1;
+            } else if (categoryValuesMap.get(i) == maxNumberOfCategoryValue) {
+                numberOfMaxCategoryValues += 1;
+            }
+        }
+
+        if (numberOfMaxCategoryValues == 1) {
+            for (int i = 0; i < Settings.categoryItemsList.size(); i++) {
+                if (categoryValuesMap.get(i) == maxNumberOfCategoryValue) {
+                    return i;
+                }
+            }
+        } else if (numberOfMaxCategoryValues > 1) {
+            LinkedList<Integer> listOfMaxCategoryValues = new LinkedList<Integer>();
+
+            for (int i = 0; i < categoryValuesMap.size(); i++) {
+                if (categoryValuesMap.get(i) == maxNumberOfCategoryValue) {
+                    listOfMaxCategoryValues.add(i);
+                }
+            }
+
+            return closestFromGivenCategoryValues(listOfMaxCategoryValues, distances);
+        }
+
+        return -1;
+    }
+
+    public int closestFromGivenCategoryValues(LinkedList<Integer> listOfMaxCategoryValues, LinkedList<ArticleDistance> distances) {
+
+        for (int i = 0; i < Settings.k; i++) {
+            if (listOfMaxCategoryValues.contains(distances.get(i).getCategoryValue())) {
+                return distances.get(i).getCategoryValue();
+            }
+
         }
 
         return -1;

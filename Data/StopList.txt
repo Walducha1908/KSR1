@@ -855,3 +855,5 @@ reuter
 mln
 pct
 year
+billion
+dlrs

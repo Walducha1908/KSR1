@@ -32,7 +32,7 @@ public class KeyWordsCounter {
     public void getArticlesToSearch() {
         for (int i = 0; i< ArticleContainer.articlesToTrainList.size(); i++) {
             if (category == "places") {
-                if (ArticleContainer.articlesToTrainList.get(i).getPlaces().contains(categoryValue)) {
+                if (ArticleContainer.articlesList.get(i).getPlaces().contains(categoryValue)) {
                     articlesToSearch.add(ArticleContainer.articlesToTrainList.get(i));
                 }
             }

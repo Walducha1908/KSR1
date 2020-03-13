@@ -6,6 +6,7 @@ import Model.Article;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.regex.Pattern;
 
 public class DataCleaner {
     public static String removePunctuation(String stringToClear) {
@@ -45,5 +46,18 @@ public class DataCleaner {
         }
 
         return resultArticles;
+    }
+
+    public static LinkedList<String> stem(LinkedList<String> listToStem) {
+        LinkedList<String> resultList = new LinkedList<String>();
+        for (int i=0; i<listToStem.size(); i++) {
+            String word = listToStem.get(i);
+//            Pattern pattern = Pattern.compile(".*ing");
+
+            if (word.contains("ing")) {
+                resultList.add(word.substring(0, word.indexOf("ing")));
+            }
+        }
+        return resultList;
     }
 }
