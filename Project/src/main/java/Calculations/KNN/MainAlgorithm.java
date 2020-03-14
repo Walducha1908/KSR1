@@ -26,7 +26,6 @@ public class MainAlgorithm {
             TestingArticleContainer.testingArticlesList.get(i).setCalculatedCategoryValue(
                     selectBestNeighbourForArticle(TestingArticleContainer.testingArticlesList.get(i)));
 
-//            System.out.println(selectBestNeighbourForArticle(TestingArticleContainer.testingArticlesList.get(i)));
             resultSet.positiveNegativeArray
                     [TestingArticleContainer.testingArticlesList.get(i).getCalculatedCategoryValue()]
                     [TestingArticleContainer.testingArticlesList.get(i).getTrueCategoryValue()] += 1;
