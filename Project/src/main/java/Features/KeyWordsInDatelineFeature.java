@@ -15,7 +15,7 @@ public class KeyWordsInDatelineFeature implements Feature {
             for (int j = 0; j < article.getDateline().size(); j++) {
                 String word = article.getDateline().get(j);
                 if (KeyWordsContainer.keyWordsMap.get(Settings.categoryItemsList.get(i)).contains(word)) {
-                    featureValue += 1;
+                    featureValue += (1 * KeyWordsContainer.keyWordsWagesMap.get(word));
                 }
             }
             featureValues.add(featureValue);

@@ -16,7 +16,7 @@ public class KeyWordsInFirstParagraphFeature implements Feature {
                 for (int k = 0; k < article.getBody().getFirst().size(); k++) {
                     String word = article.getBody().getFirst().get(k);
                     if (KeyWordsContainer.keyWordsMap.get(Settings.categoryItemsList.get(i)).contains(word)) {
-                        featureValue += 1;
+                        featureValue += (1 * KeyWordsContainer.keyWordsWagesMap.get(word));
                     }
                 }
             }

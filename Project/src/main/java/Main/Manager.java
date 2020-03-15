@@ -4,6 +4,7 @@ import Calculations.Features.FeaturesExtractor;
 import Calculations.Features.FeaturesNormaliser;
 import Calculations.KNN.MainAlgorithm;
 import Calculations.KeyWords.KeyWordsCounter;
+import Calculations.KeyWords.KeyWordsWagesCounter;
 import Data.DataReader;
 import Data.DataWriter;
 import Model.ArticleContainer;
@@ -16,11 +17,32 @@ public class Manager {
 
     public static void start() {
         readAndPrepareData();
-        countKeyWords();
 
-        extractFeatures();
-        normaliseFeatures();
-        runKNN();
+        for (int i = 0; i < 10; i++) {
+            if (i == 1) {
+                Settings.k = 2;
+            } else if (i == 2) {
+                Settings.k = 3;
+            } else if (i == 3) {
+                Settings.k = 4;
+            } else if (i == 4) {
+                Settings.k = 6;
+            } else if (i == 5) {
+                Settings.k = 8;
+            } else if (i == 6) {
+                Settings.k = 10;
+            } else if (i == 7) {
+                Settings.k = 13;
+            } else if (i == 8) {
+                Settings.k = 16;
+            } else if (i == 9) {
+                Settings.k = 20;
+            }
+            countKeyWords();
+            extractFeatures();
+            normaliseFeatures();
+            runKNN();
+        }
     }
 
     public static void readAndPrepareData() {
@@ -42,6 +64,8 @@ public class Manager {
             System.out.println(Settings.categoryItemsList.get(i) + " key words list: " +
                     KeyWordsContainer.keyWordsMap.get(Settings.categoryItemsList.get(i)));
         }
+        KeyWordsWagesCounter keyWordsWagesCounter = new KeyWordsWagesCounter();
+        keyWordsWagesCounter.calculateWages();
     }
 
     public static void extractFeatures() {

@@ -16,7 +16,7 @@ public class KeyWordsInLastParagraphFeature implements Feature {
                 for (int k = 0; k < article.getBody().getLast().size(); k++) {
                     String word = article.getBody().getLast().get(k);
                     if (KeyWordsContainer.keyWordsMap.get(Settings.categoryItemsList.get(i)).contains(word)) {
-                        featureValue += 1;
+                        featureValue += (1 * KeyWordsContainer.keyWordsWagesMap.get(word));
                     }
                 }
             }

@@ -1,0 +1,371 @@
+This is XeTeX, Version 3.14159265-2.6-0.999992 (MiKTeX 2.9.7300 64-bit) (preloaded format=xelatex 2020.3.15)  15 MAR 2020 17:10
+entering extended mode
+**C:/Users/CEL/Desktop/KSR1/KSR_repo/Report/sprawozdanie/sprawozdanie.tex
+(C:/Users/CEL/Desktop/KSR1/KSR_repo/Report/sprawozdanie/sprawozdanie.tex
+LaTeX2e <2020-02-02> patch level 2
+L3 programming layer <2020-02-14>
+(C:/Users/CEL/Desktop/KSR1/KSR_repo/Report/sprawozdanie\classrep.cls
+Document Class: classrep 2009/11/27 ICS Class Assignment Report
+("C:\Users\CEL\AppData\Local\Programs\MiKTeX 2.9\tex/latex/mwcls\mwart.cls"
+Document Class: mwart 2017/05/13 v0.75 A LaTeX document class (MW)
+*** Beta version. Formatting may change
+*** in future versions of this class.
+("C:\Users\CEL\AppData\Local\Programs\MiKTeX 2.9\tex/latex/mwcls\mw12.clo"
+File: mw12.clo 2017/05/13 v0.75 A document class size option (MW)
+)
+\@parindent=\dimen134
+\c@part=\count163
+\c@section=\count164
+\c@subsection=\count165
+\c@subsubsection=\count166
+\c@paragraph=\count167
+\c@subparagraph=\count168
+\c@figure=\count169
+\c@table=\count170
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen135
+)
+("C:\Users\CEL\AppData\Local\Programs\MiKTeX 2.9\tex/latex/polski\polski.sty"
+Package: polski 2017/05/04 v1.3.4 Polish language package
+
+("C:\Users\CEL\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\ot4enc.def"
+File: ot4enc.def 2020/02/11 v2.0o Standard LaTeX file
+))
+("C:\Users\CEL\AppData\Local\Programs\MiKTeX 2.9\tex/latex/url\url.sty"
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+))
+("C:\Users\CEL\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\inputenc.sty"
+Package: inputenc 2018/08/11 v1.3c Input encoding file
+\inpenc@prehook=\toks14
+\inpenc@posthook=\toks15
+
+
+Package inputenc Warning: inputenc package ignored with utf8 based engines.
+
+) ("C:\Users\CEL\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\color.sty
+"
+Package: color 2019/11/23 v1.2a Standard LaTeX Color (DPC)
+
+("C:\Users\CEL\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-cfg\color.c
+fg"
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: xetex.def on input line 147.
+
+("C:\Users\CEL\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics-def\xetex.d
+ef"
+File: xetex.def 2017/06/24 v5.0h Graphics/color driver for xetex
+))
+
+! LaTeX Error: Option clash for package inputenc.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.6 \usepackage
+               {enumerate}
+? 
+("C:\Users\CEL\AppData\Local\Programs\MiKTeX 2.9\tex/latex/tools\enumerate.sty"
+Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
+\@enLab=\toks16
+)
+LaTeX Info: Redefining \@svnurl on input line 23.
+
+("C:\Users\CEL\AppData\Local\Programs\MiKTeX 2.9\tex/latex/l3backend\l3backend-
+xdvipdfmx.def"
+File: l3backend-xdvipdfmx.def 2020-02-03 L3 backend support: xdvipdfmx
+\g__graphics_track_int=\count171
+\l__pdf_internal_box=\box45
+\g__pdf_backend_object_int=\count172
+\g__pdf_backend_annotation_int=\count173
+)
+(C:/Users/CEL/Desktop/KSR1/KSR_repo/Report/sprawozdanie\sprawozdanie.aux)
+\openout1 = `sprawozdanie.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 2
+5.
+
+("C:\Users\CEL\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\ts1cmr.fd"
+File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT4/cmr/m/n on input line 25.
+LaTeX Font Info:    Trying to load font information for OT4+cmr on input line 2
+5.
+
+("C:\Users\CEL\AppData\Local\Programs\MiKTeX 2.9\tex/latex/polski\ot4cmr.fd"
+File: ot4cmr.fd 2008/02/24 v1.2.1 Font defs for fonts PL (MW)
+)
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Trying to load font information for OT4+lmr on input line 2
+5.
+
+("C:\Users\CEL\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\ot4lmr.fd"
+File: ot4lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 26--26
+
+ []
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 26.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 26.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 26.
+
+Underfull \hbox (badness 10000) in paragraph at lines 26--26
+
+ []
+
+LaTeX Font Info:    Trying to load font information for OT4+lmtt on input line 
+26.
+("C:\Users\CEL\AppData\Local\Programs\MiKTeX 2.9\tex/latex/lm\ot4lmtt.fd"
+File: ot4lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+Missing character: There is no ń in font rm-lmr17!
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <20.74> on input line 26.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 26.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 26.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 26.
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ń in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ń in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 33--34
+
+ []
+
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ś in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ś in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ś in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ś in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+[1
+
+]
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ś in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ś in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 39--40
+
+ []
+
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ś in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ś in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ś in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ń in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ź in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ł in font rm-lmbx12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ś in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ś in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ś in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ń in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ź in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ś in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ś in font rm-lmr12!
+Missing character: There is no ń in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+[2]
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ś in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ś in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ś in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ś in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+
+
+LaTeX Warning: Empty `thebibliography' environment on input line 99.
+
+Missing character: There is no ń in font rm-lmr12!
+Missing character: There is no ż in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ć in font rm-lmr12!
+Missing character: There is no ą in font rm-lmr12!
+Missing character: There is no ę in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ł in font rm-lmr12!
+Missing character: There is no ń in font rm-lmr12!
+[3] (sprawozdanie.aux) ) 
+Here is how much of TeX's memory you used:
+ 1196 strings out of 414613
+ 18399 string characters out of 2907394
+ 255041 words of memory out of 3000000
+ 18325 multiletter control sequences out of 15000+200000
+ 561122 words of font info for 52 fonts, out of 3000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 34i,7n,32p,532b,288s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on sprawozdanie.pdf (3 pages).

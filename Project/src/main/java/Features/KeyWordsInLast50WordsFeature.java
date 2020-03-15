@@ -17,7 +17,7 @@ public class KeyWordsInLast50WordsFeature implements Feature {
                 for (int k = article.getBody().get(j).size() - 1; k >= 0 && numberOfWords < 50; k--) {
                     String word = article.getBody().get(j).get(k);
                     if (KeyWordsContainer.keyWordsMap.get(Settings.categoryItemsList.get(i)).contains(word)) {
-                        featureValue += 1;
+                        featureValue += (1 * KeyWordsContainer.keyWordsWagesMap.get(word));
                     }
                     numberOfWords += 1;
                 }

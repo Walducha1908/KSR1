@@ -57,6 +57,9 @@ public class DataWriter {
         createExcelRow("Testing", Double.toString(100 - Settings.percentOfTraining*100) + "%", sheet, ++rowCount);
         createExcelRow("K value", Integer.toString(Settings.k), sheet, ++rowCount);
         createExcelRow("Key words per category", Integer.toString(Settings.numberOfKeyWordPerCategory), sheet, ++rowCount);
+        createExcelRow("Wages", Boolean.toString(Settings.wages), sheet, ++rowCount);
+        createExcelRow("Min Wage", Double.toString(Settings.minWage), sheet, ++rowCount);
+        createExcelRow("Max Wage", Double.toString(Settings.maxWage), sheet, ++rowCount);
 
         row = sheet.createRow(++rowCount);
         cell = row.createCell(1);

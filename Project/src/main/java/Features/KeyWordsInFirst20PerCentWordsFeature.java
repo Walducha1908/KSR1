@@ -25,7 +25,7 @@ public class KeyWordsInFirst20PerCentWordsFeature implements Feature {
                 for (int k = 0; k < article.getBody().get(j).size() && numberOfWords < lastWordIndex; k++) {
                     String word = article.getBody().get(j).get(k);
                     if (KeyWordsContainer.keyWordsMap.get(Settings.categoryItemsList.get(i)).contains(word)) {
-                        featureValue += 1;
+                        featureValue += (1 * KeyWordsContainer.keyWordsWagesMap.get(word));
                     }
                     numberOfWords += 1;
                 }
