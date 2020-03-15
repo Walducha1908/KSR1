@@ -36,6 +36,11 @@ public class KeyWordsCounter {
                     articlesToSearch.add(ArticleContainer.articlesToTrainList.get(i));
                 }
             }
+            else if (category == "topics") {
+                if (ArticleContainer.articlesList.get(i).getTopics().contains(categoryValue)) {
+                    articlesToSearch.add(ArticleContainer.articlesToTrainList.get(i));
+                }
+            }
         }
     }
 

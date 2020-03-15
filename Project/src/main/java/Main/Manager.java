@@ -77,6 +77,7 @@ public class Manager {
 
         resultSet.calculatePrecision();
         resultSet.calculateRecall();
+        resultSet.calculateAccuracy();
 
         System.out.println("");
         System.out.println("Classification ended!");

@@ -25,6 +25,13 @@ public class TrainingArticle {
                     return;
                 }
             }
+        } else if (Settings.category == "topics") {
+            for (int i = 0; i < Settings.categoryItemsList.size(); i++) {
+                if (article.getTopics().contains(Settings.categoryItemsList.get(i))) {
+                    categoryValue = i;
+                    return;
+                }
+            }
         }
     }
 

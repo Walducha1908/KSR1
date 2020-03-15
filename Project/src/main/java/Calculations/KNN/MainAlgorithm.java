@@ -2,6 +2,7 @@ package Calculations.KNN;
 
 import Calculations.Metrics.ChebyshevMetrics;
 import Calculations.Metrics.EuclideanMetrics;
+import Calculations.Metrics.ManhattanMetrics;
 import Main.Settings;
 import Model.ArticleDistance;
 import Model.ResultSet;
@@ -55,6 +56,9 @@ public class MainAlgorithm {
                 distances.add(metrics.calculateDistance(TrainingArticleContainer.trainingArticlesList.get(i), testingArticle));
             } else if (Settings.metrics == "Chebyshev") {
                 ChebyshevMetrics metrics = new ChebyshevMetrics();
+                distances.add(metrics.calculateDistance(TrainingArticleContainer.trainingArticlesList.get(i), testingArticle));
+            } else if (Settings.metrics == "Manhattan") {
+                ManhattanMetrics metrics = new ManhattanMetrics();
                 distances.add(metrics.calculateDistance(TrainingArticleContainer.trainingArticlesList.get(i), testingArticle));
             }
 

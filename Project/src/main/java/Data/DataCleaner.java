@@ -2,6 +2,8 @@ package Data;
 
 import Main.Settings;
 import Model.Article;
+import org.tartarus.snowball.SnowballStemmer;
+import org.tartarus.snowball.ext.englishStemmer;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -43,6 +45,15 @@ public class DataCleaner {
                     }
                 }
             }
+        } else if (category.equals("topics")) {
+            for (int i=0; i<articlesToCheck.size(); i++) {
+                if ((!Collections.disjoint(articlesToCheck.get(i).getTopics(), Settings.categoryItemsList)) &&
+                        (articlesToCheck.get(i).getTopics().size() == 1) && (articlesToCheck.get(i).getBody().size() > 0)) {
+                    if (articlesToCheck.get(i).getBody().get(0).size() > 0) {
+                        resultArticles.add(articlesToCheck.get(i));
+                    }
+                }
+            }
         }
 
         return resultArticles;
@@ -50,14 +61,16 @@ public class DataCleaner {
 
     public static LinkedList<String> stem(LinkedList<String> listToStem) {
         LinkedList<String> resultList = new LinkedList<String>();
+        SnowballStemmer snowballStemmer = new englishStemmer();
+
         for (int i=0; i<listToStem.size(); i++) {
             String word = listToStem.get(i);
-//            Pattern pattern = Pattern.compile(".*ing");
-
-            if (word.contains("ing")) {
-                resultList.add(word.substring(0, word.indexOf("ing")));
-            }
+            snowballStemmer.setCurrent(word);
+            snowballStemmer.stem();
+            String result = snowballStemmer.getCurrent();
+            resultList.add(result);
         }
+
         return resultList;
     }
 }

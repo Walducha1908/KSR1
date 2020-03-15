@@ -16,11 +16,10 @@ public class DataWriter {
 
     public static void writeData(ResultSet resultSet) {
         XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet("Java Books");
+        XSSFSheet sheet = workbook.createSheet("Report");
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy_MM_dd_HH_mm_ss");
         LocalDateTime now = LocalDateTime.now();
-        System.out.println(dtf.format(now));
 
         DecimalFormat df = new DecimalFormat("##.##");
 
@@ -58,6 +57,34 @@ public class DataWriter {
         createExcelRow("Testing", Double.toString(100 - Settings.percentOfTraining*100) + "%", sheet, ++rowCount);
         createExcelRow("K value", Integer.toString(Settings.k), sheet, ++rowCount);
         createExcelRow("Key words per category", Integer.toString(Settings.numberOfKeyWordPerCategory), sheet, ++rowCount);
+
+        row = sheet.createRow(++rowCount);
+        cell = row.createCell(1);
+        cell.setCellValue("");
+        row = sheet.createRow(++rowCount);
+        cell = row.createCell(1);
+        cell.setCellValue("Features");
+
+        for (int i = 0; i < Settings.featuresUsedMap.size(); i++) {
+            createExcelRow(Settings.featuresOrder.get(i),
+                    Boolean.toString(Settings.featuresUsedMap.get(Settings.featuresOrder.get(i))),
+                    sheet,
+                    ++rowCount);
+        }
+
+        row = sheet.createRow(++rowCount);
+        cell = row.createCell(1);
+        cell.setCellValue("");
+        row = sheet.createRow(++rowCount);
+        cell = row.createCell(1);
+        cell.setCellValue("Category values");
+
+        for (int i = 0; i < Settings.categoryItemsList.size(); i++) {
+            createExcelRow(Settings.categoryItemsList.get(i),
+                    "",
+                    sheet,
+                    ++rowCount);
+        }
 
         sheet.autoSizeColumn(1);
         sheet.autoSizeColumn(2);

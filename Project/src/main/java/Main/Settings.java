@@ -5,24 +5,31 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Settings {
-    public static String category = "places";
+    public static String category = "topics";
     public static String pathToData = "../Data/";
     public static String pathToReports = "../Reports/";
     public static int numberOfFiles = 22;
     public static double percentOfTraining = 0.7;
     public static int numberOfKeyWordPerCategory = 23;
     public static String measure = "TF";
-    public static String metrics = "Euclidean";
+    public static String metrics = "Manhattan";
     public static int k = 6;
+//    public static LinkedList<String> categoryItemsList =
+//            new LinkedList<String> (Arrays.asList (
+//            "usa",
+//            "west-germany",
+//            "uk",
+//            "japan",
+//            "canada",
+//            "france"
+//    ));
     public static LinkedList<String> categoryItemsList =
             new LinkedList<String> (Arrays.asList (
-            "usa",
-            "west-germany",
-            "uk",
-            "japan",
-            "canada",
-            "france"
-    ));
+                    "earn",
+                    "trade",
+                    "money-supply",
+                    "acq"
+            ));
     public static HashMap<String, Boolean> featuresUsedMap =
             new HashMap<String, Boolean>() {{
             put("Body", true);

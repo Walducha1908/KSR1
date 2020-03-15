@@ -129,6 +129,7 @@ public class DataReader {
 
         titleWordList = DataCleaner.removeStopListWords(titleWordList, stopList);
         titleWordList = DataCleaner.removeEmptyWords(titleWordList);
+//        titleWordList = DataCleaner.stem(titleWordList);
 
         return titleWordList;
     }
@@ -153,6 +154,7 @@ public class DataReader {
 
         dateLineWordList = DataCleaner.removeStopListWords(dateLineWordList, stopList);
         dateLineWordList = DataCleaner.removeEmptyWords(dateLineWordList);
+//        dateLineWordList = DataCleaner.stem(dateLineWordList);
 
         return dateLineWordList;
     }
@@ -184,6 +186,7 @@ public class DataReader {
                 bodyWordList.addAll(Arrays.asList(bodyParagraphList.get(i).split(" ")));
                 bodyWordList = DataCleaner.removeStopListWords(bodyWordList, stopList);
                 bodyWordList = DataCleaner.removeEmptyWords(bodyWordList);
+//                bodyWordList = DataCleaner.stem(bodyWordList);
                 bodyContent.add(bodyWordList);
             }
         }
