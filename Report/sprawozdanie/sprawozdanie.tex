@@ -57,6 +57,51 @@ d_{ch}(x,y)= \max_{i} |x_{i} - y_{i}|
 
 \subsection{Metody ekstrakcji cech}
 
+W ramach zadania zostały użyte następujące metody ekstrakcji cech:
+
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+
+\item Term frequency - metoda polegająca na zliczeniu częstości występowania danego słowa w dokumencie.
+
+\item Inverse document frequency - metoda polegająca na zliczeniu liczby dokumentów w których dane słowo występuje przynajmniej raz.
+
+\end{itemize}
+
+\subsection{Cechy poddawane ekstrakcji}
+
+ Ekstrakcja cech charakterystycznych tekstu - w tym celu tworzymy wektor cech, który opisuje tekst na podstawie konrektnych, zdefiniowanych cech. Poniżej znajduje się opis wszystkich cech użytych w doświadczeniu. \newline
+
+Przyjęto następujące oznaczenia:\\
+    \quad $T$ - zbiór słów do badania,\\
+    \quad $K$ - zbiór słów kluczowych, \\
+    \quad $C_{i}(T,K)$ - wartość funkcji cechy. \\
+
+
+\subsubsection{Liczba wystąpień wszystkich słów kluczowych w całym artykule}
+Cecha opisująca liczbę słów kluczowych, które występują w całej sekcji głównej artykułu (body).
+\begin{equation}
+            C_{1}(T,K) = \ liczba\ wystapien\ elementow\ zbioru\ K\ w\ zbiorze\ T
+ \end{equation}	
+\subsubsection{Liczba wystąpień wszystkich słów kluczowych w tytule artykułu}
+\subsubsection{Liczba wystąpień wszystkich słów kluczowych w sekcji deteline}
+\subsubsection{Stosunek liczby wystąpień wszystkich słów kluczowych do ogólnej liczby słów w artykule}
+Cecha opisująca stosunek liczby słów kluczowych, które występują w całej sekcji głównej artykułu (body), do całkowitej liczby słów występujących w części głównej.
+\begin{equation}
+            C_{4}(T,K) = \frac{\ liczba\ wystapien\ elementow\ zbioru\ K\ w\ zbiorze\ T}{calkowita\ liczba\ elementow\ zbioru\ T}
+ \end{equation}	
+\subsubsection{Liczba wystąpień wszystkich słów kluczowych w pierwszych 50 słowach artykułu}
+\subsubsection {Liczba wystąpień wszystkich słów kluczowych w pierwszych 10\% artykułu}
+\subsubsection{Liczba wystąpień wszystkich słów kluczowych w pierwszych 20\% artykułu}
+Cecha opisująca liczbę słów kluczowych, które występują w pierwszych 20\% sekcji głównej artykułu (body).
+\begin{equation}
+            C_{7}(T,K) = \ liczba\ wystapien\ elementow\ zbioru\ K\ w\ zbiorze\ T
+\end{equation}	
+\subsubsection{Liczba wystąpień wszystkich słów kluczowych w pierwszych 50\% artykułu}
+\subsubsection{Liczba wystąpień wszystkich słów kluczowych w pierwszym akapicie}
+\subsubsection{Liczba wystąpień wszystkich słów kluczowych w ostatnich 50 słowach artykułu}
+\subsubsection{Liczba wystąpień wszystkich słów kluczowych w ostatnich 10\% artykułu}
+\subsubsection{Liczba wystąpień wszystkich słów kluczowych w ostatnim akapicie}
+
 \section{Opis implementacji}
 {\color{blue}
 Należy tu zamieścić krótki i zwięzły opis zaprojektowanych klas oraz powiązań
