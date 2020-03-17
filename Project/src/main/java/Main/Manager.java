@@ -18,31 +18,17 @@ import java.util.Set;
 public class Manager {
 
     public static void start() {
-        readAndPrepareData();
-
-
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             if (i == 1) {
-                Settings.featuresUsedMap.put("Body", false);
-                Settings.featuresUsedMap.put("Title", false);
-                Settings.featuresUsedMap.put("Dateline", false);
-                Settings.featuresUsedMap.put("Ratio", false);
+                Settings.percentOfTraining = 0.5;
             } else if (i == 2) {
-                Settings.featuresUsedMap.put("Body", true);
-                Settings.featuresUsedMap.put("Title", true);
-                Settings.featuresUsedMap.put("Dateline", true);
-                Settings.featuresUsedMap.put("Ratio", true);
-                Settings.featuresUsedMap.put("First50Words", false);
-                Settings.featuresUsedMap.put("First10PerCent", false);
-                Settings.featuresUsedMap.put("First20PerCent", false);
-                Settings.featuresUsedMap.put("First50PerCent", false);
-                Settings.featuresUsedMap.put("FirstParagraph", false);
+                Settings.percentOfTraining = 0.6;
             } else if (i == 3) {
-                Settings.featuresUsedMap.put("Last50Words", true);
-                Settings.featuresUsedMap.put("Last10PerCent", true);
-                Settings.featuresUsedMap.put("LastParagraph", true);
+                Settings.percentOfTraining = 0.7;
+            } else if (i == 4) {
+                Settings.percentOfTraining = 0.8;
             }
-            System.out.println(Settings.featuresUsedMap.get("Body"));
+            readAndPrepareData();
             countKeyWords();
             extractFeatures();
             normaliseFeatures();

@@ -9,9 +9,9 @@ public class Settings {
     public static String pathToData = "../Data/";
     public static String pathToReports = "../Reports/";
     public static int numberOfFiles = 22;
-    public static double percentOfTraining = 0.7;
+    public static double percentOfTraining = 0.4;
     public static int numberOfKeyWordPerCategory = 23;
-    public static String measure = "DF";
+    public static String measure = "TF";
     public static String metrics = "Euclidean";
     public static int k = 6;
     public static boolean wages = false;
@@ -44,9 +44,9 @@ public class Settings {
             put("First20PerCent", true);
             put("First50PerCent", true);
             put("FirstParagraph", true);
-            put("Last50Words", false);
+            put("Last50Words", true);
             put("Last10PerCent", false);
-            put("LastParagraph", false);
+            put("LastParagraph", true);
     }};
     public static LinkedList<String> featuresOrder =
             new LinkedList<String> (Arrays.asList (
