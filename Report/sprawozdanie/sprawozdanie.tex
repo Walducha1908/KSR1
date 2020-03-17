@@ -55,40 +55,59 @@ d_{ch}(x,y)= \max_{i} |x_{i} - y_{i}|
 
 \end{itemize}
 
-\subsection{Metody ekstrakcji cech}
+\subsection{Metody wyboru słów kluczowych}
 
-W ramach zadania zostały użyte następujące metody ekstrakcji cech:
+W ramach zadania zostały użyte następujące metody wyboru słów kluczowych:
 
 \begin{itemize}[label=$\bullet$\scshape\bfseries]
 
-\item Term frequency - metoda polegająca na zliczeniu częstości występowania danego słowa w dokumencie.
+\item Term frequency - metoda polegająca na zliczeniu liczby wystąpień danego słowa we wszystkich dokumentach.
 
-\item Inverse document frequency - metoda polegająca na zliczeniu liczby dokumentów w których dane słowo występuje przynajmniej raz.
+\item Document frequency - metoda polegająca na zliczeniu liczby dokumentów w których dane słowo występuje przynajmniej raz.
 
 \end{itemize}
 
+W przypadku obu metod otrzymujemy zestaw par - słowo i wartość obliczoną za pomocą jednej z powyższych metod. Taki zestaw par sortujemy malejąco po wartości i wybieramy n pierwszych słów. Wybrane n słów staje się słowami kluczowymi.
+
 \subsection{Cechy poddawane ekstrakcji}
 
- Ekstrakcja cech charakterystycznych tekstu - w tym celu tworzymy wektor cech, który opisuje tekst na podstawie konrektnych, zdefiniowanych cech. Poniżej znajduje się opis wszystkich cech użytych w doświadczeniu. \newline
+ Ekstrakcja cech charakterystycznych tekstu - w tym celu tworzymy wektor cech, który opisuje tekst (w naszym przypadku artykuł) na podstawie konkretnych, zdefiniowanych cech. Poniżej znajduje się opis wszystkich cech użytych w doświadczeniu. \newline
 
 Przyjęto następujące oznaczenia:\\
     \quad $T$ - zbiór słów do badania,\\
     \quad $K$ - zbiór słów kluczowych, \\
+    \quad $N_{K \in T}$ - liczba wystąpień elementów zbioru K w zbiorze T, \\
     \quad $C_{i}(T,K)$ - wartość funkcji cechy. \\
 
 
 \subsubsection{Liczba wystąpień wszystkich słów kluczowych w całym artykule}
 Cecha opisująca liczbę słów kluczowych, które występują w całej sekcji głównej artykułu (body).
 \begin{equation}
-            C_{1}(T,K) = \ liczba\ wystapien\ elementow\ zbioru\ K\ w\ zbiorze\ T
+            C_{1}(T,K) = N_{K \in T},
  \end{equation}	
+ gdzie $T$ - zbiór słów sekcji głównej artykułu.
+
 \subsubsection{Liczba wystąpień wszystkich słów kluczowych w tytule artykułu}
-\subsubsection{Liczba wystąpień wszystkich słów kluczowych w sekcji deteline}
+Cecha opisująca liczbę słów kluczowych, które występują w tytule artykułu (title).
+\begin{equation}
+            C_{2}(T,K) = N_{K \in T},
+ \end{equation}	
+ gdzie $T$ - zbiór słów tytułu artykułu.
+
+\subsubsection{Liczba wystąpień wszystkich słów kluczowych w sekcji daty artykułu}
+
+Cecha opisująca liczbę słów kluczowych, które występują w sekcji daty artykułu (dateline).
+\begin{equation}
+            C_{3}(T,K) = N_{K \in T},
+ \end{equation}	
+ gdzie $T$ - zbiór słów sekcji daty artykułu.
+
 \subsubsection{Stosunek liczby wystąpień wszystkich słów kluczowych do ogólnej liczby słów w artykule}
 Cecha opisująca stosunek liczby słów kluczowych, które występują w całej sekcji głównej artykułu (body), do całkowitej liczby słów występujących w części głównej.
 \begin{equation}
-            C_{4}(T,K) = \frac{\ liczba\ wystapien\ elementow\ zbioru\ K\ w\ zbiorze\ T}{calkowita\ liczba\ elementow\ zbioru\ T}
+            C_{4}(T,K) = \frac{N_{K \in T}} {|T|},
  \end{equation}	
+ gdzie $T$ - zbiór słów sekcji głównej artykułu, $|T|$ - liczba elementów (słów) zbioru sekcji głównej artykułu.
 \subsubsection{Liczba wystąpień wszystkich słów kluczowych w pierwszych 50 słowach artykułu}
 \subsubsection {Liczba wystąpień wszystkich słów kluczowych w pierwszych 10\% artykułu}
 \subsubsection{Liczba wystąpień wszystkich słów kluczowych w pierwszych 20\% artykułu}
