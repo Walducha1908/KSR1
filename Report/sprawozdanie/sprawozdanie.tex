@@ -10,7 +10,7 @@
 \coursename{Komputerowe systemy rozpoznawania}
 \courseyear{2019/2020}
 
-\courseteacher{prof. dr hab. inż. Adam Niewiadomski}
+\courseteacher{dr hab. inż. Adam Niewiadomski prof. uczelni}
 \coursegroup{poniedziałek, 12:15}
 
 \author{
@@ -56,27 +56,74 @@ d_{ch}(x,y)= \max_{i} |x_{i} - y_{i}|
 
 \end{itemize}
 
-\subsection{Metody wyboru słów kluczowych}
+\subsection{Wyznaczanie słów kluczowych}
 
-W ramach zadania zostały użyte następujące metody wyboru słów kluczowych:
+Aby wyznaczyć słowa kluczowe posługujemy się poniższą metodą:
 
 \begin{itemize}[label=$\bullet$\scshape\bfseries]
-
 \item Term frequency - metoda polegająca na zliczeniu liczby wystąpień danego słowa we wszystkich dokumentach.
-
-\item Document frequency - metoda polegająca na zliczeniu liczby dokumentów w których dane słowo występuje przynajmniej raz.
-
 \end{itemize}
 
-W przypadku obu metod otrzymujemy zestaw par - słowo i wartość obliczoną za pomocą jednej z powyższych metod. Taki zestaw par sortujemy malejąco po wartości i wybieramy n pierwszych słów. Wybrane n słów staje się słowami kluczowymi.
+Przeprowadzamy obliczenia na zbiorze wszystkich posiadanych danych (w naszym przypadku na wszystkich artykułach) i otrzymujemy zestaw par - słowo i wartość. Taki zestaw par sortujemy malejąco po wartości i wybieramy n pierwszych słów. Wybrane n słów staje się słowami kluczowymi. \newline
+
+Taki schemat powtarzemy $l$ razy, gdzie $l$ jest liczbą kategorii na jakie klasyfikujemy. Ostatecznie otrzymujemy $l$ zestawów słów kluczowych, przy czym każdy zestaw reprezentuje inną kategorię. Otrzymane zbiory słów kluczowych oznaczamy:
+
+\begin{equation}
+            K_{1}, K_{2}, \ldots , K_{l-1}, K_{l}.
+ \end{equation}	
+
+Otrzymany zbiór słów kluczowych będziemy używać we wszystkich iteracjach programu. Słowa kluczowe będą niezmienne, a wszystkie przeprowadzone przez nas eksperymenty będą bazowały na tym samym zbiorze słów kluczowych.
+
+\subsection{Wyznaczanie ważonych słów kluczowych}
+
+W celach poprawienia jakości klasyfikacji wprowadzono "ważone słowa kluczowe". Tak nazwaliśmy zestaw par - słowo kluczowe i waga (wartość zmiennoprzecinkowa), z wykorzytsaniem których przeprowadziliśmy takie same eksperymenty jak z wykorzystaniem "zwykłych" słów kluczowych, opisanych w poprzednim podpunkcie. \newline
+
+Ważone słowa kluczowe to nic innego jak obliczony wcześniej, ten sam zestaw słów, jednak ubogacony o wagę, obliczaną zgodnie z opracowanym przez nas wzorem:
+\begin{equation}
+            W_{i} = \left({1 - \frac{N_{W_{i} \in K_{l}}}{l - 1}}\right)^2,
+ \end{equation}	
+
+gdzie $W_{i}$ - waga $i$-tego słowa kluczowego, $l$ - liczba kategorii, $N_{W_{i} \in K_{l}}$ - liczba kategorii słów kluczowych (innych od swojej własnej), w których $i$-te słowo kluczowe występuje. \newline
+
+Dla jasności przeanalizujemy przykład. Niech $l = 3$, a obliczone słowa kluczowe mają postać:\newline
+\begin{equation}
+            K_{1} = \{{"jesien", "ogon", "krowa"}\},
+\end{equation}
+\begin{equation}
+            K_{2} =\{{"wiosna", "ogon", "pies"}\},
+\end{equation}	
+\begin{equation}
+            K_{3} = \{{"lato", "ogon", "krowa"}\},
+\end{equation}	
+
+Obliczmy wartości wag dla wybranych słów kluczowych z powyższego zestawu. Dla słowa "jesien" otrzymamy następującą wartość:
+\begin{equation}
+            W_{jesien} = \left({1 - \frac{0}{2}}\right)^2 = 1,
+\end{equation}
+słowo "jesien" wystapilo tylko w jednej, "swojej" kategorii, ma zatem najwiekszą możliwą wagę.
+
+Dla słowa "krowa":
+\begin{equation}
+            W_{krowa} = \left({1 - \frac{1}{2}}\right)^2 = 0.25,
+\end{equation}
+słowo "krowa" wystąpiło w jednej dodatkowej kategorii (łącznie w dwóch).
+
+Dla słowa "ogon":
+\begin{equation}
+            W_{ogon} = \left({1 - \frac{2}{2}}\right)^2 = 0,
+\end{equation}
+słowo "ogon" wystąpiło we wszystkich kategoriach, dlatego też uznajemy, że nie ma dla nas żadnego znaczenia, jego waga jest równa 0. \newline
+
+Z powyższych rozważań bardzo jasno wynika, że wagi słów kluczowych mogą osiągać wartości z przedziału $ \langle0;1\rangle $.
+
 
 \subsection{Cechy poddawane ekstrakcji}
 
  Ekstrakcja cech charakterystycznych tekstu - w tym celu tworzymy wektor cech, który opisuje tekst (w naszym przypadku artykuł) na podstawie konkretnych, zdefiniowanych cech. Poniżej znajduje się opis wszystkich cech użytych w doświadczeniu. \newline
 
 Przyjęto następujące oznaczenia:\\
-    \quad $T$ - zbiór słów do badania,\\
-    \quad $K$ - zbiór słów kluczowych, \\
+    \quad $T_{i}$ - zbiór słów do badania,\\
+    \quad $K$ - stały zbiór słów kluczowych\footnote{An example footnote.}, \\
     \quad $N_{K \in T}$ - liczba wystąpień elementów zbioru K w zbiorze T, \\
     \quad $C_{i}(T,K)$ - wartość funkcji cechy. \\
 
@@ -84,50 +131,88 @@ Przyjęto następujące oznaczenia:\\
 \subsubsection{Liczba wystąpień wszystkich słów kluczowych w całym artykule}
 Cecha opisująca liczbę słów kluczowych, które występują w całej sekcji głównej artykułu (body).
 \begin{equation}
-            C_{1}(T,K) = N_{K \in T},
+            C_{1}(T_{1},K) = N_{K \in T_{1}},
  \end{equation}	
- gdzie $T$ - zbiór słów sekcji głównej artykułu.
+ gdzie $T_{1}$ - zbiór słów sekcji głównej artykułu.
 
 \subsubsection{Liczba wystąpień wszystkich słów kluczowych w tytule artykułu}
 Cecha opisująca liczbę słów kluczowych, które występują w tytule artykułu (title).
 \begin{equation}
-            C_{2}(T,K) = N_{K \in T},
+            C_{2}(T_{2},K) = N_{K \in T_{2}},
  \end{equation}	
- gdzie $T$ - zbiór słów tytułu artykułu.
+ gdzie $T_{2}$ - zbiór słów tytułu artykułu.
 
 \subsubsection{Liczba wystąpień wszystkich słów kluczowych w sekcji daty artykułu}
 
 Cecha opisująca liczbę słów kluczowych, które występują w sekcji daty artykułu (dateline).
 \begin{equation}
-            C_{3}(T,K) = N_{K \in T},
+            C_{3}(T_{3},K) = N_{K \in T_{3}},
  \end{equation}	
- gdzie $T$ - zbiór słów sekcji daty artykułu.
+ gdzie $T_{3}$ - zbiór słów sekcji daty artykułu.
 
 \subsubsection{Stosunek liczby wystąpień wszystkich słów kluczowych do ogólnej liczby słów w artykule}
 Cecha opisująca stosunek liczby słów kluczowych, które występują w całej sekcji głównej artykułu (body), do całkowitej liczby słów występujących w części głównej.
 \begin{equation}
-            C_{4}(T,K) = \frac{N_{K \in T}} {|T|},
+            C_{4}(T_{4},K) = \frac{N_{K \in T_{4}}} {|T_{4}|},
  \end{equation}	
- gdzie $T$ - zbiór słów sekcji głównej artykułu, $|T|$ - liczba elementów (słów) zbioru sekcji głównej artykułu.
+ gdzie $T_{4}$ - zbiór słów sekcji głównej artykułu, $|T_{4}|$ - liczba elementów (słów) zbioru sekcji głównej artykułu.
+
 \subsubsection{Liczba wystąpień wszystkich słów kluczowych w pierwszych 50 słowach artykułu}
-\subsubsection {Liczba wystąpień wszystkich słów kluczowych w pierwszych 10\% artykułu}
-\subsubsection{Liczba wystąpień wszystkich słów kluczowych w pierwszych 20\% artykułu}
-Cecha opisująca liczbę słów kluczowych, które występują w pierwszych 20\% sekcji głównej artykułu (body).
+Cecha opisująca liczbę słów kluczowych, które występują w pierwszych 50 słowach sekcji głównej artykułu. Jeśli artykuł jest krótszy niż 50 słów to bierzemy pod uwagę wszystkie występujące w nim słowa.
 \begin{equation}
-            C_{7}(T,K) = \ liczba\ wystapien\ elementow\ zbioru\ K\ w\ zbiorze\ T
-\end{equation}	
+            C_{5}(T_{5},K) = N_{K \in T_{5}},
+ \end{equation}	
+ gdzie $T_{5}$ - pierwsze 50 słów sekcji głównej artykułu.
+
+\subsubsection {Liczba wystąpień wszystkich słów kluczowych w pierwszych 10\% artykułu}
+Cecha opisująca liczbę słów kluczowych, które występują w pierwszych 10\% sekcji głównej artykułu.
+\begin{equation}
+            C_{6}(T_{6},K) = N_{K \in T_{6}},
+ \end{equation}	
+ gdzie $T_{6}$ - pierwsze 10\% słów sekcji głównej artykułu.
+
+\subsubsection{Liczba wystąpień wszystkich słów kluczowych w pierwszych 20\% artykułu}
+Cecha opisująca liczbę słów kluczowych, które występują w pierwszych 20\% sekcji głównej artykułu.
+\begin{equation}
+            C_{7}(T_{7},K) = N_{K \in T_{7}},
+ \end{equation}	
+ gdzie $T_{7}$ - pierwsze 20\% słów sekcji głównej artykułu.
+
 \subsubsection{Liczba wystąpień wszystkich słów kluczowych w pierwszych 50\% artykułu}
-\subsubsection{Liczba wystąpień wszystkich słów kluczowych w pierwszym akapicie}
+Cecha opisująca liczbę słów kluczowych, które występują w pierwszych 50\% sekcji głównej artykułu.
+\begin{equation}
+            C_{8}(T_{8},K) = N_{K \in T_{8}},
+ \end{equation}	
+ gdzie $T_{8}$ - pierwsze 50\% słów sekcji głównej artykułu.
+
+\subsubsection{Liczba wystąpień wszystkich słów kluczowych w pierwszym paragrafie}
+Cecha opisująca liczbę słów kluczowych, które występują w pierwszym paragrafie sekcji głównej artykułu.
+\begin{equation}
+            C_{9}(T_{9},K) = N_{K \in T_{9}},
+ \end{equation}	
+ gdzie $T_{9}$ - pierwszy paragraf sekcji głównej artykułu.
+
 \subsubsection{Liczba wystąpień wszystkich słów kluczowych w ostatnich 50 słowach artykułu}
+Cecha opisująca liczbę słów kluczowych, które występują w ostatnich 50 słowach sekcji głównej artykułu. Jeśli artykuł jest krótszy niż 50 słów to bierzemy pod uwagę wszystkie występujące w nim słowa.
+\begin{equation}
+            C_{10}(T_{10},K) = N_{K \in T_{10}},
+ \end{equation}	
+ gdzie $T_{10}$ - ostatnie 50 słów sekcji głównej artykułu.
+
 \subsubsection{Liczba wystąpień wszystkich słów kluczowych w ostatnich 10\% artykułu}
-\subsubsection{Liczba wystąpień wszystkich słów kluczowych w ostatnim akapicie}
+Cecha opisująca liczbę słów kluczowych, które występują w ostatnich 10\% sekcji głównej artykułu.
+\begin{equation}
+            C_{11}(T_{11},K) = N_{K \in T_{11}},
+ \end{equation}	
+ gdzie $T_{11}$ - ostatnie 10\% słów sekcji głównej artykułu.
 
+\subsubsection{Liczba wystąpień wszystkich słów kluczowych w ostatnim paragrafie}
+Cecha opisująca liczbę słów kluczowych, które występują w ostatnim paragrafie sekcji głównej artykułu.
+\begin{equation}
+            C_{12}(T_{12},K) = N_{K \in T_{12}},
+ \end{equation}	
+ gdzie $T_{12}$ - ostatni paragraf sekcji głównej artykułu.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=1\textwidth]{{Wykresy/TF_10k.png}}
-	\caption{}
-\end{figure}
 
 \section{Opis implementacji}
 {\color{blue}
@@ -160,6 +245,11 @@ się do przyjętych wcześniej oznaczeń. Nie należy tu komentować i interpret
 wyników, gdyż miejsce na to jest w kolejnej sekcji. Tu również dobrze jest
 wprowadzić oznaczenia (tabel, wykresów) aby móc się do nich odwoływać
 poniżej.}
+\begin{figure}
+	\centering
+	\includegraphics[width=1\textwidth]{{Wykresy/TF_10k.png}}
+	\caption{}
+\end{figure}
 
 \section{Dyskusja}
 {\color{blue}
