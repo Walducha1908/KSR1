@@ -18,41 +18,21 @@ import java.util.Set;
 public class Manager {
 
     public static void start() {
-        readAndPrepareData();
-
-        for (int j = 0; j < 2; j++) {
-            if (j == 1) {
-                Settings.metrics = "Manhattan";
+        for (int i = 0; i < 5; i++) {
+            if (i == 1) {
+                Settings.percentOfTraining = 0.5;
+            } else if (i == 2) {
+                Settings.percentOfTraining = 0.6;
+            } else if (i == 3) {
+                Settings.percentOfTraining = 0.7;
+            } else if (i == 4) {
+                Settings.percentOfTraining = 0.8;
             }
-            for (int i = 0; i < 10; i++) {
-                if (j == 0 && i < 7) {
-                    continue;
-                }
-                if (i == 1) {
-                    Settings.k = 3;
-                } else if (i == 2) {
-                    Settings.k = 4;
-                } else if (i == 3) {
-                    Settings.k = 6;
-                } else if (i == 4) {
-                    Settings.k = 8;
-                } else if (i == 5) {
-                    Settings.k = 10;
-                } else if (i == 6) {
-                    Settings.k = 12;
-                } else if (i == 7) {
-                    Settings.k = 14;
-                } else if (i == 8) {
-                    Settings.k = 17;
-                } else if (i == 9) {
-                    Settings.k = 20;
-                }
-                System.out.println(Settings.k);
-                countKeyWords();
-                extractFeatures();
-                normaliseFeatures();
-                runKNN();
-            }
+            readAndPrepareData();
+            countKeyWords();
+            extractFeatures();
+            normaliseFeatures();
+            runKNN();
         }
     }
 
