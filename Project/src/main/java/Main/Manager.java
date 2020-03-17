@@ -20,39 +20,33 @@ public class Manager {
     public static void start() {
         readAndPrepareData();
 
-        for (int j = 0; j < 2; j++) {
-            if (j == 1) {
-                Settings.metrics = "Manhattan";
+
+        for (int i = 0; i < 4; i++) {
+            if (i == 1) {
+                Settings.featuresUsedMap.put("Body", false);
+                Settings.featuresUsedMap.put("Title", false);
+                Settings.featuresUsedMap.put("Dateline", false);
+                Settings.featuresUsedMap.put("Ratio", false);
+            } else if (i == 2) {
+                Settings.featuresUsedMap.put("Body", true);
+                Settings.featuresUsedMap.put("Title", true);
+                Settings.featuresUsedMap.put("Dateline", true);
+                Settings.featuresUsedMap.put("Ratio", true);
+                Settings.featuresUsedMap.put("First50Words", false);
+                Settings.featuresUsedMap.put("First10PerCent", false);
+                Settings.featuresUsedMap.put("First20PerCent", false);
+                Settings.featuresUsedMap.put("First50PerCent", false);
+                Settings.featuresUsedMap.put("FirstParagraph", false);
+            } else if (i == 3) {
+                Settings.featuresUsedMap.put("Last50Words", true);
+                Settings.featuresUsedMap.put("Last10PerCent", true);
+                Settings.featuresUsedMap.put("LastParagraph", true);
             }
-            for (int i = 0; i < 10; i++) {
-                if (j == 0 && i < 7) {
-                    continue;
-                }
-                if (i == 1) {
-                    Settings.k = 3;
-                } else if (i == 2) {
-                    Settings.k = 4;
-                } else if (i == 3) {
-                    Settings.k = 6;
-                } else if (i == 4) {
-                    Settings.k = 8;
-                } else if (i == 5) {
-                    Settings.k = 10;
-                } else if (i == 6) {
-                    Settings.k = 12;
-                } else if (i == 7) {
-                    Settings.k = 14;
-                } else if (i == 8) {
-                    Settings.k = 17;
-                } else if (i == 9) {
-                    Settings.k = 20;
-                }
-                System.out.println(Settings.k);
-                countKeyWords();
-                extractFeatures();
-                normaliseFeatures();
-                runKNN();
-            }
+            System.out.println(Settings.featuresUsedMap.get("Body"));
+            countKeyWords();
+            extractFeatures();
+            normaliseFeatures();
+            runKNN();
         }
     }
 
