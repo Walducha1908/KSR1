@@ -26,10 +26,10 @@
 
 \section{Cel}
 {Celem zadania było stworzenie aplikacji służącej do klasyfikacji artykułów prasowych metodą k-NN. Korzystając z różnych metod
-wyboru słów kluczowych i ekstrakcji wektorów cech oraz istniejących miar podobieństwa, należało porównać przypisane przez naszą aplikacje kategorie artykułów do tych faktycznych. Należało również podjąć próbe opracowania własnej miary podobieństwa i/lub metryki.}
+wyboru słów kluczowych i ekstrakcji wektorów cech oraz istniejących miar podobieństwa, należało porównać przypisane przez naszą aplikacje kategorie artykułów do tych faktycznych. Należało również podjąć próbę opracowania własnej miary podobieństwa i/lub metryki.}
 
 \section{Wprowadzenie}
-Algorytm k najbliższych sąsiadów jest bardzo prostym klasyfikatorem probabilistycznym. Niekiedy mówi się, że algorytm k-NN jest naiwny lub leniwy. Wynika to z faktu, że nie tworzy on wewnętrznej reprezentacji danych treningowych (uczących), ale ropoczyna poszukiwanie rozwiązania dopiero podczas analizy konkretnego wzorca ze zbioru testowego. \newline
+Algorytm k najbliższych sąsiadów jest bardzo prostym klasyfikatorem probabilistycznym. Niekiedy mówi się, że algorytm k-NN jest leniwy. Wynika to z faktu, że nie tworzy on wewnętrznej reprezentacji danych treningowych (uczących), ale ropoczyna poszukiwanie rozwiązania dopiero podczas analizy konkretnego wzorca ze zbioru testowego. \newline
 
 Algorytm przechowuje zbiór wszystkich wzorców uczących, względem których obliczana jest odległość wzorca testowego, zdefiniowana poprzez odpowiednią metrykę. Następnie algorytm wybiera k wzorców treningowych, nazywanych sąsiadami, do których aktualnie badany wzorzec testowy ma najmniejszą odległość. Ostateczny rezultat - kategoria, do której zostanie przypisany analizowany wzorzec - stanowi najczęściej występująca kategoria wśród k najbliższych sąsiadów.
 
@@ -44,14 +44,31 @@ Do obliczenia odległości pomiędzy tekstami posłużyliśmy się następujący
 d_{e}(x,y)= \sqrt{ (y_{1} - x_{1})^2 + \cdots + (y_{n} - x_{n})^2 }
 \end{equation}
 
-\item Metryka uliczna (Manhattan, miejska) - w celu obliczenia odległości $ d_{e}(x,y) $ między dwoma punktami $ x, y $ należy obliczyć sumę wartości bezwzględnych różnic współrzędnych punktów $ x $ oraz $ y $, zgodnie ze wzorem:
+\item Metryka uliczna (Manhattan, miejska) - w celu obliczenia odległości $ d_{m}(x,y) $ między dwoma punktami $ x, y $ należy obliczyć sumę wartości bezwzględnych różnic współrzędnych punktów $ x $ oraz $ y $, zgodnie ze wzorem:
 \begin{equation}
 d_{m}(x,y)= \sum_{k=1}^{n} | x_{k} - y_{k} |
 \end{equation}
 
-\item Metryka Czebyszewa - w celu obliczenia odległości $ d_{e}(x,y) $ między dwoma punktami $ x, y $ należy obliczyć maksymalną wartość bezwzględnych różnic współrzędnych punktów $ x $ oraz $ y $, zgodnie ze wzorem:
+\item Metryka Czebyszewa - w celu obliczenia odległości $ d_{ch}(x,y) $ między dwoma punktami $ x, y $ należy obliczyć maksymalną wartość bezwzględnych różnic współrzędnych punktów $ x $ oraz $ y $, zgodnie ze wzorem:
 \begin{equation}
 d_{ch}(x,y)= \max_{i} |x_{i} - y_{i}|
+\end{equation}
+
+\item Metryka Hamminga - definiujemy jako ilość różnic pomiędzy dwoma wektorami o tej samej długości. Aby obliczyć odległość $ d_{h}(x,y) $ między dwoma punktami $ x, y $ należy posłużyć się wzorem \cite{wyklad} :
+\begin{equation}
+d_{h}(x,y)= \sum_{i=1}^{n} |h(i)|,
+\end{equation}
+gdzie 
+\begin{equation}
+h(i)= \left\{ \begin{array}{ll}
+0 & \textrm{jeśli $v_{1i}=v_{2i}$}\\
+1 & \textrm{w przeciwnym wypadku}
+\end{array} \right.
+\end{equation}
+
+\item Odległość Canberra - ważona wersja metryki ulicznej, aby obliczyć odległość $ d_{c}(x,y) $ między dwoma punktami $ x, y $ należy posłużyć się wzorem:
+\begin{equation}
+d_{c}(x,y)= \sum_{i} \frac{|x_{i} - y_{i}|}{|x_{i}| + |y_{i}|}
 \end{equation}
 
 \end{itemize}
@@ -66,7 +83,7 @@ Aby wyznaczyć słowa kluczowe posługujemy się poniższą metodą:
 
 Przeprowadzamy obliczenia na zbiorze wszystkich posiadanych danych (w naszym przypadku na wszystkich artykułach) i otrzymujemy zestaw par - słowo i wartość. Taki zestaw par sortujemy malejąco po wartości i wybieramy n pierwszych słów. Wybrane n słów staje się słowami kluczowymi. \newline
 
-Taki schemat powtarzemy $l$ razy, gdzie $l$ jest liczbą kategorii na jakie klasyfikujemy. Ostatecznie otrzymujemy $l$ zestawów słów kluczowych, przy czym każdy zestaw reprezentuje inną kategorię. Otrzymane zbiory słów kluczowych oznaczamy:
+Taki schemat powtarzamy $l$ razy, gdzie $l$ jest liczbą kategorii na jakie klasyfikujemy. Ostatecznie otrzymujemy $l$ zestawów słów kluczowych, przy czym każdy zestaw reprezentuje inną kategorię. Otrzymane zbiory słów kluczowych oznaczamy:
 
 \begin{equation}
             K_{1}, K_{2}, \ldots , K_{l-1}, K_{l}.
@@ -100,7 +117,7 @@ Obliczmy wartości wag dla wybranych słów kluczowych z powyższego zestawu. Dl
 \begin{equation}
             W_{jesien} = \left({1 - \frac{0}{2}}\right)^2 = 1,
 \end{equation}
-słowo "jesien" wystapilo tylko w jednej, "swojej" kategorii, ma zatem najwiekszą możliwą wagę.
+słowo "jesien" wystąpiło tylko w jednej, "swojej" kategorii, ma zatem najwiekszą możliwą wagę.
 
 Dla słowa "krowa":
 \begin{equation}
@@ -123,8 +140,8 @@ Z powyższych rozważań bardzo jasno wynika, że wagi słów kluczowych mogą o
 
 Przyjęto następujące oznaczenia:\\
     \quad $T_{i}$ - zbiór słów do badania,\\
-    \quad $K$ - stały zbiór słów kluczowych\footnote{An example footnote.}, \\
-    \quad $N_{K \in T}$ - liczba wystąpień elementów zbioru K w zbiorze T, \\
+    \quad $K$ - stały zbiór słów kluczowych\footnote{Na który składają się zbiory ${K_{1}, K_{2}, \ldots , K_{l-1}, K_{l}.}$}, \\
+    \quad $N_{K \in T}$ - liczba wystąpień elementów zbioru K w zbiorze T\footnote{W przypadku ważonych słów kluczowych będzie to suma iloczynów liczby wystąpień poszczególnych elementów zbioru K w zbiorze T i odpowiadających im wag.}, \\
     \quad $C_{i}(T,K)$ - wartość funkcji cechy. \\
 
 
@@ -222,18 +239,30 @@ prezentujący najistotniejsze elementy stworzonej aplikacji. Należy także
 podać, w jakim języku programowania została stworzona aplikacja. }
 
 \section{Materiały i metody}
-{\color{blue}
-W tym miejscu należy opisać, jak przeprowadzone zostały wszystkie badania,
-których wyniki i dyskusja zamieszczane są w dalszych sekcjach. Opis ten
-powinien być na tyle dokładny, aby osoba czytająca go potrafiła wszystkie
-przeprowadzone badania samodzielnie powtórzyć w celu zweryfikowania ich
-poprawności (a zatem m.in. należy zamieścić tu opis architektury sieci,
-wartości współczynników użytych w kolejnych eksperymentach, sposób
-inicjalizacji wag, metodę uczenia itp. oraz informacje o danych, na których
-prowadzone były badania). Przy opisie należy odwoływać się i stosować do
-opisanych w sekcji drugiej wzorów i oznaczeń, a także w jasny sposób opisać
-cel konkretnego testu. Najlepiej byłoby wyraźnie wyszczególnić (ponumerować)
-poszczególne eksperymenty tak, aby łatwo było się do nich odwoływać dalej.}
+W tym rozdziale omówione zostaną poszczególne eksperymenty jakie wykonano z użyciem naszego programu. \newline
+
+Klasyfikacje artykułów przeprowadzano ze względu na dwa różne rodzaje etykiet. Pierwszym z nich była lokalizacja (place). Kategorie (etykiety) jakie wyróżniliśmy były następujące: west-germany, usa, france, uk, canada, japan. Klasyfikacja przeprowadzana była jedynie z wykorzystaniem artykułów, których pole "places" przyjmowało jedną z powyższych wartości. \newline
+
+Drugim rodzajem etykiet był temat (topic). Kategorie (etykiety) jakie wyróżniliśmy były następujące: earn, trade, money-supply, acq. Podobnie jak w pierwszym przypadku, klasyfikacja przeprowadzana była jedynie z wykorzystaniem artykułów, których pole "topics" przyjmowało jedną z powyższych wartości.
+
+\subsection{Wpływ liczby k sąsiadów oraz wyboru metryki na klasyfikację}
+Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) słów kluczowych. Eksperymenty wykonano z użyciem wszystkich pięciu metryk. Dla każdego przypadku testowego dokonano klasyfikacji tekstu dla następujących wartości współczynnika k:
+\begin{equation}
+            k \in \{1, 3, 4, 6, 8, 10, 12, 14, 17, 20\}.
+ \end{equation}
+W każdym przypadku testowym zbiór treningowy stanowił 70\% artykułów, zaś zbiór testowy 30\% artykułów.
+
+\subsection{Wpływ podziału tekstów na zbiory treningowe i testowe na klasyfikację}
+Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) słów kluczowych. Eksperymenty przeprowadzono posługując się metryką Euklidesową. Wartość parametru k była stała i wynosiła $k=6$. Przeprowadzono klasyfikacje dla pięciu różnych podziałów artykułów na zbiory testowe i treningowe: 
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+
+\item Zbiór treningowy: 40\% artykułów, zbiór testowy 60\%,
+\item Zbiór treningowy: 50\% artykułów, zbiór testowy 50\%,
+\item Zbiór treningowy: 60\% artykułów, zbiór testowy 40\%,
+\item Zbiór treningowy: 70\% artykułów, zbiór testowy 60\%,
+\item Zbiór treningowy: 80\% artykułów, zbiór testowy 20\%.
+
+\end{itemize}
 
 \section{Wyniki}
 {\color{blue}
@@ -245,11 +274,7 @@ się do przyjętych wcześniej oznaczeń. Nie należy tu komentować i interpret
 wyników, gdyż miejsce na to jest w kolejnej sekcji. Tu również dobrze jest
 wprowadzić oznaczenia (tabel, wykresów) aby móc się do nich odwoływać
 poniżej.}
-\begin{figure}
-	\centering
-	\includegraphics[width=1\textwidth]{{Wykresy/TF_10k.png}}
-	\caption{}
-\end{figure}
+
 
 \section{Dyskusja}
 {\color{blue}
@@ -267,11 +292,17 @@ najważniejszych wniosków z sekcji poprzedniej. Najlepiej jest je po prostu
 wypunktować. Znów, tak jak poprzednio, najistotniejsze są wnioski o
 charakterze uniwersalnym.}
 
+\begin{figure}
+	\centering
+	\includegraphics[width=1\textwidth]{{Wykresy/TF_10k.png}}
+	\caption{}
+\end{figure}
 
-\begin{thebibliography}{0}
+\begin{thebibliography}{1}
+\bibitem{wyklad} 
+A. Niewiadomski
+\textit{Materiały, przykłady i ćwiczenia do przedmiotu Komputerowe Systemy Rozpoznawania}. 
+19 czerwca 2012.
 \end{thebibliography}
-{\color{blue} 
-Na końcu należy obowiązkowo podać cytowaną w sprawozdaniu
-literaturę, z której grupa korzystała w trakcie prac nad zadaniem (przykład na
-końcu szablonu)}
+
 \end{document}
