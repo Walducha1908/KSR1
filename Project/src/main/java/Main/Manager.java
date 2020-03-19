@@ -18,17 +18,15 @@ import java.util.Set;
 public class Manager {
 
     public static void start() {
-        for (int i = 0; i < 5; i++) {
-            if (i == 1) {
-                Settings.percentOfTraining = 0.5;
-            } else if (i == 2) {
-                Settings.percentOfTraining = 0.6;
-            } else if (i == 3) {
-                Settings.percentOfTraining = 0.7;
-            } else if (i == 4) {
-                Settings.percentOfTraining = 0.8;
+        readAndPrepareData();
+
+
+        for (int i = 0; i < 2; i++) {
+            if (i == 0) {
+                Settings.metrics = "Hamming";
+            } else if (i == 1) {
+                Settings.metrics = "Canberra";
             }
-            readAndPrepareData();
             countKeyWords();
             extractFeatures();
             normaliseFeatures();
