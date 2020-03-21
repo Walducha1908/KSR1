@@ -20,11 +20,12 @@ public class Manager {
     public static void start() {
         readAndPrepareData();
 
-
-        for (int i = 0; i < 2; i++) {
-            if (i == 0) {
+        for (int j = 0; j < 3; j++) {
+            if (j == 0) {
+                Settings.metrics = "Chebyshev";
+            } else if (j == 1) {
                 Settings.metrics = "Hamming";
-            } else if (i == 1) {
+            } else if (j == 2) {
                 Settings.metrics = "Canberra";
             }
             countKeyWords();

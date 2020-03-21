@@ -3,6 +3,9 @@
 \usepackage{color}
 \usepackage{enumitem}
 \usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{float}
+
 
 \studycycle{Informatyka, studia dzienne, I st.}
 \coursesemester{VI}
@@ -11,7 +14,7 @@
 \courseyear{2019/2020}
 
 \courseteacher{dr hab. inż. Adam Niewiadomski prof. uczelni}
-\coursegroup{poniedziałek, 12:15}
+\coursegroup{pon., 12:15}
 
 \author{
 \studentinfo{Mateusz Walczak}{216911} \and
@@ -136,7 +139,9 @@ Z powyższych rozważań bardzo jasno wynika, że wagi słów kluczowych mogą o
 
 \subsection{Cechy poddawane ekstrakcji}
 
- Ekstrakcja cech charakterystycznych tekstu - w tym celu tworzymy wektor cech, który opisuje tekst (w naszym przypadku artykuł) na podstawie konkretnych, zdefiniowanych cech. Poniżej znajduje się opis wszystkich cech użytych w doświadczeniu. \newline
+Ekstrakcja cech charakterystycznych tekstu - w tym celu tworzymy wektor cech, który opisuje tekst (w naszym przypadku artykuł) na podstawie konkretnych, zdefiniowanych cech. Poniżej znajduje się opis wszystkich cech użytych w doświadczeniu. \newline
+
+Przed ekstrakcją cech, tekst został odpowiednio przygotowany. Z artykułów usunięte zostały nic nie wnoszące słowa (z tzw. "stop" listy), tekst został poddany stemizacji oraz pozbawiony znaków interpunkcyjnych. \newline
 
 Przyjęto następujące oznaczenia:\\
     \quad $T_{i}$ - zbiór słów do badania,\\
@@ -150,7 +155,42 @@ Cecha opisująca liczbę słów kluczowych, które występują w całej sekcji g
 \begin{equation}
             C_{1}(T_{1},K) = N_{K \in T_{1}},
  \end{equation}	
- gdzie $T_{1}$ - zbiór słów sekcji głównej artykułu.
+ gdzie $T_{1}$ - zbiór słów sekcji głównej artykułu. \newline
+
+Przeanalizujmy przykład obliczania wartości cechy $C_{1}$. Niech zbiór słów kluczowych $K$ ma postać:
+\begin{equation}
+K = \{{"wirus", "choroba", "zaraz", "anihilacja"}\},
+ \end{equation}	
+zaś zbiór słów do badania (zbiór słów sekcji głównej badanego artykułu testowego) $T_{1}$ prezentuje się następująco:
+\begin{equation}
+\begin{split}
+T_{1} = \{{"wirus", "niszczy", "wszystko", "droga",}\\ 
+{"zaraz", "wirus", "powodowac", "choroba"}\},
+\end{split}
+\end{equation}	
+
+Najpierw w wariancie pierwszej metody ekstrakcji - wykorzystując metodę TF i zwykłe słowa kluczowe. Przeanalizujmy występowanie elementów zbioru $K$  w zbiorze $T_{1}$:
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+\item "wirus" - występuje 2 razy,
+\item "choroba" - występuje 1 raz,
+\item "zaraz" - występuje 1 raz,
+\item "anihilacja" - nie występuje ani razu.
+\end{itemize}
+
+Po dodaniu wszystkich wystąpień otrzymujemy:
+\begin{equation}
+ C_{1}(T_{1},K) =  N_{K \in T_{1}} = 2+1+1+0= 4.
+ \end{equation}	
+
+Teraz zajmijmy się drugą metodą ekstrakcji - wykorzystując ważone słowa kluczowe. Załóżmy, że pary słów kluczowych wraz z obliczonymi wagami dla słów kluczowych zbioru $K$ prezentują się następująco:
+\begin{equation}
+K_{w} = \{{("wirus", 0.25), ("choroba", 1), ("zaraz", 0), ("anihilacja", 1)}\},
+ \end{equation}	
+
+W tym przypadku zgodnie z wcześniej zaprezentowanym opisem, musimy obliczyć sumę iloczynów liczby wystąpień poszczególnych elementów zbioru $K$ w zbiorze $T_{1}$ i odpowiadających im wag:
+\begin{equation}
+ C_{1}(T_{1},K_{w}) =  N_{K \in T_{1}} = 2 \cdot 0.25 + 1 \cdot 1 + 1 \cdot 0 + 0 \cdot 1 = 0.5 + 1 + 0 + 0 = 1.5.
+ \end{equation}	
 
 \subsubsection{Liczba wystąpień wszystkich słów kluczowych w tytule artykułu}
 Cecha opisująca liczbę słów kluczowych, które występują w tytule artykułu (title).
@@ -173,6 +213,8 @@ Cecha opisująca stosunek liczby słów kluczowych, które występują w całej 
             C_{4}(T_{4},K) = \frac{N_{K \in T_{4}}} {|T_{4}|},
  \end{equation}	
  gdzie $T_{4}$ - zbiór słów sekcji głównej artykułu, $|T_{4}|$ - liczba elementów (słów) zbioru sekcji głównej artykułu.
+
+W tym miejscu warto wspomnieć, że w przypadku ważonych słów kluczowych wartość $|T_{4}|$ będzię iloczynem liczby elementów zbioru sekcji głównej artykułu i maksymalnej wartości osiągalnej przez wagi. Jednak ponieważ maksymalną możliwą wartością wagi słowa kluczowego jest 1 (zgodnie z rozdziałem 2.3) to w obu przypadkach - zwykłych słów kluczowych jak i ważonych słów kluczowych - będzie to dokładnie ta sama wartość liczbowa.
 
 \subsubsection{Liczba wystąpień wszystkich słów kluczowych w pierwszych 50 słowach artykułu}
 Cecha opisująca liczbę słów kluczowych, które występują w pierwszych 50 słowach sekcji głównej artykułu. Jeśli artykuł jest krótszy niż 50 słów to bierzemy pod uwagę wszystkie występujące w nim słowa.
@@ -230,7 +272,6 @@ Cecha opisująca liczbę słów kluczowych, które występują w ostatnim paragr
  \end{equation}	
  gdzie $T_{12}$ - ostatni paragraf sekcji głównej artykułu.
 
-
 \section{Opis implementacji}
 {\color{blue}
 Należy tu zamieścić krótki i zwięzły opis zaprojektowanych klas oraz powiązań
@@ -264,18 +305,255 @@ Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) sł�
 
 \end{itemize}
 
+\subsection{Wpływ konkretnych cech na klasyfikację}
+Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) słów kluczowych. Eksperymenty przeprowadzono posługując się metryką Euklidesową. Wartość parametru k była stała i wynosiła $k=6$. W każdej iteracji programu zbiór treningowy stanowił 70\% artykułów, zaś zbiór testowy 30\% artykułów. Przeprowadzono klasyfikacje dla czterech różnych zestawów cech, wybranych spośród wszystkich cech omówionych w rozdziale 2.4. Wybrane zestawy cech były następujące (aby nie duplikować treści, w tym miejscu posługuję się indeksami funkcji cech z rodziału 2.4):
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+
+\item Zestaw 1: $C_{1}$,  $C_{2}$,  $C_{3}$,  $C_{4}$,  $C_{10}$,  $C_{11}$,  $C_{12}$,
+\item Zestaw 2: $C_{1}$,  $C_{2}$,  $C_{3}$,  $C_{4}$,
+\item Zestaw 2: $C_{5}$,  $C_{6}$,  $C_{7}$,  $C_{8}$,  $C_{9}$,
+\item Zestaw 2: $C_{2}$,  $C_{3}$,  $C_{6}$,  $C_{11}$.
+\end{itemize}
+
+\subsection{Wpływ użycia ważonych słów kluczowych na klasyfikację}
+Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru zwykłych oraz z użyciem ważonych słów kluczowych. Eksperymenty wykonano z użyciem wszystkich pięciu metryk. Wartość parametru k była stała i wynosiła $k=6$. W każdym przypadku testowym zbiór treningowy stanowił 70\% artykułów, zaś zbiór testowy 30\% artykułów.
+
 \section{Wyniki}
-{\color{blue}
-W tej sekcji należy zaprezentować, dla każdego przeprowadzonego eksperymentu,
-kompletny zestaw wyników w postaci tabel, wykresów itp. Powinny być one tak
-ponazywane, aby było wiadomo, do czego się odnoszą. Wszystkie tabele i wykresy
-należy oczywiście opisać (opisać co jest na osiach, w kolumnach itd.) stosując
-się do przyjętych wcześniej oznaczeń. Nie należy tu komentować i interpretować
-wyników, gdyż miejsce na to jest w kolejnej sekcji. Tu również dobrze jest
-wprowadzić oznaczenia (tabel, wykresów) aby móc się do nich odwoływać
-poniżej.}
+W tym rozdziale zamieszczono tabele oraz wykresy prezentujące wyniki przeprowadzanych przez nas eksperymentów.
 
+\subsection{Wpływ liczby k sąsiadów oraz wyboru metryki na klasyfikację}
 
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c c} 
+		\hline
+		\textbf{k} & \textbf{places [\%]} & \textbf{topics [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+1	& 81,99 &	91,35 \\
+3	& 84,99 &	95,06 \\
+4	& 85,41 & 94,69 \\
+6	& 85,79 &	96,23 \\
+8	&85,14 &	95,97 \\
+10	&85,07&	94,90 \\
+12	&85,34&	95,49 \\
+14	&85,19&	95,38 \\
+17	&85,07&	95,49 \\
+20	&85,04&	95,70 \\
+		\hline
+	\end{tabular}
+	\caption{Skuteczność klasyfikacji dla metryki Euklidesowej}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c c} 
+		\hline
+		\textbf{k} & \textbf{places [\%]} & \textbf{topics [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+1	&	81,64	&	86,25	\\
+3	&	84,92	&	88,06	\\
+4	&	85,36	&	87,74	\\
+6	&	85,86	&	88,91	\\
+8	&	84,35	&	88,75	\\
+10	&	84,27	&	88,96	\\
+12	&	84,35	&	89,28	\\
+14	&	84,35	&	87,58	\\
+17	&	84,20	&	87,53	\\
+20	&	84,12	&	87,05	\\
+		\hline
+	\end{tabular}
+	\caption{Skuteczność klasyfikacji dla metryki Chebysheva}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c c} 
+		\hline
+		\textbf{k} & \textbf{places [\%]} & \textbf{topics [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+1	&	82,15	&	94,64	\\
+3	&	86,26	&	96,66	\\
+4	&	86,26	&	96,76	\\
+6	&	87,00	&	97,03	\\
+8	&	87,10	&	96,97	\\
+10	&	86,93	&	96,92	\\
+12	&	86,78	&	97,03	\\
+14	&	86,75	&	96,82	\\
+17	&	86,28	&	96,82	\\
+20	&	86,08	&	96,60	\\
+		\hline
+	\end{tabular}
+	\caption{Skuteczność klasyfikacji dla metryki ulicznej}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c c} 
+		\hline
+		\textbf{k} & \textbf{places [\%]} & \textbf{topics [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+1	&	79,46	&	92,20	\\
+3	&	82,09	&	94,11	\\
+4	&	82,63	&	93,79	\\
+6	&	82,96	&	93,90	\\
+8	&	82,91	&	94,32	\\
+10	&	83,03	&	94,11	\\
+12	&	82,96	&	94,00	\\
+14	&	82,86	&	94,00	\\
+17	&	82,71	&	94,00	\\
+20	&	82,66	&	94,16	\\
+		\hline
+	\end{tabular}
+	\caption{Skuteczność klasyfikacji dla metryki Hamminga}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c c} 
+		\hline
+		\textbf{k} & \textbf{places [\%]} & \textbf{topics [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+1	&	81,10	&	95,01	\\
+3	&	84,12	&	96,28	\\
+4	&	84,25	&	96,02	\\
+6	&	84,74	&	96,39	\\
+8	&	84,79	&	96,71	\\
+10	&	84,62	&	96,71	\\
+12	&	84,59	&	96,71	\\
+14	&	84,64	&	96,76	\\
+17	&	84,30	&	96,60	\\
+20	&	84,25	&	96,76	\\
+		\hline
+	\end{tabular}
+	\caption{Skuteczność klasyfikacji dla metryki Canberra}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Wykresy/places10k.png}}
+	\caption{Wizualizacja danych z Tabel 1-5 dla kategorii "places"}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Wykresy/topics10k.png}}
+	\caption{Wizualizacja danych z Tabel 1-5 dla kategorii "topics"}
+\end{figure}
+
+\subsection{Wpływ podziału tekstów na zbiory treningowe i testowe na klasyfikację}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c c} 
+		\hline
+		\textbf{Podział} & \textbf{places [\%]} & \textbf{topics [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+40:60	&	87,04	&	93,89	\\
+50:50	&	86,09	&	94,52	\\
+60:40	&	85,69	&	94,71	\\
+70:30	&	85,79	&	96,23	\\
+80:20	&	84,78	&	96,74	\\
+
+		\hline
+	\end{tabular}
+	\caption{Skuteczność klasyfikacji dla różnych podziałów artykułów (podano w kolejności treningowe:testowe)}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{{Wykresy/podzial_places.png}}
+	\caption{Wziualizacja danych z Tabeli 6 dla kategorii "places"}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{{Wykresy/podzial_topics.png}}
+	\caption{Wizualizacja danych z Tabeli 6 dla kategorii "topics"}
+\end{figure}
+
+\subsection{Wpływ konkretnych cech na klasyfikację}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c c} 
+		\hline
+		\textbf{Zestaw} & \textbf{places [\%]} & \textbf{topics [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+1	&	85,19	&	95,91 \\
+2	&	84,32	&	95,38 \\
+3	&	85,14	&	96,18 \\
+4	&	79,61	&	79,41 \\
+
+		\hline
+	\end{tabular}
+	\caption{Skuteczność klasyfikacji dla różnych zestawów cech}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{{Wykresy/cechy_places.png}}
+	\caption{Wizualizacja danych z Tabeli 7 dla kategorii "places"}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{{Wykresy/cechy_topics.png}}
+	\caption{Wizualizacja danych z Tabeli 7 dla kategorii "topics"}
+\end{figure}
+
+\subsection{Wpływ użycia ważonych słów kluczowych na klasyfikację}
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c c} 
+		\hline
+		\textbf{Metryka} & \textbf{zwykłe słowa kluczowe [\%]} & \textbf{ważone słowa klczuowe [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+Euclidean	&	85,79	&	88,54	\\
+Chebyshev	&	85,86	&	88,17	\\
+Manhattan	&	87,00	&	88,32	\\
+Hamming	&	82,96	&	83,03	\\
+Canberra	&	84,74	&	86,68	\\
+		\hline
+	\end{tabular}
+	\caption{Skuteczność klasyfikacji dla różnych metod ekstrakcji - zywkłe i ważone słowa kluczowe - kategoria "places"}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c} 
+		\hline
+		\textbf{Metryka} & \textbf{zwykłe słowa kluczowe [\%]} & \textbf{ważone słowa klczuowe [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+Euclidean	&	96,23	&	96,50	\\
+Chebyshev	&	88,91	&	93,68	\\
+Manhattan	&	97,03	&	96,92	\\
+Hamming	&	93,90	&	94,37	\\
+Canberra	&	96,39	&	96,60	\\
+		\hline
+	\end{tabular}
+	\caption{Skuteczność klasyfikacji dla różnych metod ekstrakcji - zywkłe i ważone słowa kluczowe - kategoria "topics"}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Wykresy/wazone_places.png}}
+	\caption{Wizualizacja danych z Tabeli 8}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Wykresy/wazone_topics.png}}
+	\caption{Wizualizacja danych z Tabeli 9}
+\end{figure}
 \section{Dyskusja}
 {\color{blue}
 Sekcja ta powinna zawierać dokładną interpretację uzyskanych wyników
@@ -291,12 +569,6 @@ prezentuje poziom zrozumienia badanego problemu.}
 najważniejszych wniosków z sekcji poprzedniej. Najlepiej jest je po prostu
 wypunktować. Znów, tak jak poprzednio, najistotniejsze są wnioski o
 charakterze uniwersalnym.}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=1\textwidth]{{Wykresy/TF_10k.png}}
-	\caption{}
-\end{figure}
 
 \begin{thebibliography}{1}
 \bibitem{wyklad} 

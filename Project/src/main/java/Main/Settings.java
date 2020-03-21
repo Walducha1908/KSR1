@@ -12,9 +12,9 @@ public class Settings {
     public static double percentOfTraining = 0.7;
     public static int numberOfKeyWordPerCategory = 23;
     public static String measure = "TF";
-    public static String metrics = "Canberra";
-    public static int k = 20;
-    public static boolean wages = false;
+    public static String metrics = "Euclidean";
+    public static int k = 6;
+    public static boolean wages = true;
     public static double minWage = 0;
     public static double maxWage = 1;
     public static LinkedList<String> categoryItemsList =
