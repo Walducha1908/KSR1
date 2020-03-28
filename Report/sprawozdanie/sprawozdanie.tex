@@ -304,8 +304,162 @@ Klasy omawianego pakietu mają następujące zadania:
 \end{itemize}
 
 \subsection{Pakiet Model}
+Pakiet $Model$ zawiera strukturę klas modelowych i kontenerowych, opisuje klasy artykułów, słów kluczowych oraz zestawu rezultatów wykonanych badań. Wykonuje również niektóre proste operacje logiczne takie jak dzielenie artykułów na zbiory testowy i treningowy czy obliczanie parametrów określających jakość klasyfikacji. Zawiera dwa podpakiety - $Testing$ oraz $Training$, które opisują strukturę klas artykułów odpowiednio testowych i treningowych.
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Diagramy/PackageModel.png}}
+	\caption{Diagram UML dla pakietu $Model$}
+\end{figure}
 
+Klasy pakietu $Model$ są następujące:\newline
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+\item $Article$ - klasa modelowa artykułu, przetrzymuje wszystkie listy słów poszczególnych sekcji artykułu,
+\item $ArticleContainer$ - klasa kontenerowa przechowująca wszystkie artykuły, dodatkową funkcjonalnością tej klasy jest dzielenie artykułów na testowe i treningowe (w stosunku określonym w klasie $Settings$ w pakiecie $Main$),
+\item $ArticleDistance$ - klasa służąca do porównywania odległości pomiędzy artykułami, implmentuje interfejs Comparable,
+\item $KeyWordsContainer$ - klasa kontenerowa przechowująca wszystkie słowa kluczowe, w zależności od danej iteracji programu mogą to być zwykłe lub ważone słowa kluczowe,
+\item $ResultSet$ - klasa przetrzymująca wyniki przeprowadzonych badań.
+\end{itemize}
+
+\subsubsection{Podpakiet Training}
+Podpakiet $Training$ zawiera klasy opisujące artykuły treningowe. Obiekt klasy $TrainingArticle$ zostaje utworzony po tym, jak przeprowadzona zostanie pełna ekstrakcja cech dla odpowiadającego mu obiektu klasy $Article$. \newline
+
+Podpakiet $Training$ składa się z dwóch klas:
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+\item $TrainingArticle$ - klasa artykułu treningowego zawierająca obiekt klasy $Article$ wraz z wektorem wyekstrahowanych cech,
+\item $TrainingArticleContainer$ - klasa kontenerowa przechowująca wszystkie artykuły treningowe (obiekty klasy $TrainingArticle$).
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Diagramy/PackageTraining.png}}
+	\caption{Diagram UML dla podpakietu $Training$ pakietu $Model$}
+\end{figure}
+
+\subsubsection{Podpakiet Testing}
+Podpakiet $Testing$ zawiera klasy opisujące artykuły testowe. Podobnie jak w przypadku klasy $TrainingArticle$, obiekt klasy $TestingArticle$ zostaje utworzony po tym, jak przeprowadzona zostanie pełna ekstrakcja cech dla odpowiadającego mu obiektu klasy $Article$. \newline
+
+Podpakiet $Testing$ składa się z dwóch klas:
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+\item $TestingArticle$ - klasa artykułu testowego zawierająca obiekt klasy $Article$ wraz z wektorem wyekstrahowanych cech, różni się od klasy $trainingArticle$ tym, że oprócz prawdziwej wartości kategorii (tej odczytanej z pliku) posiada rownież wartość obliczoną przez algorytm KNN. Klasa $TestingArticle$ implementuje metodę $compareCategoryValues()$, która zwraca $true$ w przypadku gdy obliczona przez algorytm KNN wartość kategorii jest identyczna jak wartość prawdziwa, lub $false$ w przeciwnym przypadku, \newline
+\item $TestingArticleContainer$ - klasa kontenerowa przechowująca wszystkie artykuły testowe (obiekty klasy $TestingArticle$). \newline \newline \newline
+\end{itemize}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Diagramy/PackageTesting.png}}
+	\caption{Diagram UML dla podpakietu $Testing$ pakietu $Model$}
+\end{figure}
+
+\subsection{Pakiet Features}
+Pakiet $Features$ zawiera klasy służące do ekstrahowania cech. Wszystkie klasy pakietu $Features$ implementują interfejs $Feature$. \newline
+
+Klasy pakietu $Features$ są następujące:
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+\item $Feature$ - interfejs implementowany przez wszystkie cechy,
+\item $KeyWordsInBodyFeature$ - klasa ekstrahująca cechę $C_{1}$.
+\item $KeyWordsInTitleFeature$ - klasa ekstrahująca cechę $C_{2}$.
+\item $KeyWordsInDatelineFeature$ - klasa ekstrahująca cechę $C_{3}$.
+\item $KeyWordsToAllWordsRatioFeature$ - klasa ekstrahująca cechę $C_{4}$.
+\item $KeyWordsInFirst50WordsFeature$ - klasa ekstrahująca cechę $C_{5}$.
+\item $KeyWordsInFirst10PerCentWordsFeature$ - klasa ekstrahująca cechę $C_{6}$.
+\item $KeyWordsInFirst20PerCentWordsFeature$ - klasa ekstrahująca cechę $C_{7}$.
+\item $KeyWordsInFirst50PerCentWordsFeature$ - klasa ekstrahująca cechę $C_{8}$.
+\item $KeyWordsInFirstParagraphFeature$ - klasa ekstrahująca cechę $C_{9}$.
+\item $KeyWordsInLast50WordsFeature$ - klasa ekstrahująca cechę $C_{10}$.
+\item $KeyWordsInLast10PerCentWordsFeature$ - klasa ekstrahująca cechę $C_{11}$.
+\item $KeyWordsInLastParagraphFeature$ - klasa ekstrahująca cechę $C_{12}$.\newline
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Diagramy/PackageFeatures.png}}
+	\caption{Diagram UML dla pakietu $Features$}
+\end{figure}
+
+\subsection{Pakiet Calculations}
+Pakiet $Calculations$ jest odpowiedzialny za wszelkiego rodzaju obliczenia. Zawiera on cztery podpakiety - $KeyWords$, $Features$, $KNN$ oraz $Metrics$.\newline
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{{Diagramy/PackageCalculations.png}}
+	\caption{Diagram podpakietów pakietu $Calculations$}
+\end{figure}
+
+\subsubsection{Podpakiet KeyWords}
+Podpakiet $KeyWords$ odpowiada za wyznaczenie słów kluczowych. Klasy omawianego podpakietu implementują algorytm wyznaczania zwykłych jak i ważonych słów kluczowych, który został opisany we wcześniejszych rozdziałach.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{{Diagramy/PackageCalculationsKeyWords.png}}
+	\caption{Diagram UML dla podpakietu $KeyWords$ pakietu $Calculations$}
+\end{figure}
+
+Podpakiet $KeyWords$ zawiera dwie klasy:
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+\item $KeyWordsCounter$ - klasa implementująca algorytm wyznaczania słów kluczowych,
+\item $KeyWordsWagesCounter$ - klasa służąca do obliczania wag słów kluczowych.\newline
+\end{itemize}
+
+\subsubsection{Podpakiet Features}
+Podpakiet $Features$ pakietu $Calculations$ ma dwa główne zadania - przeprowadzenie ekstrakcji cech dla wszystkich artykułów, a następnie normalizację otrzymanych wektorów cech.\newline
+
+Podpakiet $Features$ składa się z dwóch klas:
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+\item $FeaturesExtractor$ - klasa odpowiedzialna za przeprowadzenie procesu ekstrakcji cech kolejno dla wszystkich wczytanych artykułów,
+\item $FeaturesNormaliser$ - klasa służąca do normalizacji otrzymanych wektorów cech.\newline
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{{Diagramy/PackageCalculationsFeatures.png}}
+	\caption{Diagram UML dla podpakietu $Features$ pakietu $Calculations$}
+\end{figure}
+
+\subsubsection{Podpakiet KNN}
+Podpakiet $KNN$ implementuje omówiony we wprowadzeniu algorytm k najbliższych sąsiadów. Najlepsza kategoria wyznaczana jest dla wszystkich artykułów testowych.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Diagramy/PackageCalculationsKNN.png}}
+	\caption{Diagram UML dla podpakietu $KNN$ pakietu $Calculations$}
+\end{figure}
+
+Podpakiet $KNN$ składa się z jednej klasy - $MainAlgorithm$, odpowiedzialnej za przeprowadzenie klasyfikacji dla wszystkich artykułów testowych.\newline
+
+\subsubsection{Podpakiet Metrics}
+Podpakiet $Metrics$ zawiera implementacje wszystkich metryk omówionych we wprowadzeniu. Każda z pięciu metryk implementuje interfejs $Metrics$.\newline
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Diagramy/PackageCalculationsMetrics.png}}
+	\caption{Diagram UML dla podpakietu $Metrics$ pakietu $Calculations$}
+\end{figure}
+
+Podpakiet $Metrics$ zawiera następujące klasy:
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+\item $Metrics$ - interfejs implementowany przez wszystkie metryki,
+\item $EuclideanMetrics$ - klasa implementująca metrykę Euklidesową,
+\item $ManhattanMetrics$ - klasa implementująca metrykę uliczną,
+\item $ChebyshevMetrics$ - klasa implementująca metrykę Czebyszewa,
+\item $HammingMetrics$ - klasa implementująca metrykę Hamminga,
+\item $CanberraMetrics$ - klasa implementująca metrykę Canberra.
+\end{itemize}
+
+\subsection{Pakiet Main}
+Pakiet $Main$ jest pakietem głównym, odpowiedzialnym za uruchomienie aplikacji, koordynowanie jej działania oraz określenie konfiguracji w jakiej aplikacja ma działać.\newline
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Diagramy/PackageMain.png}}
+	\caption{Diagram UML dla pakietu $Main$}
+\end{figure}
+
+Pakiet $Main$ zawiera trzy klasy:
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+\item $App$ - klasa uruchamiająca program, wywołuje metodę $start()$ w klasie $Manager$,
+\item $Manager$ - klasa sterująca kolejnością wywołania kolejnych modułów aplikacji,
+\item $Settings$ - klasa ustawień, pozwalająca na ustawienie takich parametrów konfiguracyjnych jak metryka, wartość $k$ czy podział artykułów na treningowe i testowe.
+\end{itemize}
 
 \section{Materiały i metody}
 W tym rozdziale omówione zostaną poszczególne eksperymenty jakie wykonano z użyciem naszego programu. \newline
