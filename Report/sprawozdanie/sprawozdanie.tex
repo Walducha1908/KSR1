@@ -32,7 +32,7 @@
 wyboru słów kluczowych i ekstrakcji wektorów cech oraz istniejących miar podobieństwa, należało porównać przypisane przez naszą aplikacje kategorie artykułów do tych faktycznych. Należało również podjąć próbę opracowania własnej miary podobieństwa i/lub metryki.}
 
 \section{Wprowadzenie}
-Algorytm k najbliższych sąsiadów jest bardzo prostym klasyfikatorem probabilistycznym. Niekiedy mówi się, że algorytm k-NN jest leniwy. Wynika to z faktu, że nie tworzy on wewnętrznej reprezentacji danych treningowych (uczących), ale ropoczyna poszukiwanie rozwiązania dopiero podczas analizy konkretnego wzorca ze zbioru testowego. \newline
+ Algorytm k najbliższych sąsiadów jest bardzo prostym klasyfikatorem probabilistycznym. Niekiedy mówi się, że algorytm k-NN jest leniwy. Wynika to z faktu, że nie tworzy on wewnętrznej reprezentacji danych treningowych (uczących), ale ropoczyna poszukiwanie rozwiązania dopiero podczas analizy konkretnego wzorca ze zbioru testowego. \newline
 
 Algorytm przechowuje zbiór wszystkich wzorców uczących, względem których obliczana jest odległość wzorca testowego, zdefiniowana poprzez odpowiednią metrykę. Następnie algorytm wybiera k wzorców treningowych, nazywanych sąsiadami, do których aktualnie badany wzorzec testowy ma najmniejszą odległość. Ostateczny rezultat - kategoria, do której zostanie przypisany analizowany wzorzec - stanowi najczęściej występująca kategoria wśród k najbliższych sąsiadów.
 
@@ -273,7 +273,39 @@ Cecha opisująca liczbę słów kluczowych, które występują w ostatnim paragr
  gdzie $T_{12}$ - ostatni paragraf sekcji głównej artykułu.
 
 \section{Opis implementacji}
-$ Praca\ w\ toku $
+Program został napisany w języku Java z wykorzystaniem narzędzia Maven \cite{Maven}, służącego do automatyzacji budowy oprogramowania. \newline
+
+Aplikacja została podzielona na następujące pakiety:
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+\item $Data$,
+\item $Model$ zawierający podpakiety $Testing$ i $Training$,
+\item $Features$,
+\item $Calculations$ zawierający podpakiety $KeyWords$, $Features$, $KNN$ i $Metrics$,
+\item $Main$.
+\end{itemize}
+
+W tym rozdziale omówione zostaną wszystkie wyżej wymienione pakiety. Przedstawimy diagramy UML każdego z pakietów a także omówimy zastosowanie poszczególnych klas.
+
+\subsection{Pakiet Data}
+Pakiet $Data$ jest odpowiedzialny za wczytywanie danych oraz za przygotowanie struktury obiektów artykułów. Zajmuje się on także eksportowaniem raportu z wyników badań w formacie $xlsx$.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Diagramy/PackageData.png}}
+	\caption{Diagram UML dla pakietu $Data$}
+\end{figure}
+
+Klasy omawianego pakietu mają następujące zadania:
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+\item $DataReader$ - wczytanie danych z plików i zbudowanie struktury obiektów artykułów,
+\item $DataPaths$ - wygenerowanie ścieżek do plików, z których dane będą wczytywane przez obiekt klasy $DataReader$,
+\item $DataCleaner$ - usuwanie słów z artykułów należących do tzw. "Stop" listy, usuwanie znaków interpunkcyjnych, pustych słów, artykułów nienależącyh do aktualnego zbioru badawczego, a także przeprowadzanie stemizacji tekstu z użyciem biblioteki $snowball-stemmer$ \cite{Stem}.
+\item $DataWriter$ - eksportowanie wyników działania programu do raportu w formacie $xslx$ z wykorzystaniem biblioteki $poi-ooxml$ \cite{Excel}.
+\end{itemize}
+
+\subsection{Pakiet Model}
+
+
 
 \section{Materiały i metody}
 W tym rozdziale omówione zostaną poszczególne eksperymenty jakie wykonano z użyciem naszego programu. \newline
@@ -556,11 +588,20 @@ $ Praca\ w\ toku $
 \section{Wnioski}
 $ Praca\ w\ toku $
 
-\begin{thebibliography}{1}
+\begin{thebibliography}{4}
 \bibitem{wyklad} 
 A. Niewiadomski
 \textit{Materiały, przykłady i ćwiczenia do przedmiotu Komputerowe Systemy Rozpoznawania}. 
 19 czerwca 2012.
+\bibitem{Maven} 
+Narzędzie Maven
+\textit{https://maven.apache.org/}. 
+\bibitem{Stem} 
+Bibliotek snowball-stemmer
+\textit{https://mvnrepository.com/artifact/com.github.rholder/snowball-stemmer}. 
+\bibitem{Excel} 
+Biblioteka poi-ooxml
+\textit{https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml}. 
 \end{thebibliography}
 
 \end{document}
