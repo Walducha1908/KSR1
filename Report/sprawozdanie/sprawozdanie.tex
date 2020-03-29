@@ -493,8 +493,8 @@ Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) sł�
 
 \item Zestaw 1: $C_{1}$,  $C_{2}$,  $C_{3}$,  $C_{4}$,  $C_{10}$,  $C_{11}$,  $C_{12}$,
 \item Zestaw 2: $C_{1}$,  $C_{2}$,  $C_{3}$,  $C_{4}$,
-\item Zestaw 2: $C_{5}$,  $C_{6}$,  $C_{7}$,  $C_{8}$,  $C_{9}$,
-\item Zestaw 2: $C_{2}$,  $C_{3}$,  $C_{6}$,  $C_{11}$.
+\item Zestaw 3: $C_{5}$,  $C_{6}$,  $C_{7}$,  $C_{8}$,  $C_{9}$,
+\item Zestaw 4: $C_{2}$,  $C_{3}$,  $C_{6}$,  $C_{11}$.
 \end{itemize}
 
 \subsection{Wpływ użycia ważonych słów kluczowych na klasyfikację}
@@ -650,7 +650,7 @@ W tym rozdziale zamieszczono tabele oraz wykresy prezentujące wyniki przeprowad
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{{Wykresy/podzial_places.png}}
-	\caption{Wziualizacja danych z Tabeli 6 dla kategorii "places"}
+	\caption{Wizualizacja danych z Tabeli 6 dla kategorii "places"}
 \end{figure}
 
 \begin{figure}[H]
@@ -712,7 +712,7 @@ Canberra	&	84,74	&	86,68	\\
 	\centering
 	\begin{tabular}{c c c} 
 		\hline
-		\textbf{Metryka} & \textbf{zwykłe słowa kluczowe [\%]} & \textbf{ważone słowa klczuowe [\%]} \\ [0.5ex] 
+		\textbf{Metryka} & \textbf{zwykłe słowa kluczowe [\%]} & \textbf{ważone słowa kluczowe [\%]} \\ [0.5ex] 
 		\hline
 		\hline 
 Euclidean	&	96,23	&	96,50	\\
@@ -736,11 +736,82 @@ Canberra	&	96,39	&	96,60	\\
 	\includegraphics[width=1\textwidth]{{Wykresy/wazone_topics.png}}
 	\caption{Wizualizacja danych z Tabeli 9}
 \end{figure}
+
+\subsection{Najlepsze wyniki}
+W tabeli poniżej prezentujemy najlepsze wyniki klasyfikacji osiągnięte dla obu rodzajów kategorii.
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c c c} 
+		\hline
+		\textbf{Kategoria} & \textbf{k} & \textbf{Metryka} & \textbf{Słowa kluczowe} & \textbf{Skuteczność [\%]}\\ [0.5ex] 
+		\hline
+		\hline 
+Places	&	6 	& 	Euklidesa 	& 	Ważone 	& 88,54	\\
+Topics	&	6 	& 	Uliczna 	& 	Zwykłe 	& 97,03	\\
+		\hline
+	\end{tabular}
+	\caption{Najlepsze wyniki klasyfikacji dla kategorii "places" i "topics"}
+\end{table}
+
+
 \section{Dyskusja}
-$ Praca\ w\ toku $
+W tym rozdziale analizie i dyskusji zostaną poddane wszystkie przedstawione w poprzednim rozdziale wyniki.
+
+\subsection{Wpływ liczby k sąsiadów oraz wyboru metryki na klasyfikację}
+Rozważania rozpoczniemy od analizy wyboru metryki na klasyfikację, następnie przejdziemy do dyskusji liczby k sąsiadów.
+
+\subsubsection{Wybór metryki}
+W przypadku kategorii "places" najlepsze wyniki klasyfikacji osiągane są z wykorzystaniem metryki ulicznej. Niewiele gorsze rezultaty otrzymaliśmy wykorzystując metrykę Euklidesa. Na trzecim miejscu plasują się metryki Czebyszewa i Canberra, przy czym ta pierwsza osiąga lepsze wyniki przy mniejszych wartościach k ($k\leq6$), ta druga zaś skuteczniejsza jest przy większych k ($k\geq8$). Zdecydowanie najmniej skuteczną metryką okazała się metryka Hamminga, przy której użyciu skuteczność była mniejsza od konkurencji o 2, a nawet $5\%$. \newline
+
+Eksperymenty przeprowadzone dla kategorii "topics" ponownie pokazały, jak skuteczna jest klasyfikacja z wykorzystaniem metryki ulicznej. Minimalnie gorsze wyniki skuteczności osiągane były z wykorzystaniem metryk Euklidesowej i Canberra, jednak wszystkie trzy wymienione metryki utrzymywały bardzo wysoki poziom klasyfikacji, na poziomie $95\%-97\%$. Słabsze rezultaty o mniej więcej $2\%$ osiągane były z użyciem metryki Hamminga, zaś zdecydowanie najmniej skuteczną metryką w przypadku kategorii "topics" okazała się metryka Czebyszewa - klsyfikacja z jej wykorzystaniem ani razu nie osiągnęła skuteczności na poziomie $90\%$ lub wyższej. \newline
+
+\subsubsection{Wartość liczby k sąsiadów}
+W przypadku kategorii "places" najlepsze wyniki klasyfikacji są osiągane dla $k \in \{6, 8, 10, 12, 14\}$. Nieduży spadek jakości klasyfikacji obserwujemy dla większych oraz mniejszych wartości k ($k\in \{17, 20\} \lor k \in \{3, 4\}$), za to bardzo znaczne obniżenie skuteczności eksperymentu obserwujemy dla $k=1$ - niższa skuteczność w zależności od metryki o 3, do nawet $5\%$. \newline
+
+Dla kategorii "topics" wybór wartości liczby k nie ma tak dużego wpływu jak w przypadku kategorii "places". Bardzo dobre wyniki klasyfikacji osiągane są dla wszystkich wartości k ze zbioru $k \in \{3, 4, 6, 8, 10, 12, 14, 17, 20\}$, róznice pomiędzy wynikami eksperymentu dla poszczególnych wartości k z tego zbioru są marginalne. Jedynie gdy $k=1$ wyniki skuteczności są zdecydowanie gorsze, w zależności od metryki różnią się o $1.5$ do nawet $4\%$. \newline
+
+Zdecydowanie słabsze wyniki klasyfikacji dla wartości $k=1$ w żadnym wypadku nie są zaskakujące. Sytuacja, w której bierzemy pod uwagę tylko jeden artykuł treningowy, który okazał się najbliższym dla badanego elementu testowego, może powodować częste błędy klasyfikacji. Istnieje bowiem duża szansa, że ten jeden odnaleziony przez nas element zbioru treningowego jest mylącym wyjątkiem, którego nie będziemy w stanie skorygować innymi, okolicznymi artykułami treningowymi, ponieważ w omawianym przypadku w ogóle nie bierzemy takowych pod uwagę.
+
+\subsection{Wpływ podziału tekstów na zbiory treningowe i testowe na klasyfikację}
+Dyskusję wpływu podziału artykułów na zbiory treningowe i testowe rozpoczniemy od analizy przypadków dla kategorii "places".  \newline
+
+Klasyfikacja okazała się najbardziej skuteczna dla podziału $40\%:60\%$ (pierwsza wartość stanowi procentowy udział zbioru treningowego w ogólnym zbiorze artykułów, druga zaś udział zbioru testowego). Wyniki gorsze o około $1\%$ osiągnięte zostały dla trzech następnych przedziałów poddanych badaniom - $50\%:50\%$, $60\%:40\%$ oraz $70\%:30\%$. Zdecydowanie najgorszy rezultat osiągnięto dla podziału $80\%:20\%$, gdy skuteczność klasyfikacji wyniosła zaledwie $84.78\%$.\newline
+
+W przeciwieństawie do wyników analizowanych w poprzednim podrozdziale, które o ile okazały się interesujące i pouczające to w żadnym stopniu nie były nieprzywidywalne - wyniki eksperymentów dla różnych stosunków podziału tekstów dla kategorii "places" mogą okazać się niemałym zaskoczeniem. Na "zdrowy rozsądek" wydawać by się mogło, że im bardziej liczny jest zbiór treningowy, tym lepsze powinny być wyniki klasyfikacji. W większości przypadków to prawda, ale w tym omawianym, okazało się że najbardziej reprezentatywnym zbiorem treningowym był ten, składający się z $40\%$ wszystkich artykułów.\newline
+
+Dla kategorii "topics" wyniki przeprowadzonych badań są już dużo bardziej zgodne z intuicją. Najlepsze wyniki osiągnięto dla podziału $80\%:20\%$, najgorsze zaś dla podziału $40\%:60\%$. Rożnica pomiędzy najlepszym a najgorszym wynikiem skuteczności wynosi niecałe $3\%$.
+
+\subsection{Wpływ konkretnych cech na klasyfikację}
+Dyskusję w tym podrozdziale przeprowadzimy zbiorczo, jako ogólny wpływ wyboru konkretnych cech na jakość klasyfikacji, ze względu na fakt, iż w przypadku obu kategorii, zależności pomiędzy wynikami osiągniętymi przy klasyfikacji z wykorzystaniem poszczególnych zestawów cech są bardzo zbliżone.\newline
+
+W przypadku obu kategorii, rezultaty klasyfikacji z wykorzystaniem zestawów pierwszego i trzeciego są niewiele gorsze od klasyfikacji z wykorzystaniem wszystkich dwunastu cech (opisanych we wprowadzeniu). Użycie zestawu drugiego powoduje niewielki spadek skuteczności w stosunku do zestawów pierwszego i trzeciego. Zdecydowanie najgorsze wyniki osiągane są dla zestawu czwartego - dla kategorii "places" gorsze o około 5\% a dla kategorii "topics" nawet o 15\% (!). \newline
+
+Z porównania wyników z wykorzystaniem zestawu pierwszego (cechy $C_{1}$,  $C_{2}$,  $C_{3}$,  $C_{4}$,  $C_{10}$,  $C_{11}$,  $C_{12}$) oraz zestawu drugiego (cechy $C_{1}$,  $C_{2}$,  $C_{3}$,  $C_{4}$) można wywnioskować, że o ile cechy $C_{1}$,  $C_{2}$,  $C_{3}$,  $C_{4}$ wydają się wystarczające, to klasyfikacja z wykorzystaniem dodatkowych trzech cech związanych z zawartością końcowych części artykułu ($C_{10}$,  $C_{11}$,  $C_{12}$) daje lepsze wyniki skuteczności o niecały $1\%$. Cechy $C_{10}$,  $C_{11}$,  $C_{12}$ nie są zatem niezbędne, aczykolwiek wpływają na poprawę jakości klasyfikacji.\newline
+
+Przedyskutujmy fakty dotyczące wyników badań z użyciem zastawów pierwszego (cechy $C_{1}$,  $C_{2}$,  $C_{3}$,  $C_{4}$,  $C_{10}$,  $C_{11}$,  $C_{12}$) i trzeciego (cechy $C_{5}$,  $C_{6}$,  $C_{7}$,  $C_{8}$,  $C_{9}$). Cechy wykorzystane w zestawie trzecim są związane tylko z początkowymi fragmentami artykułu, pomijają zawartość sekcji tytułu i daty, nie angażują w obliczenia również końcowych części tekstu (oczywiście w przypadku krótkich tekstów może się zdarzyć, że analizowana jest zdecydowana większość zawartości artykułu, lub nawet cały artykuł). Skuteczność klasyfikacji dla obu omawianych zestawów jest bardzo zbliżona. Wnioski nasuwają się następujące: po pierwsze, wygląda na to, że cechy $C_{2}$ i $C_{3}$ związane z zawartością sekcji tytułu i daty są zbędne i nie wpływają znacznie na skuteczność eksperymentu. Po drugie, podobnie skuteczne jest analizowanie całości sekcji body (cechy  $C_{1}$, i $C_{4}$) wraz z większym skupieniem się na jego zakończeniu (cechy $C_{10}$,  $C_{11}$,  $C_{12}$) jak wykorzystanie do klasyfikacji pięciu cech z zestawu trzeciego opisujących początkowe fragmenty artykułu. \newline
+
+Ostatnim zestawem, którego jeszcze nie poddaliśmy analizie jest zestaw czwarty (cechy $C_{2}$,  $C_{3}$,  $C_{6}$,  $C_{11}$). Cechy wykorzystane w tym zestawie opisują zwartość sekcji tytułu i daty a także pierwszych i ostatnich 10\% słów artykułu. Wyniki klasyfikacji przeprowadzonej z wykorzystaniem zestawu czwartego są zdecydowanie najgorsze. Potwierdza się postulat wysunięty w poprzednim akapicie, dotyczący zbyteczności cech $C_{2}$ i $C_{3}$. Nowym, przewidywalnym wnioskiem jest fakt, iż poddanie analizie jedynie pierwszych i ostatnich 10\% tekstu jest zdecydowanie niewystarczająca do przeprowadzenia skutecznej klasyfikacji.
+
+\subsection{Wpływ użycia ważonych słów kluczowych na klasyfikację}
+W tym podrozdziale pochylimy się nad sensem wprowadzenia naszych autorskich "ważonych słów kluczowych". Wszystkie analizowane wcześniej eksperymenty zostały przeprowadzone z wykorzystaniem zwykłych słów kluczowych. Wszystkie te eksperymenty zostały powtórzone z wykorzystaniem ważonych słów kluczowych, jednak ze względu na przejrzystość badań, nie zdecydowaliśmy się na umieszczenie wszystkich otrzymanych rezultatów, gdyż wymagałoby to podwojenia liczby tabel i wyników zamieszczonych w rozdziale piątym. Przedstawione dane są zdecydowanie wystarczające do wyciągnięcia odpowiednich wniosków. \newline
+
+Dla obu kategorii skuteczność klasyfikacji z wykorzystaniem ważonych słów kluczowych jest wyższa. Największe różnice zanatowano w przypadku kategorii "places" dla metryki Euklidesa i Czebyszewa (między 2 a $3\%$), a także w przypadku kategorii "topics" również dla metryki Czebyszewa (prawie $5\%$). Znaczną poprawę można zauważyć w przypadku metryk ulicznej i Canberra dla kategorii "places" (między 1 a $2\%$). W pozostałych przypadkach poprawa nie jest aż tak spektakularna, warto jednak zauważyć że jedynym przypadkiem dla którego poprawa nie została zanotowana był eksperyment z wykorzystaniem metryki ulicznej dla kategorii "topics". Mimo wszystko, wynik na poziomie prawie $97\%$ jest więcej niż zadowalający. \newline
+
+Z całą stanowczością należy stwierdzić, że wprowadzenie ważonych słów kluczowych znacznie poprawiło skuteczność klasyfikacji. W przypadku trudnego zadania, jakim jest klasyfikowanie artykułów dla kategorii "places", której zbiór jest skrajnie zdominowany przez elementy z etykietą "USA", udało się osiągnąć skuteczność na poziomie $88.54\%$ co jest wynikiem bardzo dobrym. Dla kategorii "topics" osiągane wyniki są znacznie lepsze, ponieważ oscylują w granicach $96\%$ a dla najlepszych metryk nawet $97\%$.
 
 \section{Wnioski}
-$ Praca\ w\ toku $
+Poniżej zamieszczono najważniejsze wnioski płynące z przeprowadzonych badań.
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+\item Najbardziej skutecznymi metrykami używanymi do klasyfikacji tekstów są metryki uliczna, Euklidesa i Canberra.
+\item Mniej skutecznymi metrykami wykorzystywanymi do klasyfikacji tekstów są metryki Czebyszewa i Hamminga.
+\item Najbardziej optymalnymi wartościami liczby k sąsiadów w algorytmie KNN są wartości k takie, że $k\geq6 \land k\leq14$.
+\item Klasyfikacja algorytmem k najbliższych sąsiadów bardzo traci na skuteczności gdy $k=1$.
+\item Nie ma jednego "złotego", zawsze odpowiedniego podziału zbiorów na treningowy i testowy.
+\item Cechy związane z zawartością sekcji tytułu i daty są zbyteczne i nie wpływają znacząco na poprawę jakości klasyfikacji.
+\item Najważniejszymi cechami są te związane z ogólną liczbą słów kluczowych w tekście, jej stosunkiem do wszystkich słów, a także cechy związane z początkowymi fragmentami tekstu. Mniej ważne (ale nie bezużyteczne) są cechy związane z fragmentami końcowymi.
+\item "Ważone słowa kluczowe" znacząco porawiają jakość klasyfikacji, opracowany przez nas zestaw par, opisany we wprowadzeniu, okazał się być bardzo skutecznym rozwiązaniem.
+\item Dla kategorii, w których zbiór elementów treningowych jest bardziej zróżnicowany i zrównoważony, osiągane są dużo lepsze wyniki klasyfikacji niż w kategoriach, których zbiór tekstów jest zdominowany przez elementy z jedną etykietą.
+\end{itemize}
 
 \begin{thebibliography}{4}
 \bibitem{wyklad} 
