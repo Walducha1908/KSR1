@@ -1,12 +1,12 @@
 package Calculations.KNN;
 
+import Calculations.Measures.TFM;
 import Calculations.Metrics.*;
 import Main.Settings;
 import Model.ArticleDistance;
 import Model.ResultSet;
 import Model.Testing.TestingArticle;
 import Model.Testing.TestingArticleContainer;
-import Model.Training.TrainingArticle;
 import Model.Training.TrainingArticleContainer;
 
 import java.text.DecimalFormat;
@@ -49,21 +49,24 @@ public class MainAlgorithm {
 
         for (int i = 0; i < TrainingArticleContainer.trainingArticlesList.size(); i++) {
 
-            if (Settings.metrics == "Euclidean") {
+            if (Settings.metrics_measure == "Euclidean") {
                 EuclideanMetrics metrics = new EuclideanMetrics();
                 distances.add(metrics.calculateDistance(TrainingArticleContainer.trainingArticlesList.get(i), testingArticle));
-            } else if (Settings.metrics == "Chebyshev") {
+            } else if (Settings.metrics_measure == "Chebyshev") {
                 ChebyshevMetrics metrics = new ChebyshevMetrics();
                 distances.add(metrics.calculateDistance(TrainingArticleContainer.trainingArticlesList.get(i), testingArticle));
-            } else if (Settings.metrics == "Manhattan") {
+            } else if (Settings.metrics_measure == "Manhattan") {
                 ManhattanMetrics metrics = new ManhattanMetrics();
                 distances.add(metrics.calculateDistance(TrainingArticleContainer.trainingArticlesList.get(i), testingArticle));
-            } else if (Settings.metrics == "Hamming") {
+            } else if (Settings.metrics_measure == "Hamming") {
                 HammingMetrics metrics = new HammingMetrics();
                 distances.add(metrics.calculateDistance(TrainingArticleContainer.trainingArticlesList.get(i), testingArticle));
-            } else if (Settings.metrics == "Canberra") {
+            } else if (Settings.metrics_measure == "Canberra") {
                 CanberraMetrics metrics = new CanberraMetrics();
                 distances.add(metrics.calculateDistance(TrainingArticleContainer.trainingArticlesList.get(i), testingArticle));
+            } else if (Settings.metrics_measure == "TFM") {
+                TFM metrics = new TFM();
+                distances.add(metrics.calculateMeasure(TrainingArticleContainer.trainingArticlesList.get(i), testingArticle));
             }
 
         }

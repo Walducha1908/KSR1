@@ -51,8 +51,8 @@ public class DataWriter {
         cell.setCellValue("Settings");
 
         createExcelRow("Category", Settings.category, sheet, ++rowCount);
-        createExcelRow("Measure", Settings.measure, sheet, ++rowCount);
-        createExcelRow("Metrics", Settings.metrics, sheet, ++rowCount);
+        createExcelRow("Measure", Settings.keyWords, sheet, ++rowCount);
+        createExcelRow("Metrics", Settings.metrics_measure, sheet, ++rowCount);
         createExcelRow("Training", Double.toString(Settings.percentOfTraining*100) + "%", sheet, ++rowCount);
         createExcelRow("Testing", Double.toString(100 - Settings.percentOfTraining*100) + "%", sheet, ++rowCount);
         createExcelRow("K value", Integer.toString(Settings.k), sheet, ++rowCount);

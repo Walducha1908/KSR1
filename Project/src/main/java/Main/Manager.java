@@ -20,13 +20,27 @@ public class Manager {
     public static void start() {
         readAndPrepareData();
 
-        for (int j = 0; j < 3; j++) {
+        for (int j = 0; j < 10; j++) {
             if (j == 0) {
-                Settings.metrics = "Chebyshev";
+                Settings.k = 1;
             } else if (j == 1) {
-                Settings.metrics = "Hamming";
+                Settings.k = 3;
             } else if (j == 2) {
-                Settings.metrics = "Canberra";
+                Settings.k = 4;
+            } else if (j == 3) {
+                Settings.k = 6;
+            } else if (j == 4) {
+                Settings.k = 8;
+            } else if (j == 5) {
+                Settings.k = 10;
+            } else if (j == 6) {
+                Settings.k = 12;
+            } else if (j == 7) {
+                Settings.k = 14;
+            } else if (j == 8) {
+                Settings.k = 17;
+            } else if (j == 9) {
+                Settings.k = 20;
             }
             countKeyWords();
             extractFeatures();

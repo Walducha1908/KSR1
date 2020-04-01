@@ -21,9 +21,9 @@ public class KeyWordsCounter {
         this.finalKeyWordsList = new LinkedList<String>();
 
         getArticlesToSearch();
-        if (Settings.measure == "TF") {
+        if (Settings.keyWords == "TF") {
             countWords_TF();
-        } else if (Settings.measure == "DF") {
+        } else if (Settings.keyWords == "DF") {
             countWords_DF();
         }
         sortWords();
