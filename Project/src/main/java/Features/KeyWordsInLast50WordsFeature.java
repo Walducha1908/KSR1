@@ -1,5 +1,6 @@
 package Features;
 
+import Calculations.Measures.Trigram;
 import Main.Settings;
 import Model.Article;
 import Model.KeyWordsContainer;
@@ -17,7 +18,11 @@ public class KeyWordsInLast50WordsFeature implements Feature {
                 for (int k = article.getBody().get(j).size() - 1; k >= 0 && numberOfWords < 50; k--) {
                     String word = article.getBody().get(j).get(k);
                     if (KeyWordsContainer.keyWordsMap.get(Settings.categoryItemsList.get(i)).contains(word)) {
-                        featureValue += (1 * KeyWordsContainer.keyWordsWagesMap.get(word));
+                        if (!Settings.ngram) {
+                            featureValue += (1 * KeyWordsContainer.keyWordsWagesMap.get(word));
+                        } else {
+                            featureValue += Trigram.calculateMeasure(KeyWordsContainer.keyWordsMap.get(Settings.categoryItemsList.get(i)), word);
+                        }
                     }
                     numberOfWords += 1;
                 }

@@ -4,8 +4,7 @@ import Model.ArticleDistance;
 import Model.Testing.TestingArticle;
 import Model.Training.TrainingArticle;
 
-public class TFM implements Measure {
-    @Override
+public class TFM {
     public ArticleDistance calculateMeasure(TrainingArticle trainingArticle, TestingArticle testingArticle) {
         double distance = 0;
         double up = 0;

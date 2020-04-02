@@ -20,7 +20,7 @@ public class Manager {
     public static void start() {
         readAndPrepareData();
 
-        for (int j = 0; j < 10; j++) {
+        for (int j = 6; j < 10; j++) {
             if (j == 0) {
                 Settings.k = 1;
             } else if (j == 1) {

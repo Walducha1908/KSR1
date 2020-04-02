@@ -1,5 +1,6 @@
 package Features;
 
+import Calculations.Measures.Trigram;
 import Main.Settings;
 import Model.Article;
 import Model.KeyWordsContainer;
@@ -25,7 +26,11 @@ public class KeyWordsInFirst50PerCentWordsFeature implements Feature {
                 for (int k = 0; k < article.getBody().get(j).size() && numberOfWords < lastWordIndex; k++) {
                     String word = article.getBody().get(j).get(k);
                     if (KeyWordsContainer.keyWordsMap.get(Settings.categoryItemsList.get(i)).contains(word)) {
-                        featureValue += (1 * KeyWordsContainer.keyWordsWagesMap.get(word));
+                        if (!Settings.ngram) {
+                            featureValue += (1 * KeyWordsContainer.keyWordsWagesMap.get(word));
+                        } else {
+                            featureValue += Trigram.calculateMeasure(KeyWordsContainer.keyWordsMap.get(Settings.categoryItemsList.get(i)), word);
+                        }
                     }
                     numberOfWords += 1;
                 }

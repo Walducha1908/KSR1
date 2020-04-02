@@ -1,5 +1,6 @@
 package Features;
 
+import Calculations.Measures.Trigram;
 import Main.Settings;
 import Model.Article;
 import Model.KeyWordsContainer;
@@ -17,7 +18,11 @@ public class KeyWordsToAllWordsRatioFeature implements Feature {
                 for (int k = 0; k < article.getBody().get(j).size(); k++) {
                     String word = article.getBody().get(j).get(k);
                     if (KeyWordsContainer.keyWordsMap.get(Settings.categoryItemsList.get(i)).contains(word)) {
-                        numberOfKeyWords += (1 * KeyWordsContainer.keyWordsWagesMap.get(word));
+                        if (!Settings.ngram) {
+                            numberOfKeyWords += (1 * KeyWordsContainer.keyWordsWagesMap.get(word));
+                        } else {
+                            numberOfKeyWords += Trigram.calculateMeasure(KeyWordsContainer.keyWordsMap.get(Settings.categoryItemsList.get(i)), word);
+                        }
                     }
                     if (Settings.wages) {
                         numberOfAllWords += Settings.maxWage;
