@@ -477,7 +477,7 @@ Podpakiet $Measures$ zawiera implementacje obu miar omówionych we wprowadzeniu.
 Podpakiet $Measures$ zawiera dwie klasy:
 \begin{itemize}[label=$\bullet$\scshape\bfseries]
 \item $TFM$ - klasa implementująca miarę Term Frequency Matrix,
-\item $Trigram$ - klasa implementująca miarę Trigram.\newline
+\item $Trigram$ - klasa implementująca metodę trigramów.\newline
 \end{itemize}
 
 \subsection{Pakiet Main}
@@ -712,6 +712,17 @@ W tym rozdziale zamieszczono tabele oraz wykresy prezentujące wyniki przeprowad
 	\caption{Skuteczność klasyfikacji dla miary trigramów}
 \end{table}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Wykresy/places_miary.png}}
+	\caption{Wizualizacja danych z Tabel 6 i 7 dla kategorii "places"}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Wykresy/topics_miary.png}}
+	\caption{Wizualizacja danych z Tabel 6 i 7 dla kategorii "topics"}
+\end{figure}
 
 \subsection{Wpływ podziału tekstów na zbiory treningowe i testowe na klasyfikację}
 
@@ -736,13 +747,13 @@ W tym rozdziale zamieszczono tabele oraz wykresy prezentujące wyniki przeprowad
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{{Wykresy/podzial_places.png}}
-	\caption{Wizualizacja danych z Tabeli 6 dla kategorii "places"}
+	\caption{Wizualizacja danych z Tabeli 8 dla kategorii "places"}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{{Wykresy/podzial_topics.png}}
-	\caption{Wizualizacja danych z Tabeli 6 dla kategorii "topics"}
+	\caption{Wizualizacja danych z Tabeli 8 dla kategorii "topics"}
 \end{figure}
 
 \subsection{Wpływ konkretnych cech na klasyfikację}
@@ -767,13 +778,13 @@ W tym rozdziale zamieszczono tabele oraz wykresy prezentujące wyniki przeprowad
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{{Wykresy/cechy_places.png}}
-	\caption{Wizualizacja danych z Tabeli 7 dla kategorii "places"}
+	\caption{Wizualizacja danych z Tabeli 9 dla kategorii "places"}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{{Wykresy/cechy_topics.png}}
-	\caption{Wizualizacja danych z Tabeli 7 dla kategorii "topics"}
+	\caption{Wizualizacja danych z Tabeli 9 dla kategorii "topics"}
 \end{figure}
 
 \subsection{Wpływ użycia ważonych słów kluczowych na klasyfikację}
@@ -814,13 +825,13 @@ Canberra	&	96,39	&	96,60	\\
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{{Wykresy/wazone_places.png}}
-	\caption{Wizualizacja danych z Tabeli 8}
+	\caption{Wizualizacja danych z Tabeli 10}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{{Wykresy/wazone_topics.png}}
-	\caption{Wizualizacja danych z Tabeli 9}
+	\caption{Wizualizacja danych z Tabeli 11}
 \end{figure}
 
 \subsection{Najlepsze wyniki}
@@ -858,12 +869,29 @@ Dla kategorii "topics" wybór wartości liczby k nie ma tak dużego wpływu jak 
 
 Zdecydowanie słabsze wyniki klasyfikacji dla wartości $k=1$ w żadnym wypadku nie są zaskakujące. Sytuacja, w której bierzemy pod uwagę tylko jeden artykuł treningowy, który okazał się najbliższym dla badanego elementu testowego, może powodować częste błędy klasyfikacji. Istnieje bowiem duża szansa, że ten jeden odnaleziony przez nas element zbioru treningowego jest mylącym wyjątkiem, którego nie będziemy w stanie skorygować innymi, okolicznymi artykułami treningowymi, ponieważ w omawianym przypadku w ogóle nie bierzemy takowych pod uwagę.
 
+\subsection{Wpływ liczby k sąsiadów oraz wyboru miary na klasyfikację}
+Podobnie jak w poprzednim podrozdziale, najpierw przedyskutujemy wybór miary, a następnie przeanalizujemy wpływ liczby k sąsiadów na wyniki klasyfikacji.
+
+\subsubsection{Wybór miary}
+W znacznej większości badanych przypadków klasyfikacja jest skuteczniejsza dla miary TFM. Różnica między wynikami eksperymentu osiąganymi z wykorzystaniem miary TFM od tych osiąganych z użyciem miary trigramów waha się od $0.8\%$ na korzyść metody trigramów do nawet $3.5\%$ na korzyść TFM. \newline
+
+W przypadku kategorii "places" eksperymenty przeprowadzone z wykorzystaniem miary trigramów dają lepsze rezultaty dla czterech najmniejszych wartości k ($k \in \{1, 3, 4, 6\}$), dla wszystkich pozostałych wartości k ($k \in \{8, 10, 12, 14, 17, 20\}$) skuteczniejsze okazały się iteracje, w których używano miary TFM. \newline
+
+Dla kategorii "topics" różnica między wynikami jest dużo bardziej znacząca. Dla wszystkich przeprowadzonych eksperymentów miarą dającą lepsze rezultaty okazała się być miara TFM. W dwóch przypadkach, gdy $k=1$ oraz $k=12$, różnica w osiągniętej skuteczności klasyfikacji przekroczyła $3\%$.
+
+\subsubsection{Wartość liczby k sąsiadów}
+W przypadku kategorii "places" najlepsze wyniki osiągane są dla średnich wartości k ($k \in \{3, 4, 6, 8, 10, 12, 14\}$). Warto jednak wspomnieć, że o ile miara TFM osiąga równe wyniki (najlepsze dla $k \in \{8, 10\}$), metoda trigramów ma bardzo duży spadek skuteczności klasyfikacji dla wszystkich $k\geq8$. \newline
+
+Dla kategorii "topics" najlepsza skuteczność eksperymentu została zanotowana dla wartości k wynoszącej $k=6$. Tak jak w kategorii "places", tutaj również obserwujemy znaczny spadek jakości klasyfikacji dla miary trigramów, tym razem widocznie gorsze rezultaty badań osiągane są dla wszystkich $k\geq10$, z czego zdecydowanie najsłabszym wynikiem charakteryzuje się iteracja, gdy $k=12$. Eksperymenty z wykorzystaniem miary TFM dają bardzo powtarzalne wyniki na poziomie powyżej $95\%$. \newline
+
+Dla obu kategorii, klasyfikacja okazała się najmniej skuteczna dla $k=1$. Takie rezultaty utwierdzają nas w przekonaniu, że wnioski wyciągnięte w rozdziale poprzednim są poprawne. Branie pod uwagę tylko jednego elementu treningowego w procesie klasyfikacji jest zdecydowanie niewsytarczające.
+
 \subsection{Wpływ podziału tekstów na zbiory treningowe i testowe na klasyfikację}
 Dyskusję wpływu podziału artykułów na zbiory treningowe i testowe rozpoczniemy od analizy przypadków dla kategorii "places".  \newline
 
 Klasyfikacja okazała się najbardziej skuteczna dla podziału $40\%:60\%$ (pierwsza wartość stanowi procentowy udział zbioru treningowego w ogólnym zbiorze artykułów, druga zaś udział zbioru testowego). Wyniki gorsze o około $1\%$ osiągnięte zostały dla trzech następnych przedziałów poddanych badaniom - $50\%:50\%$, $60\%:40\%$ oraz $70\%:30\%$. Zdecydowanie najgorszy rezultat osiągnięto dla podziału $80\%:20\%$, gdy skuteczność klasyfikacji wyniosła zaledwie $84.78\%$.\newline
 
-W przeciwieństawie do wyników analizowanych w poprzednim podrozdziale, które o ile okazały się interesujące i pouczające to w żadnym stopniu nie były nieprzywidywalne - wyniki eksperymentów dla różnych stosunków podziału tekstów dla kategorii "places" mogą okazać się niemałym zaskoczeniem. Na "zdrowy rozsądek" wydawać by się mogło, że im bardziej liczny jest zbiór treningowy, tym lepsze powinny być wyniki klasyfikacji. W większości przypadków to prawda, ale w tym omawianym, okazało się że najbardziej reprezentatywnym zbiorem treningowym był ten, składający się z $40\%$ wszystkich artykułów.\newline
+W przeciwieństawie do wyników analizowanych w poprzednich podrozdziałach, które o ile okazały się interesujące i pouczające to w żadnym stopniu nie były nieprzywidywalne - wyniki eksperymentów dla różnych stosunków podziału tekstów dla kategorii "places" mogą okazać się niemałym zaskoczeniem. Na "zdrowy rozsądek" wydawać by się mogło, że im bardziej liczny jest zbiór treningowy, tym lepsze powinny być wyniki klasyfikacji. W większości przypadków to prawda, ale w tym omawianym, okazało się że najbardziej reprezentatywnym zbiorem treningowym był ten, składający się z $40\%$ wszystkich artykułów.\newline
 
 Dla kategorii "topics" wyniki przeprowadzonych badań są już dużo bardziej zgodne z intuicją. Najlepsze wyniki osiągnięto dla podziału $80\%:20\%$, najgorsze zaś dla podziału $40\%:60\%$. Rożnica pomiędzy najlepszym a najgorszym wynikiem skuteczności wynosi niecałe $3\%$.
 
@@ -890,6 +918,7 @@ Poniżej zamieszczono najważniejsze wnioski płynące z przeprowadzonych badań
 \begin{itemize}[label=$\bullet$\scshape\bfseries]
 \item Najbardziej skutecznymi metrykami używanymi do klasyfikacji tekstów są metryki uliczna, Euklidesa i Canberra.
 \item Mniej skutecznymi metrykami wykorzystywanymi do klasyfikacji tekstów są metryki Czebyszewa i Hamminga.
+\item Klasyfikacja tekstów z wykorzystaniem miary TFM w większości przypadków jest bardziej skuteczna od klasyfikacji z użyciem metody trigramów.
 \item Najbardziej optymalnymi wartościami liczby k sąsiadów w algorytmie KNN są wartości k takie, że $k\geq6 \land k\leq14$.
 \item Klasyfikacja algorytmem k najbliższych sąsiadów bardzo traci na skuteczności gdy $k=1$.
 \item Nie ma jednego "złotego", zawsze odpowiedniego podziału zbiorów na treningowy i testowy.
