@@ -76,6 +76,26 @@ d_{c}(x,y)= \sum_{i} \frac{|x_{i} - y_{i}|}{|x_{i}| + |y_{i}|}
 
 \end{itemize}
 
+\subsection{Miary}
+
+Klasyfikację metodą KNN przeprowadzono również z wykorzystaniem następujących miar podobieństwa:
+
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+
+\item Term Frequency Matrix - czyli ”macierz częstości występowania terminów”. Określa podobieństwo dokumentów ze względu na wybrany zbiór terminów, np. słów kluczowych \cite{wyklad}.
+
+\item Metoda n-gramów - metoda ta określa podobieństwo łańcuchów tekstowych $s_1$, $s_2$ w oparciu o ilość wspólnych podciągów n-elementowych. W naszym przypadku rozpatrujemy $n=3$, czyli trigramy. Formuła opsiująca trigramy jest następująca:
+\begin{equation}
+sim_{3}(s_1,s_2)= \frac{1}{N-2}\sum_{i=1}^{N-2} h(i),
+\end{equation}
+gdzie $N$ stanowi liczbę elementów dłuższego z łańcuchów $s_1$, $s_2$:
+\begin{equation}
+N=max\{N(s_1),N(s_2)\},
+\end{equation}
+zaś $h(i) = 1$ jeśli 3-elementowy podciąg zaczynający się od i-tej pozycji w $s_1$ występuje przynajmniej raz w $s_2$, w przeciwnym przypadku $h(i) = 0$ \cite{wyklad}.
+
+\end{itemize}
+
 \subsection{Wyznaczanie słów kluczowych}
 
 Aby wyznaczyć słowa kluczowe posługujemy się poniższą metodą:
@@ -280,7 +300,7 @@ Aplikacja została podzielona na następujące pakiety:
 \item $Data$,
 \item $Model$ zawierający podpakiety $Testing$ i $Training$,
 \item $Features$,
-\item $Calculations$ zawierający podpakiety $KeyWords$, $Features$, $KNN$ i $Metrics$,
+\item $Calculations$ zawierający podpakiety $KeyWords$, $Features$, $KNN$, $Metrics$ oraz $Measures$,
 \item $Main$.
 \end{itemize}
 
@@ -442,24 +462,39 @@ Podpakiet $Metrics$ zawiera następujące klasy:
 \item $ManhattanMetrics$ - klasa implementująca metrykę uliczną,
 \item $ChebyshevMetrics$ - klasa implementująca metrykę Czebyszewa,
 \item $HammingMetrics$ - klasa implementująca metrykę Hamminga,
-\item $CanberraMetrics$ - klasa implementująca metrykę Canberra.
+\item $CanberraMetrics$ - klasa implementująca metrykę Canberra.\newline\newline
+\end{itemize}
+
+\subsubsection{Podpakiet Measures}
+Podpakiet $Measures$ zawiera implementacje obu miar omówionych we wprowadzeniu.\newline
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{{Diagramy/PackageMeasures.png}}
+	\caption{Diagram UML dla podpakietu $Measures$ pakietu $Calculations$}
+\end{figure}
+
+Podpakiet $Measures$ zawiera dwie klasy:
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+\item $TFM$ - klasa implementująca miarę Term Frequency Matrix,
+\item $Trigram$ - klasa implementująca miarę Trigram.\newline
 \end{itemize}
 
 \subsection{Pakiet Main}
 Pakiet $Main$ jest pakietem głównym, odpowiedzialnym za uruchomienie aplikacji, koordynowanie jej działania oraz określenie konfiguracji w jakiej aplikacja ma działać.\newline
+
+Pakiet $Main$ zawiera trzy klasy:
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+\item $App$ - klasa uruchamiająca program, wywołuje metodę $start()$ w klasie $Manager$,
+\item $Manager$ - klasa sterująca kolejnością wywołania kolejnych modułów aplikacji,
+\item $Settings$ - klasa ustawień, pozwalająca na ustawienie takich parametrów konfiguracyjnych jak metryka, wartość $k$ czy podział artykułów na treningowe i testowe.\newline
+\end{itemize}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{{Diagramy/PackageMain.png}}
 	\caption{Diagram UML dla pakietu $Main$}
 \end{figure}
-
-Pakiet $Main$ zawiera trzy klasy:
-\begin{itemize}[label=$\bullet$\scshape\bfseries]
-\item $App$ - klasa uruchamiająca program, wywołuje metodę $start()$ w klasie $Manager$,
-\item $Manager$ - klasa sterująca kolejnością wywołania kolejnych modułów aplikacji,
-\item $Settings$ - klasa ustawień, pozwalająca na ustawienie takich parametrów konfiguracyjnych jak metryka, wartość $k$ czy podział artykułów na treningowe i testowe.
-\end{itemize}
 
 \section{Materiały i metody}
 W tym rozdziale omówione zostaną poszczególne eksperymenty jakie wykonano z użyciem naszego programu. \newline
@@ -474,6 +509,9 @@ Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) sł�
             k \in \{1, 3, 4, 6, 8, 10, 12, 14, 17, 20\}.
  \end{equation}
 W każdym przypadku testowym zbiór treningowy stanowił 70\% artykułów, zaś zbiór testowy 30\% artykułów.
+
+\subsection{Wpływ liczby k sąsiadów oraz wyboru miary na klasyfikację}
+Podobnie jak w pierwszym przypadku, klasyfikacja została wykonana z wykorzystaniem zbioru (zwykłych) słów kluczowych. Badania przeprowadzono dla obu miar opisanych we wprowadzeniu. Dokonano klasyfikacji tekstu dla wartości współczynnika k wymienionych w poprzednim podrozdziale (34). We wszystkich przypadkach testowych zbiór treningowy stanowił 70\% artykułów, zaś zbiór testowy 30\% artykułów.
 
 \subsection{Wpływ podziału tekstów na zbiory treningowe i testowe na klasyfikację}
 Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) słów kluczowych. Eksperymenty przeprowadzono posługując się metryką Euklidesową. Wartość parametru k była stała i wynosiła $k=6$. Przeprowadzono klasyfikacje dla pięciu różnych podziałów artykułów na zbiory testowe i treningowe: 
@@ -626,6 +664,54 @@ W tym rozdziale zamieszczono tabele oraz wykresy prezentujące wyniki przeprowad
 	\includegraphics[width=1\textwidth]{{Wykresy/topics10k.png}}
 	\caption{Wizualizacja danych z Tabel 1-5 dla kategorii "topics"}
 \end{figure}
+
+\subsection{Wpływ liczby k sąsiadów oraz wyboru miary na klasyfikację}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c c} 
+		\hline
+		\textbf{k} & \textbf{places [\%]} & \textbf{topics [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+1	&	82,29	&	93,68	\\
+3	&	85,59	&	94,85	\\
+4	&	85,76	&	95,06	\\
+6	&	85,83	&	95,54	\\
+8	&	86,23	&	95,38	\\
+10	&	86,23	&	95,33	\\
+12	&	86,06	&	95,49	\\
+14	&	85,93	&	95,49	\\
+17	&	85,71	&	95,44	\\
+20	&	85,44	&	95,28	\\
+		\hline
+	\end{tabular}
+	\caption{Skuteczność klasyfikacji dla miary TFM}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c c} 
+		\hline
+		\textbf{k} & \textbf{places [\%]} & \textbf{topics [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+1	&	82,98	&	90,61	\\
+3	&	85,93	&	94,21	\\
+4	&	85,96	&	94,48	\\
+6	&	85,96	&	94,85	\\
+8	&	84,77	&	94,53	\\
+10	&	85,02	&	92,83	\\
+12	&	85,14	&	91,99	\\
+14	&	85,16	&	92,99	\\
+17	&	85,09	&	94,27	\\
+20	&	85,02	&	94,16	\\
+
+		\hline
+	\end{tabular}
+	\caption{Skuteczność klasyfikacji dla miary trigramów}
+\end{table}
+
 
 \subsection{Wpływ podziału tekstów na zbiory treningowe i testowe na klasyfikację}
 
