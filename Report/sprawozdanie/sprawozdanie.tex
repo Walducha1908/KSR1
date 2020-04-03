@@ -319,8 +319,8 @@ Klasy omawianego pakietu mają następujące zadania:
 \begin{itemize}[label=$\bullet$\scshape\bfseries]
 \item $DataReader$ - wczytanie danych z plików i zbudowanie struktury obiektów artykułów,
 \item $DataPaths$ - wygenerowanie ścieżek do plików, z których dane będą wczytywane przez obiekt klasy $DataReader$,
-\item $DataCleaner$ - usuwanie słów z artykułów należących do tzw. "Stop" listy, usuwanie znaków interpunkcyjnych, pustych słów, artykułów nienależącyh do aktualnego zbioru badawczego, a także przeprowadzanie stemizacji tekstu z użyciem biblioteki $snowball-stemmer$ \cite{Stem}.
-\item $DataWriter$ - eksportowanie wyników działania programu do raportu w formacie $xslx$ z wykorzystaniem biblioteki $poi-ooxml$ \cite{Excel}.
+\item $DataCleaner$ - usuwanie słów z artykułów należących do tzw. "Stop" listy, usuwanie znaków interpunkcyjnych, pustych słów, artykułów nienależących do aktualnego zbioru badawczego, a także przeprowadzanie stemizacji tekstu z użyciem biblioteki $snowball-stemmer$ \cite{Stem}.
+\item $DataWriter$ - eksportowanie wyników działania programu do raportu w formacie $xlsx$ z wykorzystaniem biblioteki $poi-ooxml$ \cite{Excel}.
 \end{itemize}
 
 \subsection{Pakiet Model}
@@ -863,7 +863,7 @@ W przypadku kategorii "places" najlepsze wyniki klasyfikacji osiągane są z wyk
 Eksperymenty przeprowadzone dla kategorii "topics" ponownie pokazały, jak skuteczna jest klasyfikacja z wykorzystaniem metryki ulicznej. Minimalnie gorsze wyniki skuteczności osiągane były z wykorzystaniem metryk Euklidesowej i Canberra, jednak wszystkie trzy wymienione metryki utrzymywały bardzo wysoki poziom klasyfikacji, na poziomie $95\%-97\%$. Słabsze rezultaty o mniej więcej $2\%$ osiągane były z użyciem metryki Hamminga, zaś zdecydowanie najmniej skuteczną metryką w przypadku kategorii "topics" okazała się metryka Czebyszewa - klsyfikacja z jej wykorzystaniem ani razu nie osiągnęła skuteczności na poziomie $90\%$ lub wyższej. \newline
 
 \subsubsection{Wartość liczby k sąsiadów}
-W przypadku kategorii "places" najlepsze wyniki klasyfikacji są osiągane dla $k \in \{6, 8, 10, 12, 14\}$. Nieduży spadek jakości klasyfikacji obserwujemy dla większych oraz mniejszych wartości k ($k\in \{17, 20\} \lor k \in \{3, 4\}$), za to bardzo znaczne obniżenie skuteczności eksperymentu obserwujemy dla $k=1$ - niższa skuteczność w zależności od metryki o 3, do nawet $5\%$. \newline
+W przypadku kategorii "places" najlepsze wyniki klasyfikacji są osiągane dla $k \in \{6, 8, 10, 12, 14\}$. Nieduży spadek jakości klasyfikacji obserwujemy dla większych oraz mniejszych wartości k ($k\in \{17, 20\} \lor k \in \{3, 4\}$), za to znaczne obniżenie skuteczności eksperymentu obserwujemy dla $k=1$, niższa skuteczność w zależności od metryki o 3, do nawet $5\%$. \newline
 
 Dla kategorii "topics" wybór wartości liczby k nie ma tak dużego wpływu jak w przypadku kategorii "places". Bardzo dobre wyniki klasyfikacji osiągane są dla wszystkich wartości k ze zbioru $k \in \{3, 4, 6, 8, 10, 12, 14, 17, 20\}$, róznice pomiędzy wynikami eksperymentu dla poszczególnych wartości k z tego zbioru są marginalne. Jedynie gdy $k=1$ wyniki skuteczności są zdecydowanie gorsze, w zależności od metryki różnią się o $1.5$ do nawet $4\%$. \newline
 
