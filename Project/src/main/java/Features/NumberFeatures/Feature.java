@@ -1,4 +1,4 @@
-package Features;
+package Features.NumberFeatures;
 
 import Model.Article;
 

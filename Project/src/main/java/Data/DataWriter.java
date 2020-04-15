@@ -52,8 +52,13 @@ public class DataWriter {
 
         createExcelRow("Category", Settings.category, sheet, ++rowCount);
         createExcelRow("KeyWords", Settings.keyWords, sheet, ++rowCount);
-        createExcelRow("Metrics", Settings.metrics_measure, sheet, ++rowCount);
-        createExcelRow("Ngram", Boolean.toString(Settings.ngram), sheet, ++rowCount);
+        if (!Settings.ngram) {
+            createExcelRow("Metrics", Settings.metrics_measure, sheet, ++rowCount);
+            createExcelRow("Ngram", Boolean.toString(Settings.ngramBeforeExtraction), sheet, ++rowCount);
+        } else {
+            createExcelRow("Ngram", Boolean.toString(Settings.ngram), sheet, ++rowCount);
+            createExcelRow("Tri or Di", Integer.toString(Settings.n), sheet, ++rowCount);
+        }
         createExcelRow("Training", Double.toString(Settings.percentOfTraining*100) + "%", sheet, ++rowCount);
         createExcelRow("Testing", Double.toString(100 - Settings.percentOfTraining*100) + "%", sheet, ++rowCount);
         createExcelRow("K value", Integer.toString(Settings.k), sheet, ++rowCount);

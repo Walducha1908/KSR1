@@ -20,7 +20,7 @@ public class Manager {
     public static void start() {
         readAndPrepareData();
 
-        for (int j = 6; j < 10; j++) {
+        for (int j = 0; j < 10; j++) {
             if (j == 0) {
                 Settings.k = 1;
             } else if (j == 1) {
@@ -44,7 +44,9 @@ public class Manager {
             }
             countKeyWords();
             extractFeatures();
-            normaliseFeatures();
+            if (!Settings.ngram) {
+                normaliseFeatures();
+            }
             runKNN();
         }
     }
@@ -76,14 +78,26 @@ public class Manager {
         FeaturesExtractor featuresExtractor = new FeaturesExtractor();
         TrainingArticleContainer trainingArticleContainer = featuresExtractor.extractAllFeaturesForAllTrainingArticles();
         System.out.println("");
-        System.out.println(trainingArticleContainer.trainingArticlesList.getFirst().getFeatures().size() +
-                " features for all " + trainingArticleContainer.trainingArticlesList.size()
-                + " training articles have been extracted!");
 
-        TestingArticleContainer testingArticleContainer = featuresExtractor.extractAllFeaturesForAllTestingArticles();
-        System.out.println(testingArticleContainer.testingArticlesList.getFirst().getFeatures().size() +
-                " features for all " + testingArticleContainer.testingArticlesList.size()
-                + " testing articles have been extracted!");
+        if (!Settings.ngram) {
+            System.out.println(trainingArticleContainer.trainingArticlesList.getFirst().getFeatures().size() +
+                    " features for all " + trainingArticleContainer.trainingArticlesList.size()
+                    + " training articles have been extracted!");
+
+            TestingArticleContainer testingArticleContainer = featuresExtractor.extractAllFeaturesForAllTestingArticles();
+            System.out.println(testingArticleContainer.testingArticlesList.getFirst().getFeatures().size() +
+                    " features for all " + testingArticleContainer.testingArticlesList.size()
+                    + " testing articles have been extracted!");
+        } else {
+            System.out.println(trainingArticleContainer.trainingArticlesList.getFirst().getTextFeatures().size() +
+                    " features for all " + trainingArticleContainer.trainingArticlesList.size()
+                    + " training articles have been extracted!");
+
+            TestingArticleContainer testingArticleContainer = featuresExtractor.extractAllFeaturesForAllTestingArticles();
+            System.out.println(testingArticleContainer.testingArticlesList.getFirst().getTextFeatures().size() +
+                    " features for all " + testingArticleContainer.testingArticlesList.size()
+                    + " testing articles have been extracted!");
+        }
     }
 
     public static void normaliseFeatures() {

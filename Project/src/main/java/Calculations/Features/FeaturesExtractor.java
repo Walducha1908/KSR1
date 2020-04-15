@@ -1,12 +1,13 @@
 package Calculations.Features;
 
-import Features.*;
+import Features.NumberFeatures.*;
+import Features.TextFeatures.FirstKeyWordInBodyTextFeature;
+import Features.TextFeatures.LastKeyWordInBodyTextFeature;
+import Features.TextFeatures.MostCommonKeyWordInBodyTextFeature;
 import Main.Settings;
 import Model.Article;
 import Model.ArticleContainer;
-import Model.Testing.TestingArticle;
 import Model.Testing.TestingArticleContainer;
-import Model.Training.TrainingArticle;
 import Model.Training.TrainingArticleContainer;
 
 import java.util.LinkedList;
@@ -22,9 +23,16 @@ public class FeaturesExtractor {
 
     public TrainingArticleContainer extractAllFeaturesForAllTrainingArticles() {
 
-        for(int i = 0; i < ArticleContainer.articlesToTrainList.size(); i++) {
-            LinkedList<Double> featuresList = extractAllFeaturesForArticle(ArticleContainer.articlesToTrainList.get(i));
-            trainingArticleContainer.createTrainingArticle(ArticleContainer.articlesToTrainList.get(i), featuresList);
+        if (!Settings.ngram) {
+            for (int i = 0; i < ArticleContainer.articlesToTrainList.size(); i++) {
+                LinkedList<Double> featuresList = extractAllFeaturesForArticle(ArticleContainer.articlesToTrainList.get(i));
+                trainingArticleContainer.createTrainingArticle(ArticleContainer.articlesToTrainList.get(i), featuresList, null);
+            }
+        } else {
+            for (int i = 0; i < ArticleContainer.articlesToTrainList.size(); i++) {
+                LinkedList<String> featuresList = extractAllTextFeaturesForArticle(ArticleContainer.articlesToTrainList.get(i));
+                trainingArticleContainer.createTrainingArticle(ArticleContainer.articlesToTrainList.get(i), null, featuresList);
+            }
         }
 
         return trainingArticleContainer;
@@ -32,9 +40,16 @@ public class FeaturesExtractor {
 
     public TestingArticleContainer extractAllFeaturesForAllTestingArticles() {
 
-        for(int i = 0; i < ArticleContainer.articlesToTestList.size(); i++) {
-            LinkedList<Double> featuresList = extractAllFeaturesForArticle(ArticleContainer.articlesToTestList.get(i));
-            testingArticleContainer.createTestingArticle(ArticleContainer.articlesToTestList.get(i), featuresList);
+        if (!Settings.ngram) {
+            for (int i = 0; i < ArticleContainer.articlesToTestList.size(); i++) {
+                LinkedList<Double> featuresList = extractAllFeaturesForArticle(ArticleContainer.articlesToTestList.get(i));
+                testingArticleContainer.createTestingArticle(ArticleContainer.articlesToTestList.get(i), featuresList, null);
+            }
+        } else {
+            for (int i = 0; i < ArticleContainer.articlesToTestList.size(); i++) {
+                LinkedList<String> featuresList = extractAllTextFeaturesForArticle(ArticleContainer.articlesToTestList.get(i));
+                testingArticleContainer.createTestingArticle(ArticleContainer.articlesToTestList.get(i), null, featuresList);
+            }
         }
 
         return testingArticleContainer;
@@ -102,6 +117,21 @@ public class FeaturesExtractor {
             KeyWordsInLastParagraphFeature feature = new KeyWordsInLastParagraphFeature();
             featuresList.addAll(feature.calculateFeature(article));
         }
+
+        return featuresList;
+    }
+
+    public LinkedList<String> extractAllTextFeaturesForArticle(Article article) {
+        LinkedList<String> featuresList = new LinkedList<String>();
+
+        FirstKeyWordInBodyTextFeature feature = new FirstKeyWordInBodyTextFeature();
+        featuresList.addAll(feature.calculateFeature(article));
+
+        LastKeyWordInBodyTextFeature secondFeature = new LastKeyWordInBodyTextFeature();
+        featuresList.addAll(secondFeature.calculateFeature(article));
+
+        MostCommonKeyWordInBodyTextFeature thirdFeature = new MostCommonKeyWordInBodyTextFeature();
+        featuresList.addAll(thirdFeature.calculateFeature(article));
 
         return featuresList;
     }

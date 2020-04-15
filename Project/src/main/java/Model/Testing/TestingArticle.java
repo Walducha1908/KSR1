@@ -8,13 +8,27 @@ import java.util.LinkedList;
 public class TestingArticle {
     private Article article;
     private LinkedList<Double> features;
+    private LinkedList<String> textFeatures;
     private int trueCategoryValue;
     private int calculatedCategoryValue;
 
     public TestingArticle(Article article, LinkedList<Double> features) {
         this.article = article;
         this.features = features;
+        this.textFeatures = new LinkedList<String>();
         this.calculatedCategoryValue = -1;
+
+        readTrueCategoryValue();
+    }
+
+    public TestingArticle(Article article, LinkedList<String> textFeatures, boolean text) {
+        this.article = article;
+        if (text) {
+            this.textFeatures = textFeatures;
+        } else {
+            this.textFeatures = new LinkedList<String>();
+        }
+        this.features = new LinkedList<Double>();
 
         readTrueCategoryValue();
     }
@@ -63,5 +77,13 @@ public class TestingArticle {
 
     public void setFeatures(LinkedList<Double> features) {
         this.features = features;
+    }
+
+    public LinkedList<String> getTextFeatures() {
+        return textFeatures;
+    }
+
+    public void setTextFeatures(LinkedList<String> textFeatures) {
+        this.textFeatures = textFeatures;
     }
 }

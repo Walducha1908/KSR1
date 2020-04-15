@@ -1,5 +1,6 @@
 package Model.Testing;
 
+import Main.Settings;
 import Model.Article;
 import Model.Training.TrainingArticle;
 
@@ -12,8 +13,13 @@ public class TestingArticleContainer {
         this.testingArticlesList = new LinkedList<TestingArticle>();
     }
 
-    public void createTestingArticle(Article article, LinkedList<Double> featuresList) {
-        TestingArticle testingArticle = new TestingArticle(article, featuresList);
-        testingArticlesList.add(testingArticle);
+    public void createTestingArticle(Article article, LinkedList<Double> featuresList, LinkedList<String> textFeaturesList) {
+        if (!Settings.ngram) {
+            TestingArticle testingArticle = new TestingArticle(article, featuresList);
+            testingArticlesList.add(testingArticle);
+        } else {
+            TestingArticle testingArticle = new TestingArticle(article, textFeaturesList, true);
+            testingArticlesList.add(testingArticle);
+        }
     }
 }
