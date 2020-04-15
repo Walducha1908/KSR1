@@ -34,7 +34,7 @@ wyboru słów kluczowych i ekstrakcji wektorów cech oraz istniejących miar pod
 \section{Wprowadzenie}
  Algorytm k najbliższych sąsiadów jest bardzo prostym klasyfikatorem. Niekiedy mówi się, że algorytm k-NN jest leniwy. Wynika to z faktu, że nie tworzy on wewnętrznej reprezentacji danych treningowych (uczących), ale ropoczyna poszukiwanie rozwiązania dopiero podczas analizy konkretnego wzorca ze zbioru testowego. \newline
 
-Algorytm przechowuje zbiór wszystkich wzorców uczących, względem których obliczana jest odległość wzorca testowego, zdefiniowana poprzez odpowiednią metrykę. Następnie algorytm wybiera k wzorców treningowych, nazywanych sąsiadami, do których aktualnie badany wzorzec testowy ma najmniejszą odległość. Ostateczny rezultat - kategoria, do której zostanie przypisany analizowany wzorzec - stanowi najczęściej występująca kategoria wśród k najbliższych sąsiadów.
+Algorytm przechowuje zbiór wszystkich wzorców uczących, względem których obliczana jest odległość wzorca testowego, zdefiniowana poprzez odpowiednią metrykę. Następnie algorytm wybiera k wzorców treningowych, nazywanych sąsiadami, do których aktualnie badany wzorzec testowy ma najmniejszą odległość (lub te wzorce treningowe, do których badany wzorzec testowy jest najbardziej podobny). Ostateczny rezultat - kategoria, do której zostanie przypisany analizowany wzorzec - stanowi najczęściej występująca kategoria wśród k najbliższych sąsiadów.
 
 \subsection{Metryki}
 
@@ -78,22 +78,22 @@ d_{c}(x,y)= \sum_{i} \frac{|x_{i} - y_{i}|}{|x_{i}| + |y_{i}|}
 
 \subsection{Miary}
 
-Klasyfikację metodą KNN przeprowadzono również z wykorzystaniem następujących miar podobieństwa:
+Do obliczenia podobieństwa pomiędzy artykułami wykorzystaliśmy miarę podobieństwa tekstów ngram. \newline
 
-\begin{itemize}[label=$\bullet$\scshape\bfseries]
-
-\item Term Frequency Matrix - czyli ”macierz częstości występowania terminów”. Określa podobieństwo dokumentów ze względu na wybrany zbiór terminów, np. słów kluczowych \cite{wyklad}.
-
-\item Metoda n-gramów - metoda ta określa podobieństwo łańcuchów tekstowych $s_1$, $s_2$ w oparciu o ilość wspólnych podciągów n-elementowych. W naszym przypadku rozpatrujemy $n=3$, czyli trigramy. Formuła opsiująca trigramy jest następująca:
+Metoda n-gramów - metoda ta określa podobieństwo łańcuchów tekstowych $s_1$, $s_2$ w oparciu o ilość wspólnych podciągów n-elementowych. 
 \begin{equation}
-sim_{3}(s_1,s_2)= \frac{1}{N-2}\sum_{i=1}^{N-2} h(i),
+sim_{n}(s_1,s_2)= \frac{1}{N-n+}\sum_{i=1}^{N-n+1} h(i),
 \end{equation}
 gdzie $N$ stanowi liczbę elementów dłuższego z łańcuchów $s_1$, $s_2$:
 \begin{equation}
 N=max\{N(s_1),N(s_2)\},
 \end{equation}
-zaś $h(i) = 1$ jeśli 3-elementowy podciąg zaczynający się od i-tej pozycji w $s_1$ występuje przynajmniej raz w $s_2$, w przeciwnym przypadku $h(i) = 0$ \cite{wyklad}.
+zaś $h(i) = 1$ jeśli n-elementowy podciąg zaczynający się od i-tej pozycji w $s_1$ występuje przynajmniej raz w $s_2$, w przeciwnym przypadku $h(i) = 0$ \cite{wyklad}.
+W naszych rozważanich, weźmiemy pod uwagę dwa rodzaje miary ngram:
 
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+\item Bigramy, gdy $n=2$,
+\item Trigramy, gdy $n=3$.
 \end{itemize}
 
 \subsection{Wyznaczanie słów kluczowych}
@@ -167,6 +167,8 @@ Przyjęto następujące oznaczenia:\\
     \quad $T_{i}$ - zbiór słów do badania,\\
     \quad $K$ - stały zbiór słów kluczowych\footnote{Na który składają się zbiory ${K_{1}, K_{2}, \ldots , K_{l-1}, K_{l}.}$}, \\
     \quad $N_{K \in T}$ - liczba wystąpień elementów zbioru K w zbiorze T\footnote{W przypadku ważonych słów kluczowych będzie to suma iloczynów liczby wystąpień poszczególnych elementów zbioru K w zbiorze T i odpowiadających im wag.}, \\
+    \quad $M_{K \in T}$ - najczęściej występujący element zbioru K w zbiorze T, \\
+    \quad $W^{n}_{K \in T}$ - n-ty element zbioru K w zbiorze T, \\
     \quad $C_{i}(T,K)$ - wartość funkcji cechy. \\
 
 
@@ -292,6 +294,38 @@ Cecha opisująca liczbę słów kluczowych, które występują w ostatnim paragr
  \end{equation}	
  gdzie $T_{12}$ - ostatni paragraf sekcji głównej artykułu.
 
+\subsubsection{Pierwsze słowo kluczowe występujące w artykule}
+Cecha zwracająca pierwsze słowo kluczowe, które wystąpiło w sekcji głównej artykułu (iterując od początku artykułu).
+\begin{equation}
+            C_{13}(T_{13},K) = W^{1}_{K \in T_{13}},
+ \end{equation}	
+ gdzie $T_{13}$ - zbiór słów sekcji głównej artykułu.
+
+
+\subsubsection{Najczęściej występujące słowo kluczowe w artykule}
+Cecha zwracająca najczęściej występujące słowo kluczowe w sekcji głównej artykułu.
+\begin{equation}
+            C_{14}(T_{14},K) = M_{K \in T_{14}},
+ \end{equation}	
+ gdzie $T_{14}$ - zbiór słów sekcji głównej artykułu.
+
+\subsubsection{Ostatnie słowo kluczowe występujące w artykule}
+Cecha zwracająca ostatnie słowo kluczowe, które wystąpiło w sekcji głównej artykułu (iterując od początku artykułu).
+\begin{equation}
+            C_{15}(T_{15},K) = W^{N_{K \in T_{15}}}_{K \in T_{15}},
+ \end{equation}	
+ gdzie $T_{15}$ - zbiór słów sekcji głównej artykułu.\newline\newline
+
+\subsection{Cechy a miary i metryki}
+
+Cechy opisane w poprzednim podrozdziale możemy podzielić na dwie grupy. Pierwszą grupę stanowią cechy wykorzystywane do klasyfikacji z użyciem metryk odległości, drugą zaś cechy wykorzystywane do klasyfikacji z użyciem miar podobieństwa tekstów. \newline
+
+Pierwsze dwanaście cech (cechy od $C_1$ do $C_{12}$) to funkcje zwracające liczbę. Na potrzeby tego sprawozdania nazwiemy takie cechy cechami "liczbowymi". Cechy liczbowe używane są do klasyfikacji z wykorzystaniem metryk. Wyekstrahowane cechy liczbowe stanowią wektor liczb zmiennoprzecinkowych. Na podstawie wektorów cech artykułów testowych i treningowych wyliczana jest odległość między artykułami za pomocą wybranej metryki. Następnie w celu przeprowadzenia procesu klasyfikacji postępujemy zgodnie z opisem algorytmu, zamieszczonym we wstępie. \newline
+
+Ostatnie trzy cechy (cechy od $C_{13}$ do $C_{15}$) to funkcje zwracające ciąg znaków - tekst. Takie cechy będziemy od tego momentu nazywać cechami "tekstowymi". Cechy tekstowe używane są do klasyfikacji z wykorzystaniem miar podobieństwa tekstów (metoda n-gramów). Wyekstrahowane cechy tekstowe stanowią wektor ciągów znaków. Na podstawie wektorów wyekstrahowanych cech artykułów testowych i treningowych wyliczane jest podobieństwo dwóch porównywanych artykułów za pomocą miary n-gramów. Aby zaklasyfikować analizowany artykuł testowy, należy wybrać n najbardziej podobnych artykułów treningowych, a następnie postępować zgodnie z zasadami algorytmu KNN. \newline
+
+Kolejnym ważnym spostrzeżeniem jest fakt, iż ważone słowa kluczowe możemy używać jedynie dla wektorów wyekstrahowanych cech liczbowych. Co za tym idzie, eksperymenty wykorzystujące ważone słowa kluczowe będą przeprowadzone jedynie z użyciem metryk. \newline
+
 \section{Opis implementacji}
 Program został napisany w języku Java z wykorzystaniem narzędzia Maven \cite{Maven}, służącego do automatyzacji budowy oprogramowania. \newline
 
@@ -299,7 +333,7 @@ Aplikacja została podzielona na następujące pakiety:
 \begin{itemize}[label=$\bullet$\scshape\bfseries]
 \item $Data$,
 \item $Model$ zawierający podpakiety $Testing$ i $Training$,
-\item $Features$,
+\item $Features$ zawierający podpakiety $Number$ i $Text$,
 \item $Calculations$ zawierający podpakiety $KeyWords$, $Features$, $KNN$, $Metrics$ oraz $Measures$,
 \item $Main$.
 \end{itemize}
@@ -371,11 +405,18 @@ Podpakiet $Testing$ składa się z dwóch klas:
 \end{figure}
 
 \subsection{Pakiet Features}
-Pakiet $Features$ zawiera klasy służące do ekstrahowania cech. Wszystkie klasy pakietu $Features$ implementują interfejs $Feature$. \newline
+Pakiet $Features$ zawiera klasy służące do ekstrahowania cech. Pakiet $Features$ składa się z dwóch podpakietów:
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+\item $Number$ zawierającego klasy implementujace cechy liczbowe,
+\item $Text$ zawierającego klasy implementujace cechy tekstowe.
+\end{itemize}
+
+\subsubsection{Podpakiet Number}
+Wszystkie klasy podpakietu $Number$ implementują interfejs $Feature$. \newline
 
 Klasy pakietu $Features$ są następujące:
 \begin{itemize}[label=$\bullet$\scshape\bfseries]
-\item $Feature$ - interfejs implementowany przez wszystkie cechy,
+\item $Feature$ - interfejs implementowany przez wszystkie klasy należące do tego podpakietu,
 \item $KeyWordsInBodyFeature$ - klasa ekstrahująca cechę $C_{1}$.
 \item $KeyWordsInTitleFeature$ - klasa ekstrahująca cechę $C_{2}$.
 \item $KeyWordsInDatelineFeature$ - klasa ekstrahująca cechę $C_{3}$.
@@ -393,8 +434,11 @@ Klasy pakietu $Features$ są następujące:
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{{Diagramy/PackageFeatures.png}}
-	\caption{Diagram UML dla pakietu $Features$}
+	\caption{Diagram UML dla podpakietu $Number$ pakietu $Features$}
 \end{figure}
+
+\subsubsection{Podpakiet Text}
+Podpakiet $Text$ zawiera trzy klasy. Wszystkie z nich implementują interfejs $TextFeature$. \newline
 
 \subsection{Pakiet Calculations}
 Pakiet $Calculations$ jest odpowiedzialny za wszelkiego rodzaju obliczenia. Zawiera on cztery podpakiety - $KeyWords$, $Features$, $KNN$ oraz $Metrics$.\newline
@@ -504,17 +548,17 @@ Klasyfikacje artykułów przeprowadzano ze względu na dwa różne rodzaje etyki
 Drugim rodzajem etykiet był temat (topic). Kategorie (etykiety) jakie wyróżniliśmy były następujące: earn, trade, money-supply, acq. Podobnie jak w pierwszym przypadku, klasyfikacja przeprowadzana była jedynie z wykorzystaniem artykułów, których pole "topics" przyjmowało jedną z powyższych wartości.
 
 \subsection{Wpływ liczby k sąsiadów oraz wyboru metryki na klasyfikację}
-Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) słów kluczowych. Eksperymenty wykonano z użyciem wszystkich pięciu metryk. Dla każdego przypadku testowego dokonano klasyfikacji tekstu dla następujących wartości współczynnika k:
+Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) słów kluczowych. Wyekstrahowano wszystkie liczbowe cechy artykułów (cechy od $C_1$ do $C_{12}$). Eksperymenty wykonano z użyciem wszystkich pięciu metryk. Dla każdego przypadku testowego dokonano klasyfikacji tekstu dla następujących wartości współczynnika k:
 \begin{equation}
             k \in \{1, 3, 4, 6, 8, 10, 12, 14, 17, 20\}.
  \end{equation}
 W każdym przypadku testowym zbiór treningowy stanowił 70\% artykułów, zaś zbiór testowy 30\% artykułów.
 
 \subsection{Wpływ liczby k sąsiadów oraz wyboru miary na klasyfikację}
-Podobnie jak w pierwszym przypadku, klasyfikacja została wykonana z wykorzystaniem zbioru (zwykłych) słów kluczowych. Badania przeprowadzono dla obu miar opisanych we wprowadzeniu. Dokonano klasyfikacji tekstu dla wartości współczynnika k wymienionych w poprzednim podrozdziale (34). We wszystkich przypadkach testowych zbiór treningowy stanowił 70\% artykułów, zaś zbiór testowy 30\% artykułów.
+Podobnie jak w pierwszym przypadku, klasyfikacja została wykonana z wykorzystaniem zbioru (zwykłych) słów kluczowych. Tym razem, wyekstrahowano cechy tekstowe (cechy od $C_{13}$ do $C_{15}$), odpowiednie dla eksperymentów z użyciem miar podobieństwa tekstów. Badania przeprowadzono dla obu miar opisanych we wprowadzeniu (bigramów i trigramów). Dokonano klasyfikacji tekstu dla wartości współczynnika k wymienionych w poprzednim podrozdziale (37). We wszystkich przypadkach testowych zbiór treningowy stanowił 70\% artykułów, zaś zbiór testowy 30\% artykułów.
 
 \subsection{Wpływ podziału tekstów na zbiory treningowe i testowe na klasyfikację}
-Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) słów kluczowych. Eksperymenty przeprowadzono posługując się metryką Euklidesową. Wartość parametru k była stała i wynosiła $k=6$. Przeprowadzono klasyfikacje dla pięciu różnych podziałów artykułów na zbiory testowe i treningowe: 
+Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) słów kluczowych. Eksperymenty przeprowadzono posługując się metryką Euklidesową, wyekstrahowano zatem cechy liczbowe. Wartość parametru k była stała i wynosiła $k=6$. Przeprowadzono klasyfikacje dla pięciu różnych podziałów artykułów na zbiory testowe i treningowe: 
 \begin{itemize}[label=$\bullet$\scshape\bfseries]
 
 \item Zbiór treningowy: 40\% artykułów, zbiór testowy 60\%,
@@ -526,7 +570,7 @@ Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) sł�
 \end{itemize}
 
 \subsection{Wpływ konkretnych cech na klasyfikację}
-Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) słów kluczowych. Eksperymenty przeprowadzono posługując się metryką Euklidesową. Wartość parametru k była stała i wynosiła $k=6$. W każdej iteracji programu zbiór treningowy stanowił 70\% artykułów, zaś zbiór testowy 30\% artykułów. Przeprowadzono klasyfikacje dla czterech różnych zestawów cech, wybranych spośród wszystkich cech omówionych w rozdziale 2.4. Wybrane zestawy cech były następujące (aby nie duplikować treści, w tym miejscu posługuję się indeksami funkcji cech z rodziału 2.4):
+Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) słów kluczowych. Eksperymenty przeprowadzono posługując się metryką Euklidesową. Wartość parametru k była stała i wynosiła $k=6$. W każdej iteracji programu zbiór treningowy stanowił 70\% artykułów, zaś zbiór testowy 30\% artykułów. Przeprowadzono klasyfikacje dla czterech różnych zestawów cech, wybranych spośród wszystkich cech liczbowych omówionych w rozdziale 2.4.(cechy od $C_1$ do $C_{12}$). Wybrane zestawy cech były następujące (aby nie duplikować treści, w tym miejscu posługuję się indeksami funkcji cech z rodziału 2.4):
 \begin{itemize}[label=$\bullet$\scshape\bfseries]
 
 \item Zestaw 1: $C_{1}$,  $C_{2}$,  $C_{3}$,  $C_{4}$,  $C_{10}$,  $C_{11}$,  $C_{12}$,
@@ -536,7 +580,7 @@ Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) sł�
 \end{itemize}
 
 \subsection{Wpływ użycia ważonych słów kluczowych na klasyfikację}
-Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru zwykłych oraz z użyciem ważonych słów kluczowych. Eksperymenty wykonano z użyciem wszystkich pięciu metryk. Wartość parametru k była stała i wynosiła $k=6$. W każdym przypadku testowym zbiór treningowy stanowił 70\% artykułów, zaś zbiór testowy 30\% artykułów.
+Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru zwykłych oraz z użyciem ważonych słów kluczowych. Wyekstrahowano wszystkie cechy liczbowe (cechy od $C_1$ do $C_{12}$). Eksperymenty wykonano z użyciem wszystkich pięciu metryk. Wartość parametru k była stała i wynosiła $k=6$. W każdym przypadku testowym zbiór treningowy stanowił 70\% artykułów, zaś zbiór testowy 30\% artykułów.
 
 \section{Wyniki}
 W tym rozdziale zamieszczono tabele oraz wykresy prezentujące wyniki przeprowadzanych przez nas eksperymentów.
