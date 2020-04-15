@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Settings {
-    public static String category = "topics";
+    public static String category = "places";
     public static String pathToData = "../Data/";
     public static String pathToReports = "../Reports/";
     public static int numberOfFiles = 22;
@@ -20,22 +20,22 @@ public class Settings {
     public static double maxWage = 1;
     public static boolean ngram = true;
     public static int n = 2;
-//    public static LinkedList<String> categoryItemsList =
-//            new LinkedList<String> (Arrays.asList (
-//            "usa",
-//            "west-germany",
-//            "uk",
-//            "japan",
-//            "canada",
-//            "france"
-//    ));
     public static LinkedList<String> categoryItemsList =
             new LinkedList<String> (Arrays.asList (
-                    "earn",
-                    "trade",
-                    "money-supply",
-                    "acq"
-            ));
+            "usa",
+            "west-germany",
+            "uk",
+            "japan",
+            "canada",
+            "france"
+    ));
+//    public static LinkedList<String> categoryItemsList =
+//            new LinkedList<String> (Arrays.asList (
+//                    "earn",
+//                    "trade",
+//                    "money-supply",
+//                    "acq"
+//            ));
     public static HashMap<String, Boolean> featuresUsedMap =
             new HashMap<String, Boolean>() {{
             put("Body", true);
