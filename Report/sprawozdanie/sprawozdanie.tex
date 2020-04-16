@@ -414,7 +414,7 @@ Pakiet $Features$ zawiera klasy służące do ekstrahowania cech. Pakiet $Featur
 \subsubsection{Podpakiet Number}
 Wszystkie klasy podpakietu $Number$ implementują interfejs $Feature$. \newline
 
-Klasy pakietu $Features$ są następujące:
+Klasy podpakietu $Number$ są następujące:
 \begin{itemize}[label=$\bullet$\scshape\bfseries]
 \item $Feature$ - interfejs implementowany przez wszystkie klasy należące do tego podpakietu,
 \item $KeyWordsInBodyFeature$ - klasa ekstrahująca cechę $C_{1}$.
@@ -438,7 +438,22 @@ Klasy pakietu $Features$ są następujące:
 \end{figure}
 
 \subsubsection{Podpakiet Text}
-Podpakiet $Text$ zawiera trzy klasy. Wszystkie z nich implementują interfejs $TextFeature$. \newline
+Podobnie jak w przypadku popdakietu $Numbers$, klasy podpakietu $Text$ implementują jeden interfejs. \newline
+
+Klasy podpakietu $Text$ są następujące:
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+\item $TextFeature$ - interfejs implementowany przez wszystkie klasy należące do tego podpakietu,
+\item $FirstKeyWordInBodyTextFeature$ - klasa ekstrahująca cechę $C_{13}$.
+\item $MostCommonKeyWordInBodyTextFeature$ - klasa ekstrahująca cechę $C_{14}$.
+\item $LastKeyWordInBodyTextFeature$ - klasa ekstrahująca cechę $C_{15}$.\newline
+\end{itemize}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Diagramy/PackageTextFeatures.png}}
+	\caption{Diagram UML dla podpakietu $Text$ pakietu $Features$}
+\end{figure}
+
 
 \subsection{Pakiet Calculations}
 Pakiet $Calculations$ jest odpowiedzialny za wszelkiego rodzaju obliczenia. Zawiera on cztery podpakiety - $KeyWords$, $Features$, $KNN$ oraz $Metrics$.\newline
@@ -718,19 +733,10 @@ W tym rozdziale zamieszczono tabele oraz wykresy prezentujące wyniki przeprowad
 		\textbf{k} & \textbf{places [\%]} & \textbf{topics [\%]} \\ [0.5ex] 
 		\hline
 		\hline 
-1	&	82,29	&	93,68	\\
-3	&	85,59	&	94,85	\\
-4	&	85,76	&	95,06	\\
-6	&	85,83	&	95,54	\\
-8	&	86,23	&	95,38	\\
-10	&	86,23	&	95,33	\\
-12	&	86,06	&	95,49	\\
-14	&	85,93	&	95,49	\\
-17	&	85,71	&	95,44	\\
-20	&	85,44	&	95,28	\\
+
 		\hline
 	\end{tabular}
-	\caption{Skuteczność klasyfikacji dla miary TFM}
+	\caption{Skuteczność klasyfikacji dla miary bigramów}
 \end{table}
 
 \begin{table}[H]
@@ -740,16 +746,7 @@ W tym rozdziale zamieszczono tabele oraz wykresy prezentujące wyniki przeprowad
 		\textbf{k} & \textbf{places [\%]} & \textbf{topics [\%]} \\ [0.5ex] 
 		\hline
 		\hline 
-1	&	82,98	&	90,61	\\
-3	&	85,93	&	94,21	\\
-4	&	85,96	&	94,48	\\
-6	&	85,96	&	94,85	\\
-8	&	84,77	&	94,53	\\
-10	&	85,02	&	92,83	\\
-12	&	85,14	&	91,99	\\
-14	&	85,16	&	92,99	\\
-17	&	85,09	&	94,27	\\
-20	&	85,02	&	94,16	\\
+
 
 		\hline
 	\end{tabular}
