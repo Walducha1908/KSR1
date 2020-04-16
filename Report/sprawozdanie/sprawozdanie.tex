@@ -386,7 +386,7 @@ Podpakiet $Training$ składa się z dwóch klas:
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{{Diagramy/PackageTraining.png}}
+	\includegraphics[width=0.8\textwidth]{{Diagramy/PackageTraining.png}}
 	\caption{Diagram UML dla podpakietu $Training$ pakietu $Model$}
 \end{figure}
 
@@ -400,7 +400,7 @@ Podpakiet $Testing$ składa się z dwóch klas:
 \end{itemize}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=1\textwidth]{{Diagramy/PackageTesting.png}}
+	\includegraphics[width=0.8\textwidth]{{Diagramy/PackageTesting.png}}
 	\caption{Diagram UML dla podpakietu $Testing$ pakietu $Model$}
 \end{figure}
 
@@ -525,19 +525,20 @@ Podpakiet $Metrics$ zawiera następujące klasy:
 \end{itemize}
 
 \subsubsection{Podpakiet Measures}
-Podpakiet $Measures$ zawiera implementacje obu miar omówionych we wprowadzeniu.\newline
+Podpakiet $Measures$ zawiera implementacje obu miar podobieństwa tekstów omówionych we wprowadzeniu. Miary implementują interfejs $Ngram$, są bowiem one odmianami metody ngramów. \newline
+
+Podpakiet $Measures$ zawiera następująces klasy:
+\begin{itemize}[label=$\bullet$\scshape\bfseries]
+\item $Ngram$ - interfejs implementowany przez obie miary,
+\item $Bigram$ - klasa implementująca metodę bigramów,
+\item $Trigram$ - klasa implementująca metodę trigramów.\newline
+\end{itemize}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.7\textwidth]{{Diagramy/PackageMeasures.png}}
 	\caption{Diagram UML dla podpakietu $Measures$ pakietu $Calculations$}
 \end{figure}
-
-Podpakiet $Measures$ zawiera dwie klasy:
-\begin{itemize}[label=$\bullet$\scshape\bfseries]
-\item $TFM$ - klasa implementująca miarę Term Frequency Matrix,
-\item $Trigram$ - klasa implementująca metodę trigramów.\newline
-\end{itemize}
 
 \subsection{Pakiet Main}
 Pakiet $Main$ jest pakietem głównym, odpowiedzialnym za uruchomienie aplikacji, koordynowanie jej działania oraz określenie konfiguracji w jakiej aplikacja ma działać.\newline
@@ -733,7 +734,16 @@ W tym rozdziale zamieszczono tabele oraz wykresy prezentujące wyniki przeprowad
 		\textbf{k} & \textbf{places [\%]} & \textbf{topics [\%]} \\ [0.5ex] 
 		\hline
 		\hline 
-
+1	&	81,10	&	86,52	\\
+3	&	83,48	&	89,38	\\
+4	&	83,75	&	89,76	\\
+6	&	83,78	&	90,29	\\
+8	&	84,20	&	91,24	\\
+10	&	83,97	&	91,45	\\
+12	&	84,07	&	91,51	\\
+14	&	83,75	&	91,24	\\
+17	&	83,40	&	91,08	\\
+20	&	83,38	&	91,35	\\
 		\hline
 	\end{tabular}
 	\caption{Skuteczność klasyfikacji dla miary bigramów}
@@ -746,8 +756,16 @@ W tym rozdziale zamieszczono tabele oraz wykresy prezentujące wyniki przeprowad
 		\textbf{k} & \textbf{places [\%]} & \textbf{topics [\%]} \\ [0.5ex] 
 		\hline
 		\hline 
-
-
+1	&	81,22	&	86,94	\\
+3	&	83,21	&	90,02	\\
+4	&	83,38	&	90,29	\\
+6	&	83,68	&	90,50	\\
+8	&	83,92	&	91,08	\\
+10	&	83,80	&	91,19	\\
+12	&	83,87	&	91,08	\\
+14	&	83,65	&	91,30	\\
+17	&	83,28	&	91,03	\\
+20	&	83,43	&	91,51	\\
 		\hline
 	\end{tabular}
 	\caption{Skuteczność klasyfikacji dla miary trigramów}
