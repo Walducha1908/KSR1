@@ -19,7 +19,7 @@ public class Settings {
     public static double minWage = 0;
     public static double maxWage = 1;
     public static boolean ngram = true;
-    public static int n = 2;
+    public static int n = 3;
 //    public static LinkedList<String> categoryItemsList =
 //            new LinkedList<String> (Arrays.asList (
 //            "usa",
