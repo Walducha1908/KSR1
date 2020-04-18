@@ -13,8 +13,6 @@ import Model.ResultSet;
 import Model.Testing.TestingArticleContainer;
 import Model.Training.TrainingArticleContainer;
 
-import java.util.Set;
-
 public class Manager {
 
     public static void start() {
@@ -97,7 +95,10 @@ public class Manager {
             System.out.println(testingArticleContainer.testingArticlesList.getFirst().getTextFeatures().size() +
                     " features for all " + testingArticleContainer.testingArticlesList.size()
                     + " testing articles have been extracted!");
+
+            System.out.println("True" + "\n" + testingArticleContainer.getTrue());
         }
+
     }
 
     public static void normaliseFeatures() {
@@ -135,6 +136,7 @@ public class Manager {
                     resultSet.getPrecisionRatioList().get(Settings.categoryItemsList.get(i)));
         }
 
+        System.out.println("Calculated" + "\n" + TestingArticleContainer.getCalculated());
         DataWriter.writeData(resultSet);
     }
 

@@ -561,7 +561,26 @@ W tym rozdziale omówione zostaną poszczególne eksperymenty jakie wykonano z u
 
 Klasyfikacje artykułów przeprowadzano ze względu na dwa różne rodzaje etykiet. Pierwszym z nich była lokalizacja (place). Kategorie (etykiety) jakie wyróżniliśmy były następujące: west-germany, usa, france, uk, canada, japan. Klasyfikacja przeprowadzana była jedynie z wykorzystaniem artykułów, których pole "places" przyjmowało jedną z powyższych wartości. \newline
 
-Drugim rodzajem etykiet był temat (topic). Kategorie (etykiety) jakie wyróżniliśmy były następujące: earn, trade, money-supply, acq. Podobnie jak w pierwszym przypadku, klasyfikacja przeprowadzana była jedynie z wykorzystaniem artykułów, których pole "topics" przyjmowało jedną z powyższych wartości.
+Drugim rodzajem etykiet był temat (topic). Kategorie (etykiety) jakie wyróżniliśmy były następujące: earn, trade, money-supply, acq. Podobnie jak w pierwszym przypadku, klasyfikacja przeprowadzana była jedynie z wykorzystaniem artykułów, których pole "topics" przyjmowało jedną z powyższych wartości. \newline
+
+Do oceny jakości klasyﬁkacji będziemy korzystać z trzech parametrów:
+\begin{equation}
+         Accuracy = \frac{TP + TN}{TP + TN + FP + FN},
+ \end{equation}	
+\begin{equation}
+	Precision = \frac{TP}{TP + FP},
+\end{equation}	
+\begin{equation}
+	Recall = \frac{TP}{TP + FN},
+\end{equation}
+gdzie:\\
+\quad TP to liczba elementów poprawnie zaklasyﬁkowanych jako badana klasa,\\
+\quad TN to liczba elementów poprawnie zaklasyﬁkowanych jako inna niż badana klasa,\\
+\quad FP to liczba elementów niepoprawnie zaklasyﬁkowanych jako badana klasa,\\
+\quad FN to liczba elementów niepoprawnie zaklasyﬁkowanych jako inna niż badana klasa.\newline
+
+W rozdziałach od 4.1 do 4.5 (analogicznie w rozdziale z wynikami od 5.1 do 5.5, a w rozdziale z dyskusją od 6.1 do 6.5), skoncentrujemy się na najpopularniejszej i najbardziej intuicyjnej mierze jakości klasyfikacji - skuteczności (accuracy). W rodziale 4.6 (a także analogicznie 5.6 i 6.6) omówimy doświadczenia, przedstawimy wyniki i przedyskutujemy je dla pozostałych parametrów jakości klasyfikacji - recall oraz precision - niejako konfrontując je z wcześniej przedstawionymi i omówionymi wynikami miary accuracy.
+
 
 \subsection{Wpływ liczby k sąsiadów oraz wyboru metryki na klasyfikację}
 Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) słów kluczowych. Wyekstrahowano wszystkie liczbowe cechy artykułów (cechy od $C_1$ do $C_{12}$). Eksperymenty wykonano z użyciem wszystkich pięciu metryk. Dla każdego przypadku testowego dokonano klasyfikacji tekstu dla następujących wartości współczynnika k:
@@ -571,7 +590,7 @@ Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) sł�
 W każdym przypadku testowym zbiór treningowy stanowił 70\% artykułów, zaś zbiór testowy 30\% artykułów.
 
 \subsection{Wpływ liczby k sąsiadów oraz wyboru miary na klasyfikację}
-Podobnie jak w pierwszym przypadku, klasyfikacja została wykonana z wykorzystaniem zbioru (zwykłych) słów kluczowych. Tym razem, wyekstrahowano cechy tekstowe (cechy od $C_{13}$ do $C_{15}$), odpowiednie dla eksperymentów z użyciem miar podobieństwa tekstów. Badania przeprowadzono dla obu miar opisanych we wprowadzeniu (bigramów i trigramów). Dokonano klasyfikacji tekstu dla wartości współczynnika k wymienionych w poprzednim podrozdziale (37). We wszystkich przypadkach testowych zbiór treningowy stanowił 70\% artykułów, zaś zbiór testowy 30\% artykułów.
+Podobnie jak w pierwszym przypadku, klasyfikacja została wykonana z wykorzystaniem zbioru (zwykłych) słów kluczowych. Tym razem, wyekstrahowano cechy tekstowe (cechy od $C_{13}$ do $C_{15}$), odpowiednie dla eksperymentów z użyciem miar podobieństwa tekstów. Badania przeprowadzono dla obu miar opisanych we wprowadzeniu (bigramów i trigramów). Dokonano klasyfikacji tekstu dla wartości współczynnika k wymienionych w poprzednim podrozdziale (40). We wszystkich przypadkach testowych zbiór treningowy stanowił 70\% artykułów, zaś zbiór testowy 30\% artykułów.
 
 \subsection{Wpływ podziału tekstów na zbiory treningowe i testowe na klasyfikację}
 Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) słów kluczowych. Eksperymenty przeprowadzono posługując się metryką Euklidesową, wyekstrahowano zatem cechy liczbowe. Wartość parametru k była stała i wynosiła $k=6$. Przeprowadzono klasyfikacje dla pięciu różnych podziałów artykułów na zbiory testowe i treningowe: 
@@ -597,6 +616,11 @@ Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru (zwykłych) sł�
 
 \subsection{Wpływ użycia ważonych słów kluczowych na klasyfikację}
 Klasyfikacja tekstów została wykonana z wykorzystaniem zbioru zwykłych oraz z użyciem ważonych słów kluczowych. Wyekstrahowano wszystkie cechy liczbowe (cechy od $C_1$ do $C_{12}$). Eksperymenty wykonano z użyciem wszystkich pięciu metryk. Wartość parametru k była stała i wynosiła $k=6$. W każdym przypadku testowym zbiór treningowy stanowił 70\% artykułów, zaś zbiór testowy 30\% artykułów.
+
+\subsection{Miara skuteczności a inne miary jakości klasyfikacji}
+W tym rozdziale nie przeprowadzono nowych eksperymentów. Zamiast jednak koncentrować się na skuteczności klasyfikacji, przeanalizowane zostaną wartości parametrów recall i precision dla wybranych eksperymentów opisanych w poprzednich podrozdziałach. Ze względu na fakt, iż wartości parametrów recall i precision są obliczane dla każdej etykiety z osobna (taki zabieg pokazuje bardzo dużo ciekawych zależności), wyników do zaprezentowania w każdej z miar jest $n$ razy więcej niż w przypadku miary accuracy, gdzie $n$ to liczba etykiet. Dlatego też postanowiono ograniczyć prezentowane dane do wybranych, reprezentatywnych dla przeprowadzonej dyskusji przypadków. \newline
+
+Spośród przeprowadzonych eksperymentów wybrano takie, gdy wartość parametru k była stała i wynosiła $k=6$. Wyniki miar recall i precision zostaną przeanalizowane dla każdej metryki oraz miary. Za każdym razem zbiór treningowy stanowił 70\% artykułów, zaś zbiór testowy 30\% artykułów. 
 
 \section{Wyniki}
 W tym rozdziale zamieszczono tabele oraz wykresy prezentujące wyniki przeprowadzanych przez nas eksperymentów.
@@ -893,6 +917,194 @@ Canberra	&	96,39	&	96,60	\\
 	\caption{Wizualizacja danych z Tabeli 11}
 \end{figure}
 
+\subsection{Miara skuteczności a inne miary jakości klasyfikacji}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c c c c} 
+		\hline
+		\textbf{Etykieta} & \textbf{Euc.  [\%]} & \textbf{Che.  [\%]} & \textbf{Man.  [\%]} & \textbf{Ham.  [\%]} & \textbf{Can.  [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+Usa		&	98,24	&	98,36	&	98,42	&	98,72	&	98,08 \\
+West-Germany	&	15,62	&	9,38	&	25,00	&	8,33	&	22,92 \\
+Uk		&	72,59	&	82,23	&	79,19	&	23,35	&	44,67 \\
+Japan	&	33,53	&	25,75	&	38,92	&	17,96	&	32,93 \\
+Canada	&	1,76	&	1,76	&	3,52	&	4,85	&	7,05 \\
+France	&	16,36	&	14,55	&	30,91	&	3,64	&	16,36 \\
+		\hline
+	\end{tabular}
+	\caption{Wartości miary recall dla klasyfikacji z wykorzystaniem wszystkich badanych metryk, kategoria "places"}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c c c c} 
+		\hline
+		\textbf{Etykieta} & \textbf{Euc.  [\%]} & \textbf{Che.  [\%]} & \textbf{Man.  [\%]} & \textbf{Ham.  [\%]} & \textbf{Can.  [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+Usa	&	86,65	&	86,47	&	87,84	&	83,97	&	86,19 \\
+West-germany	&	88,24	&	75,00	&	88,89	&	80,00	&	68,75 \\
+Uk	&	97,28	&	94,19	&	92,31	&	65,71	&	72,13 \\
+Japan	&	75,68	&	84,31	&	79,27	&	90,91	&	75,34 \\
+Canada	&	8,00	&	9,09	&	18,18	&	24,44	&	36,36 \\
+France	&	64,29	&	72,73	&	70,83	&	33,33	&	52,94 \\
+		\hline
+	\end{tabular}
+	\caption{Wartości miary precision dla klasyfikacji z wykorzystaniem wszystkich badanych metryk, kategoria "places"}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c c c c} 
+		\hline
+		\textbf{Etykieta} & \textbf{Euc.  [\%]} & \textbf{Che.  [\%]} & \textbf{Man.  [\%]} & \textbf{Ham.  [\%]} & \textbf{Can.  [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+Earn	&	95,53	&	95,16	&	96,65	&	94,69	&	96,83	\\
+Trade	&	90,57	&	76,42	&	92,45	&	85,85	&	94,34	\\
+Money-supply	&	88,00	&	72,00	&	88,00	&	44,00	&	84,00	\\
+Acq	&	97,64	&	81,59	&	98,67	&	95,73	&	96,47	\\
+		\hline
+	\end{tabular}
+	\caption{Wartości miary recall dla klasyfikacji z wykorzystaniem wszystkich badanych metryk, kategoria "topics"}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c c c c} 
+		\hline
+		\textbf{Etykieta} & \textbf{Euc.  [\%]} & \textbf{Che.  [\%]} & \textbf{Man.  [\%]} & \textbf{Ham.  [\%]} & \textbf{Can.  [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+Earn	&	98,56	&	88,26	&	99,05	&	97,04	&	97,84	\\
+Trade	&	96,97	&	98,78	&	98,99	&	97,85	&	97,09	\\
+Money-supply	&	91,67	&	94,74	&	100,00	&	100,00	&	100,00	\\
+Acq	&	92,08	&	88,64	&	93,71	&	88,80	&	93,97	\\
+		\hline
+	\end{tabular}
+	\caption{Wartości miary precision dla klasyfikacji z wykorzystaniem wszystkich badanych metryk, kategoria "topics"}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c} 
+		\hline
+		\textbf{Etykieta} & \textbf{Bigram  [\%]} & \textbf{Trigram  [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+Usa	&	97,63	&	97,87	\\
+West-germany	&	11,46	&	11,46	\\
+Uk	&	37,06	&	34,01	\\
+Japan	&	26,35	&	25,75	\\
+Canada	&	11,89	&	9,69	\\
+France	&	20,00	&	20,00	\\
+		\hline
+	\end{tabular}
+	\caption{Wartości miary recall dla klasyfikacji z wykorzystaniem obu badanych miar podobieństwa tekstów, kategoria "places"}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c} 
+		\hline
+		\textbf{Etykieta} & \textbf{Bigram  [\%]} & \textbf{Trigram  [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+Usa	&	86,16	&	85,84	\\
+West-germany	&	61,11	&	57,89	\\
+Uk	&	54,07	&	51,15	\\
+Japan	&	63,77	&	69,35	\\
+Canada	&	42,86	&	44,00	\\
+France	&	57,89	&	57,89	\\
+		\hline
+	\end{tabular}
+	\caption{Wartości miary precision dla klasyfikacji z wykorzystaniem obu badanych miar podobieństwa tekstów, kategoria "places"}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c} 
+		\hline
+		\textbf{Etykieta} & \textbf{Bigram  [\%]} & \textbf{Trigram  [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+Earn	&	94,79	&	94,88	\\
+Trade	&	68,87	&	66,04	\\
+Money-supply	&	60,00	&	60,00	\\
+Acq	&	87,63	&	88,51	\\
+		\hline
+	\end{tabular}
+	\caption{Wartości miary recall dla klasyfikacji z wykorzystaniem obu badanych miar podobieństwa tekstów, kategoria "topics"}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{c c c} 
+		\hline
+		\textbf{Etykieta} & \textbf{Bigram  [\%]} & \textbf{Trigram  [\%]} \\ [0.5ex] 
+		\hline
+		\hline 
+Earn	&	91,88	&	92,55	\\
+Trade	&	90,12	&	85,37	\\
+Money-supply	&	78,95	&	83,33	\\
+Acq	&	88,02	&	87,99	\\
+		\hline
+	\end{tabular}
+	\caption{Wartości miary precision dla klasyfikacji z wykorzystaniem obu badanych miar podobieństwa tekstów, kategoria "topics"}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Wykresy/metryki_places_recall.png}}
+	\caption{Wizualizacja danych z Tabeli 12}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Wykresy/metryki_places_precision.png}}
+	\caption{Wizualizacja danych z Tabeli 13}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Wykresy/metryki_topics_recall.png}}
+	\caption{Wizualizacja danych z Tabeli 14}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Wykresy/metryki_topics_precision.png}}
+	\caption{Wizualizacja danych z Tabeli 15}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Wykresy/measures_places_recall.png}}
+	\caption{Wizualizacja danych z Tabeli 16}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Wykresy/measures_places_precision.png}}
+	\caption{Wizualizacja danych z Tabeli 17}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Wykresy/measures_topics_recall.png}}
+	\caption{Wizualizacja danych z Tabeli 18}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1\textwidth]{{Wykresy/measures_topics_precision.png}}
+	\caption{Wizualizacja danych z Tabeli 19}
+\end{figure}
+
+
 \subsection{Najlepsze wyniki}
 W tabeli poniżej prezentujemy najlepsze wyniki klasyfikacji osiągnięte dla obu rodzajów kategorii.
 \begin{table}[H]
@@ -932,16 +1144,16 @@ Zdecydowanie słabsze wyniki klasyfikacji dla wartości $k=1$ w żadnym wypadku 
 Podobnie jak w poprzednim podrozdziale, najpierw przedyskutujemy wybór miary, a następnie przeanalizujemy wpływ liczby k sąsiadów na wyniki klasyfikacji.
 
 \subsubsection{Wybór miary}
-W znacznej większości badanych przypadków klasyfikacja jest skuteczniejsza dla miary TFM. Różnica między wynikami eksperymentu osiąganymi z wykorzystaniem miary TFM od tych osiąganych z użyciem miary trigramów waha się od $0.8\%$ na korzyść metody trigramów do nawet $3.5\%$ na korzyść TFM. \newline
+Skuteczność klasyfikacji dla obu zastosowanych miar podobieństwa tekstów jest bardzo zbliżona. Rożnice w skuteczności są bardzo niewielkie i w znacznej większości przypadków nie przekraczają $0.5\%$.\newline
 
-W przypadku kategorii "places" eksperymenty przeprowadzone z wykorzystaniem miary trigramów dają lepsze rezultaty dla czterech najmniejszych wartości k ($k \in \{1, 3, 4, 6\}$), dla wszystkich pozostałych wartości k ($k \in \{8, 10, 12, 14, 17, 20\}$) skuteczniejsze okazały się iteracje, w których używano miary TFM. \newline
+W przypadku kategorii "places" eksperymenty przeprowadzone z wykorzystaniem miary bigramów dają lepsze rezultaty skuteczności dla prawie wszystkich badanych wartości k ($k \in \{3, 4, 6, 8, 10, 12, 14, 17\}$). Wyjątki stanowią jedynie najmniejsze i największe k ($k \in \{1, 20\}$), gdzie minimalnie wyższą skuteczność obserwujemy dla eksperymentów przeprowadzonych z wykorzystaniem miary trigramów. \newline
 
-Dla kategorii "topics" różnica między wynikami jest dużo bardziej znacząca. Dla wszystkich przeprowadzonych eksperymentów miarą dającą lepsze rezultaty okazała się być miara TFM. W dwóch przypadkach, gdy $k=1$ oraz $k=12$, różnica w osiągniętej skuteczności klasyfikacji przekroczyła $3\%$.
+Dla kategorii "topics" różnice pomiędzy wynikami osiąganymi przez obie badane miary ponownie są marginalne. W czterech przypadkach lepszą skuteczność uzyskano w eksperymentach z wykorzystaniem miary bigramów ($k \in \{8, 10, 12, 17\}$), w sześciu pozostałych zaś wyższe współczynniki skuteczności osiągnięto wykorzystując miarę trigramów ($k \in \{1, 3, 4, 6, 14, 20\}$). \newline
 
 \subsubsection{Wartość liczby k sąsiadów}
-W przypadku kategorii "places" najlepsze wyniki osiągane są dla średnich wartości k ($k \in \{3, 4, 6, 8, 10, 12, 14\}$). Warto jednak wspomnieć, że o ile miara TFM osiąga równe wyniki (najlepsze dla $k \in \{8, 10\}$), metoda trigramów ma bardzo duży spadek skuteczności klasyfikacji dla wszystkich $k\geq8$. \newline
+W przypadku kategorii "places" najlepsze wyniki osiągane są dla średnich wartości k ($k \in \{4, 6, 8, 10, 12, 14\}$). Niewiele gorsza skuteczność klasyfikacji została uzyskana w badaniach, gdy wartość paremetru k należała do największych spośród zbioru badanych wartości ($k\geq17$). \newline
 
-Dla kategorii "topics" najlepsza skuteczność eksperymentu została zanotowana dla wartości k wynoszącej $k=6$. Tak jak w kategorii "places", tutaj również obserwujemy znaczny spadek jakości klasyfikacji dla miary trigramów, tym razem widocznie gorsze rezultaty badań osiągane są dla wszystkich $k\geq10$, z czego zdecydowanie najsłabszym wynikiem charakteryzuje się iteracja, gdy $k=12$. Eksperymenty z wykorzystaniem miary TFM dają bardzo powtarzalne wyniki na poziomie powyżej $95\%$. \newline
+Dla kategorii "topics" najlepsze skuteczności eksperymentu zostały osiągnięte dla średnich i wysokich wartości k ($k\geq8$). Tym razem, minimalnie gorszymi pod względem skuteczności okazały się iteracje programu, w których wykorzystano niższe wartości k ($k \in \{3, 4, 6\}$). \newline
 
 Dla obu kategorii, klasyfikacja okazała się najmniej skuteczna dla $k=1$. Takie rezultaty utwierdzają nas w przekonaniu, że wnioski wyciągnięte w rozdziale poprzednim są poprawne. Branie pod uwagę tylko jednego elementu treningowego w procesie klasyfikacji jest zdecydowanie niewsytarczające.
 
@@ -972,17 +1184,48 @@ Dla obu kategorii skuteczność klasyfikacji z wykorzystaniem ważonych słów k
 
 Z całą stanowczością należy stwierdzić, że wprowadzenie ważonych słów kluczowych znacznie poprawiło skuteczność klasyfikacji. W przypadku trudnego zadania, jakim jest klasyfikowanie artykułów dla kategorii "places", której zbiór jest skrajnie zdominowany przez elementy z etykietą "USA", udało się osiągnąć skuteczność na poziomie $88.54\%$ co jest wynikiem bardzo dobrym. Dla kategorii "topics" osiągane wyniki są znacznie lepsze, ponieważ oscylują w granicach $96\%$ a dla najlepszych metryk nawet $97\%$.
 
+\subsection{Miara skuteczności a inne miary jakości klasyfikacji}
+W tej sekcji przedyskutujemy wyniki pozostałych dwóch obliczonych przez nas miar jakości klasyfikacji - recall i precision. Dyskusję podzielimy tematycznie na dwa podrozdziały, odnosząc się do konkretnych wykresów i tabel z rozdziału 5.6.\newline
+
+\subsubsection{Kategoria places, czyli skuteczność to nie wszystko}
+Mamy w pamięci wyniki skuteczności klasyfikacji dla kategorii "places", zamieszczone w poprzednich podrozdziałach. Dla przypomnienia zaznaczę, że wyniki skuteczności uzyskiwane dla kategorii "places" najczęściej mieściły się w przedziale między $83$ a $88\%$. Mogłoby się wydawać, że to w miarę dobry wynik. No właśnie, ale co to znaczy "w miarę dobry wynik"? Okazuje się, że na podstawie samej skuteczności bardzo mało wiemy o tym jak dokładnie przebiegał proces klasyfikacji. Tutaj z pomocą przychodzą nam miary precision i recall. \newline
+
+Przyjrzyjmy się najpierw wykresom na rysunkach 24. i 28., prezentują one wartości miary recall, otrzymane dla eksperymentów z wykorzystaniem wszystkich metryk (rysunek 24.) i miar (rysunek 28.) dla kategorii "places". Na pierwszy rzut oka widać gigantyczną rozbieżność pomiędzy uzyskanymi rezultatami w poszczególnych kategoriach. Bardzo dobre wyniki, na poziomie powyżej $97\%$ osiągane są dla etykiety "USA", o wiele gorsze rezultaty dla etykiet "UK" i "Japan". Bardzo niskie wartości - na poziomie kilku, kilkunastu procent zanotowano dla etykiet "West-Germany" i "France". Prawdziwa katastrofa nastąpiła jednak dla etykiety "Canada" - tylko w jednym przypadku osiągnięto wartość większą od $10\%$ (dla miary bigramów - Tabela 16.).\newline
+
+Dla dopełnienia obrazu i podjęcia ostatecznej decyzji w sprawie tego, w jakich przymiotnikach należy oceniać proces przeprowadzonej klasyfikacji dla kategorii "places", należy również przeanalizwoać wykresy na rysunkach 25. (eksperymenty z wykorzystaniem metryk) i 29 (eksperymenty z wykorzystaniem miar). Zamieszczono na nich wartości miary precision uzyskane dla omawianych eksperymentów dla kategorii "places". W tym przypadku, w porównaniu do rezultatów miary recall, wyniki są już znacznie bardziej wyrównane. Ponownie jednak najgorszy wynik przypadł etykiecie "Canada". Parametr precision dla tej etykiety, w żadnej badanej iteracji programu nie osiągnął $50\%$.\newline 
+
+Po wnikliwej analizie wykresów dla miar recall i precision przychodzi moment na refleksję. Po pierwsze - dlaczego wyniki miar recall i precision uzyskiwane przez poszczególne etykiety są tak różne, skoro skuteczność jest całkiem wysoka? Po drugie - dlaczego rezultaty dla etykiety "Canada" są tak niskie?\newline
+
+Na pierwsze pytanie odpowiedź zaklęta jest w zbiorach badanych artykułów. Oba zbiory, treningowy i testowy, zdominowane są przez artykuły z etykiety "USA". Prawie $80\%$ wszystkich analizowanych artykułów pochodzi właśnie z tej grupy. Dlatego też, gdyby nasz klasyfikator za każdym razem "w ciemno" kategoryzował każdy element zbioru testowego jako element grupy "USA", skuteczność wynosiłaby aż $80\%$. Powiedzilibyśmy wtedy, analizując samą skuteczność, że nie jest źle, przecież skuteczność jest na relatywnie wysokim poziomie, a to oznacza, że nasz klasyfikator działa. Nic bardziej mylnego. Sztuką jest zaklasyfikować te artykuły, które należą do innych etykiet. W przypadku naszych badań okazało się, że w wielu sytuacjach to się udaje. Zdecydowanie najciężej jest jednak zaklasyfikować element do etykiety "Canada". Dlaczego tak jest? Tu płynnie przechodzimy do odpowiedzi na drugie postawione przez nas pytanie.\newline
+
+Głównym problemem wykrywania elementów zbioru treningowego, które pasowałyby do etykiety "Canada", jest podobieństwo artykułów etykiety "Canada" do artykułów etykiety "USA". To podobieństwo prowadzi do bardzo podobnego zestawu słów kluczowych dla tych kategorii. To z kolei jest powodem, dla podobnych wektorów wyekstrahowanych cech. Kolejnym problemem jest ilość elementów treningowych etykiety "USA" rozwieszonych w przestrzeni badawczej. Jeśli wektory wyekstrahowanych cech dla obu etykiet są podobne, a jedna grupa w zbiorze treningowym jest dużo liczniejsza od grupy drugiej, to siłą rzeczy, elementy należące do mniej licznej grupy będzie bardzo trudno wykryć i sklasyfikować.\newline
+
+W tej sekcji pochylilyśmy się nad kategorią "places". Zastanówmy się teraz nad wynikami miar recall i precision otrzymanymi dla eksperymentów z kategorią "topics".
+
+\subsubsection{Kategoria topics, czyli równowaga kluczem do sukcesu}
+Jak pamiętamy z poprzednich pozdrozdziałów, skuteczność klasyfikacji dla kategorii "topics" była znacznie wyższa niż w przypadku kategorii "places". Osiągane wartości skuteczności w większości badanych przypadków wahały się między $92$ a $97\%$.\newline
+
+Skoncentrujmy swoją uwagę na czterech wykresach dotyczących kategorii "topics". Miara recall dla wszystkich metryk (rysunek 26.) i miar (rysunek 30.), a także miara precision dla metryk (rysunek 27.) oraz miar (rysunek 31.). Nietrudno zauważyć, że wyniki zarówno miary recall jak i precision, są znakomicie odmienne, od odpowiadających im wyników omawianych w poprzedniej sekcji dla kategorii "places". Bardzo równe wyniki na wysokim poziomie znajdziemy na wszystkich czterech analizowanych wykresach. Tylko w jednym (!) przypadku słupek statystyczny nie sięgnął wartości $50\%$ - miara recall dla metryki Hamminga i etykiety "Money-supply". W każdym innym przypadku osiągane wartości parametrów precision i recall są bardzo zadowalające i co najważniejsze - zrównoważone.\newline
+
+Dlaczego dla kategorii "topics" wyniki są tak pozytywne? Odpowiedź na to pytanie jest zapewne bardzo złożona, pochylmy się jednak nad badanym zbiorem artykułów. Podstawową różnicę między badanymi kategoriami stanowi zbiór badanych elementów. Okazuje się, że gdy podzielimy artykuły ze względu na kategorię "topics", na cztery wybrane przez nas etykiety, otrzymamy zbiór dużo bardziej zrównoważony. W otrzymanym zbiorze nie ma żadnej etykiety, której elementy dominowałyby w takim stopniu, jak elementy etykiety "USA" w kategorii "places".\newline
+
+Kolejnym cznynnikiem może być duże zróżnicowanie elementów reprezentujacych poszczególne etykiety. Słowa kluczowe wybrane dla każdej z etykiet pokrywają się bardzo sporadycznie - dużo rzadziej niż w przypadku kategorii "places".\newline
+
+Okazuje się, że wyższa skuteczność klasyfikacji dla kategorii "topics" poparta jest wysokimi i równymi wynikami miar recall i precision. Kolejnym wnioskiem płynącym z przeprowadzonej dyskusji jest fakt, iż dużo łatwiej klasyfikuje się na podstawie zrównoważonego zbioru elementów, niezdominowanego przez elementy z żadnej etykiety.
+
+
 \section{Wnioski}
 Poniżej zamieszczono najważniejsze wnioski płynące z przeprowadzonych badań.
 \begin{itemize}[label=$\bullet$\scshape\bfseries]
 \item Najbardziej skutecznymi metrykami używanymi do klasyfikacji tekstów są metryki uliczna, Euklidesa i Canberra.
 \item Mniej skutecznymi metrykami wykorzystywanymi do klasyfikacji tekstów są metryki Czebyszewa i Hamminga.
-\item Klasyfikacja tekstów z wykorzystaniem miary TFM w większości przypadków jest bardziej skuteczna od klasyfikacji z użyciem metody trigramów.
+\item Klasyfikacja tekstów z wykorzystaniem mary bigramów i trigramów daje bardzo podobne rezultaty.
 \item Najbardziej optymalnymi wartościami liczby k sąsiadów w algorytmie KNN są wartości k takie, że $k\geq6 \land k\leq14$.
 \item Klasyfikacja algorytmem k najbliższych sąsiadów bardzo traci na skuteczności gdy $k=1$.
 \item Nie ma jednego "złotego", zawsze odpowiedniego podziału zbiorów na treningowy i testowy.
 \item Cechy związane z zawartością sekcji tytułu i daty są zbyteczne i nie wpływają znacząco na poprawę jakości klasyfikacji.
 \item Najważniejszymi cechami są te związane z ogólną liczbą słów kluczowych w tekście, jej stosunkiem do wszystkich słów, a także cechy związane z początkowymi fragmentami tekstu. Mniej ważne (ale nie bezużyteczne) są cechy związane z fragmentami końcowymi.
+\item Klasyfikacja z wykorzystaniem cech tekstowych i miar podobieństwa tekstów okazuje się niewiele mniej skuteczna od klasyfikacji z wykorzystaniem cech liczbowych i metryk odległości, pomimo faktu, iż ekstrahowanych cech liczbowych było dwanaście, a cech tekstowych tylko trzy.
 \item "Ważone słowa kluczowe" znacząco porawiają jakość klasyfikacji, opracowany przez nas zestaw par, opisany we wprowadzeniu, okazał się być bardzo skutecznym rozwiązaniem.
 \item Dla kategorii, w których zbiór elementów treningowych jest bardziej zróżnicowany i zrównoważony, osiągane są dużo lepsze wyniki klasyfikacji niż w kategoriach, których zbiór tekstów jest zdominowany przez elementy z jedną etykietą.
 \end{itemize}

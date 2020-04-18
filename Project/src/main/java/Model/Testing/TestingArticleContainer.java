@@ -22,4 +22,34 @@ public class TestingArticleContainer {
             testingArticlesList.add(testingArticle);
         }
     }
+
+    public String getTrue() {
+        int[] categoryNumbers = new int[Settings.categoryItemsList.size()];
+        for (int i=0; i < Settings.categoryItemsList.size(); i++) {
+            categoryNumbers[i] = 0;
+        }
+        for (int i = 0; i < testingArticlesList.size(); i++) {
+            categoryNumbers[testingArticlesList.get(i).getTrueCategoryValue()] += 1;
+        }
+        String result = "";
+        for (int i=0; i < Settings.categoryItemsList.size(); i++) {
+            result += Settings.categoryItemsList.get(i) + " " + categoryNumbers[i] + "\n";
+        }
+        return result;
+    }
+
+    public static String getCalculated() {
+        int[] categoryNumbers = new int[Settings.categoryItemsList.size()];
+        for (int i=0; i < Settings.categoryItemsList.size(); i++) {
+            categoryNumbers[i] = 0;
+        }
+        for (int i = 0; i < testingArticlesList.size(); i++) {
+            categoryNumbers[testingArticlesList.get(i).getCalculatedCategoryValue()] += 1;
+        }
+        String result = "";
+        for (int i=0; i < Settings.categoryItemsList.size(); i++) {
+            result += Settings.categoryItemsList.get(i) + " " + categoryNumbers[i] + "\n";
+        }
+        return result;
+    }
 }
