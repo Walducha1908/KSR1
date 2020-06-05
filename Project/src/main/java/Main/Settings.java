@@ -12,13 +12,13 @@ public class Settings {
     public static double percentOfTraining = 0.7;
     public static int numberOfKeyWordPerCategory = 23;
     public static String keyWords = "TF";
-    public static String metrics_measure = "Euclidean";
+    public static String metrics_measure = "Manhattan";
     public static boolean ngramBeforeExtraction = false;
     public static int k = 6;
     public static boolean wages = false;
     public static double minWage = 0;
     public static double maxWage = 1;
-    public static boolean ngram = true;
+    public static boolean ngram = false;
     public static int n = 3;
 //    public static LinkedList<String> categoryItemsList =
 //            new LinkedList<String> (Arrays.asList (
@@ -48,7 +48,7 @@ public class Settings {
             put("First50PerCent", true);
             put("FirstParagraph", true);
             put("Last50Words", true);
-            put("Last10PerCent", false);
+            put("Last10PerCent", true);
             put("LastParagraph", true);
     }};
     public static LinkedList<String> featuresOrder =
