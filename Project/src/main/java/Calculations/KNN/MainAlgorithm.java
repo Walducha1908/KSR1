@@ -1,7 +1,6 @@
 package Calculations.KNN;
 
 import Calculations.Measures.Bigram;
-import Calculations.Measures.TFM;
 import Calculations.Measures.Trigram;
 import Calculations.Metrics.*;
 import Main.Settings;
@@ -9,7 +8,6 @@ import Model.ArticleDistance;
 import Model.ResultSet;
 import Model.Testing.TestingArticle;
 import Model.Testing.TestingArticleContainer;
-import Model.Training.TrainingArticle;
 import Model.Training.TrainingArticleContainer;
 
 import java.text.DecimalFormat;
@@ -68,9 +66,6 @@ public class MainAlgorithm {
                 } else if (Settings.metrics_measure == "Canberra") {
                     CanberraMetrics metrics = new CanberraMetrics();
                     distances.add(metrics.calculateDistance(TrainingArticleContainer.trainingArticlesList.get(i), testingArticle));
-                } else if (Settings.metrics_measure == "TFM") {
-                    TFM metrics = new TFM();
-                    distances.add(metrics.calculateMeasure(TrainingArticleContainer.trainingArticlesList.get(i), testingArticle));
                 }
             } else {
                 if (Settings.n == 3) {
@@ -141,7 +136,6 @@ public class MainAlgorithm {
             if (listOfMaxCategoryValues.contains(distances.get(i).getCategoryValue())) {
                 return distances.get(i).getCategoryValue();
             }
-
         }
 
         return -1;

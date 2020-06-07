@@ -12,7 +12,7 @@ public class Settings {
     public static double percentOfTraining = 0.7;
     public static int numberOfKeyWordPerCategory = 23;
     public static String keyWords = "TF";
-    public static String metrics_measure = "Manhattan";
+    public static String metrics_measure = "Euclidean";
     public static boolean ngramBeforeExtraction = false;
     public static int k = 6;
     public static boolean wages = false;
